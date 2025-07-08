@@ -1,0 +1,2 @@
+# GYCcom
+my personal blog
