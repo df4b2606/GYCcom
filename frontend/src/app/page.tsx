@@ -3,134 +3,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-// Navigation Component
-interface NavigationProps {
-  scrollY: number;
-}
-
-const Navigation = ({ scrollY }: NavigationProps) => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  // Calculate navbar opacity based on scroll position
-  const navOpacity = Math.min(0.3 + scrollY / 1000, 0.3);
-
-  return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-sm border-b border-white/10 transition-all duration-300"
-      style={{ backgroundColor: `rgba(0, 0, 0, ${navOpacity})` }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <Image
-              src="/shanhowen.jpg"
-              alt="Flag"
-              width={24}
-              height={24}
-              className="rounded-sm"
-            />
-            <span className="text-white text-xl font-bold">GYC.com</span>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              <a
-                href="#"
-                className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors"
-              >
-                Home
-              </a>
-              <a
-                href="#"
-                className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors"
-              >
-                Blogs
-              </a>
-              <a
-                href="#"
-                className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors"
-              >
-                Moments
-              </a>
-              <a
-                href="#"
-                className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors"
-              >
-                More
-              </a>
-            </div>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-gray-300 hover:text-white focus:outline-none focus:text-white"
-            >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {isMobileMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-black/40 backdrop-blur-sm rounded-lg mt-2">
-              <a
-                href="#"
-                className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium transition-colors"
-              >
-                Home
-              </a>
-              <a
-                href="#"
-                className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium transition-colors"
-              >
-                Blogs
-              </a>
-              <a
-                href="#"
-                className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium transition-colors"
-              >
-                Moments
-              </a>
-              <a
-                href="#"
-                className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium transition-colors"
-              >
-                More
-              </a>
-            </div>
-          </div>
-        )}
-      </div>
-    </nav>
-  );
-};
-
 // Personal Info Card Component
 interface PersonalInfoCardProps {
   className?: string;
@@ -217,89 +89,6 @@ const LatestUpdatesCard = ({ className = "" }: LatestUpdatesCardProps) => {
   );
 };
 
-// Footer Component
-const Footer = () => {
-  return (
-    <footer className="relative bg-black/80 backdrop-blur-sm text-white py-12 z-10">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <h4 className="font-semibold mb-4">About</h4>
-            <ul className="space-y-2 text-sm text-gray-300">
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  About GYC
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Our Story
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Mission
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Services</h4>
-            <ul className="space-y-2 text-sm text-gray-300">
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Web Development
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Photography
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Consulting
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Connect</h4>
-            <ul className="space-y-2 text-sm text-gray-300">
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Twitter
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  LinkedIn
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  GitHub
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Contact</h4>
-            <ul className="space-y-2 text-sm text-gray-300">
-              <li>Email: hello@gyc.com</li>
-              <li>Phone: +86 138 0000 0000</li>
-              <li>Shanghai, China</li>
-            </ul>
-          </div>
-        </div>
-        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-400">
-          <p>&copy; 2024 GYC.com. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
-  );
-};
-
 // Main Home Component
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -319,9 +108,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      {/* Navigation */}
-      <Navigation scrollY={scrollY} />
-
       {/* Fixed Background Image */}
       <div className="fixed inset-0 z-0">
         <Image
@@ -397,9 +183,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }

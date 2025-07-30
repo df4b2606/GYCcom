@@ -1,0 +1,34 @@
+{
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.configuration.maven.userSettings": "~/.m2/settings.xml", // 本地maven配置路径
+  "java.jdt.ls.java.home": "/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home", // 本地jdk路径
+  "maven.executable.path": "/opt/homebrew/Cellar/maven/3.9.10/libexec", // 本地maven路径
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-17",
+      "path": "/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home", // 本地jdk路径
+      "default": true
+    }
+  ],
+  // 处理编码问题
+  "files.encoding": "utf8",
+  "files.autoGuessEncoding": true,
+  "java.compile.encoding": "UTF-8",
+  "terminal.integrated.defaultProfile.windows": "Command Prompt",
+  "terminal.integrated.profiles.windows": {
+    "Command Prompt": {
+      "path": "cmd.exe",
+      "args": ["/K", "chcp 65001"]
+    }
+  },
+  "terminal.integrated.env.windows": {
+    "LANG": "zh_CN.UTF-8",
+    "JAVA_TOOL_OPTIONS": "-Dfile.encoding=UTF-8"
+  },
+  "debug.console.fontSize": 14,
+  "debug.console.fontFamily": "Consolas, 'Courier New', monospace",
+  "debug.console.wordWrap": false,
+  "console.encoding": "utf8",
+  "output.encoding": "utf8"
+}

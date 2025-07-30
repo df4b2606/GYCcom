@@ -1,0 +1,34 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "PmsTestMain",
+      "request": "launch",
+      "mainClass": "com.space.test.PmsTestMain",
+      "projectName": "service-test"
+    },
+    {
+      "type": "java",
+      "name": "PmsAssetMain",
+      "request": "launch",
+      "mainClass": "com.space.pms.asset.PmsAssetMain",
+      "projectName": "pms-service-asset",
+      "env": {
+        "JAVA_HOME": "/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home", // 本地jdk地址
+        "MAVEN_HOME": "/opt/homebrew/Cellar/maven/3.9.10/libexec", // 本地maven地址
+        "LANG": "zh_CN.UTF-8"
+      },
+      // 指定了编码、vm信息、nacos链接信息
+      "vmArgs": "-Xms1024m -Xmx2048m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=512m -Dspring.profiles.active=local -Dnacos-namespace=nacos的namespace -Dnacos-server-addr=nacos的ip:8848 -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -Dspring.output.ansi.enabled=ALWAYS -Dspring.mandatory-file-encoding=UTF-8 -Duser.language=zh -Duser.region=CN",
+      "console": "integratedTerminal",
+      "encoding": "UTF-8"
+    },
+    {
+      "type": "java",
+      "name": "Debug (Launch) - Current File",
+      "request": "launch",
+      "mainClass": "${file}"
+    }
+  ]
+}
