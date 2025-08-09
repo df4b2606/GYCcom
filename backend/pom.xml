@@ -48,6 +48,16 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.github.xiaoymin</groupId>
+			<artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+			<version>4.4.0</version>
+		</dependency>
+
+
+<!--		make the result look more beautiful-->
+
+
+		<dependency>
     <groupId>com.belerweb</groupId>
     <artifactId>pinyin4j</artifactId>
     <version>2.5.1</version>

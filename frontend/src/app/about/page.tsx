@@ -110,7 +110,7 @@ export default function AboutPage() {
                 {/* 真实照片 - 使用您的照片 */}
                 <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-2xl border-4 border-white">
                   <Image
-                    src="/shanhowen.jpg"
+                    src="/personal.jpg"
                     alt="GYC Profile"
                     width={160}
                     height={160}

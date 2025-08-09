@@ -1,16 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import { getArticleByShortUrl, getArticleById, Article } from "@/api/article";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import rehypeSanitize from "rehype-sanitize";
+import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
+import InlineCodeBlock from "@/components/article/InlineCodeBlock";
+import CodeBlock from "@/components/article/CodeBlock";
+import ImageView from "@/components/article/ImageView";
+import TableView from "@/components/article/TableView";
+import ArticleInlineLink from "@/components/article/ArticleInlineLink";
 
 interface BlogDetailPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export default function BlogDetailPage({ params }: BlogDetailPageProps) {
+  const { slug } = use(params);
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -23,10 +33,10 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
 
         // 尝试通过 shortUrl 获取文章
         try {
-          response = await getArticleByShortUrl(params.slug);
+          response = await getArticleByShortUrl(slug);
         } catch (shortUrlError) {
           // 如果 shortUrl 不存在，尝试通过 ID 获取
-          const id = parseInt(params.slug);
+          const id = parseInt(slug);
           if (!isNaN(id)) {
             response = await getArticleById(id);
           } else {
@@ -44,7 +54,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
     };
 
     fetchArticle();
-  }, [params.slug]);
+  }, [slug]);
 
   // 格式化日期
   const formatDate = (dateString: string) => {
@@ -152,26 +162,153 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
       <div className="pb-20 px-6">
         <div className="max-w-4xl mx-auto">
           <article className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-white/10">
-            <div
-              className="prose prose-lg prose-invert max-w-none
-                prose-headings:text-white prose-headings:font-bold
-                prose-h1:text-3xl prose-h1:mb-6 prose-h1:mt-8
-                prose-h2:text-2xl prose-h2:mb-4 prose-h2:mt-8
-                prose-h3:text-xl prose-h3:mb-3 prose-h3:mt-6
-                prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6
-                prose-strong:text-white prose-strong:font-semibold
-                prose-ul:text-gray-300 prose-ol:text-gray-300
-                prose-li:mb-2 prose-li:leading-relaxed
-                prose-code:text-blue-300 prose-code:bg-gray-800/50 
-                prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
-                prose-pre:bg-gray-800/80 prose-pre:border prose-pre:border-white/10
-                prose-pre:rounded-lg prose-pre:p-4 prose-pre:overflow-x-auto
-                prose-blockquote:border-l-4 prose-blockquote:border-blue-500
-                prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-400"
-              dangerouslySetInnerHTML={{
-                __html: formatContent(article.content),
+            <ReactMarkdown
+              rehypePlugins={[rehypeSanitize]}
+              remarkPlugins={[remarkGfm, remarkBreaks]}
+              components={{
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                code: ({ inline, className, children, ...props }: any) => {
+                  const match = /language-(\w+)/.exec(className || "");
+                  if (!match) {
+                    return (
+                      <InlineCodeBlock {...props}>{children}</InlineCodeBlock>
+                    );
+                  }
+                  return inline ? (
+                    <InlineCodeBlock {...props}>{children}</InlineCodeBlock>
+                  ) : (
+                    <CodeBlock
+                      language={match[1]}
+                      value={String(children).replace(/\n$/, "")}
+                    />
+                  );
+                },
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                img: ({ ...props }: any) => {
+                  // 直接返回 ImageView，不包装在 p 标签内
+                  return <ImageView {...props} />;
+                },
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                a: ({ ...props }: any) => (
+                  <ArticleInlineLink
+                    {...props}
+                    linkTitle={props.children}
+                    linkUrl={props.href}
+                  />
+                ),
+                // 标题样式
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                h1: ({ children }: any) => (
+                  <h1 className="text-3xl font-bold text-white mb-6 mt-8 border-b border-gray-700 pb-2">
+                    {children}
+                  </h1>
+                ),
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                h2: ({ children }: any) => (
+                  <h2 className="text-2xl font-bold text-white mb-4 mt-6">
+                    {children}
+                  </h2>
+                ),
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                h3: ({ children }: any) => (
+                  <h3 className="text-xl font-bold text-white mb-3 mt-5">
+                    {children}
+                  </h3>
+                ),
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                h4: ({ children }: any) => (
+                  <h4 className="text-lg font-bold text-white mb-2 mt-4">
+                    {children}
+                  </h4>
+                ),
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                h5: ({ children }: any) => (
+                  <h5 className="text-base font-bold text-white mb-2 mt-3">
+                    {children}
+                  </h5>
+                ),
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                h6: ({ children }: any) => (
+                  <h6 className="text-sm font-bold text-white mb-1 mt-2">
+                    {children}
+                  </h6>
+                ),
+                // 段落样式
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                p: ({ children }: any) => (
+                  <p className="text-gray-300 leading-relaxed mb-4">
+                    {children}
+                  </p>
+                ),
+                // 引用样式
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                blockquote: ({ children }: any) => (
+                  <blockquote className="border-l-4 border-blue-500 pl-4 py-2 my-4 bg-blue-500/10 rounded-r-lg">
+                    <div className="text-gray-300 italic">{children}</div>
+                  </blockquote>
+                ),
+                // 列表样式
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                ul: ({ children }: any) => (
+                  <ul className="list-disc list-inside text-gray-300 mb-4 space-y-1">
+                    {children}
+                  </ul>
+                ),
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                ol: ({ children }: any) => (
+                  <ol className="list-decimal list-inside text-gray-300 mb-4 space-y-1">
+                    {children}
+                  </ol>
+                ),
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                li: ({ children }: any) => (
+                  <li className="text-gray-300">{children}</li>
+                ),
+                // 强调样式
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                strong: ({ children }: any) => (
+                  <strong className="font-bold text-white">{children}</strong>
+                ),
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                em: ({ children }: any) => (
+                  <em className="italic text-gray-200">{children}</em>
+                ),
+                // 删除线样式
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                del: ({ children }: any) => (
+                  <del className="line-through text-gray-500">{children}</del>
+                ),
+                // 分割线样式
+                hr: () => <hr className="border-gray-700 my-8" />,
+                // 表格样式
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                table: ({ children }: any) => <TableView>{children}</TableView>,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                thead: ({ children }: any) => (
+                  <thead className="bg-gray-800">{children}</thead>
+                ),
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                tbody: ({ children }: any) => (
+                  <tbody className="bg-gray-900">{children}</tbody>
+                ),
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                tr: ({ children }: any) => (
+                  <tr className="border-b border-gray-700">{children}</tr>
+                ),
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                th: ({ children }: any) => (
+                  <th className="px-4 py-2 text-left text-white font-semibold">
+                    {children}
+                  </th>
+                ),
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                td: ({ children }: any) => (
+                  <td className="px-4 py-2 text-gray-300">{children}</td>
+                ),
               }}
-            />
+            >
+              {article.content}
+            </ReactMarkdown>
           </article>
         </div>
       </div>
@@ -221,19 +358,4 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
       </div>
     </div>
   );
-}
-
-// 简单的内容格式化函数
-function formatContent(content: string): string {
-  return content
-    .replace(/\n/g, "<br>")
-    .replace(/^# (.*$)/gm, "<h1>$1</h1>")
-    .replace(/^## (.*$)/gm, "<h2>$1</h2>")
-    .replace(/^### (.*$)/gm, "<h3>$1</h3>")
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*(.*?)\*/g, "<em>$1</em>")
-    .replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>")
-    .replace(/`(.*?)`/g, "<code>$1</code>")
-    .replace(/^\- (.*$)/gm, "<li>$1</li>")
-    .replace(/(<li>.*<\/li>)/, "<ul>$1</ul>");
 }

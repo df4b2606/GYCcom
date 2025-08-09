@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Define log file storage location using Spring property file configuration -->
+    <springProperty scope="context" name="log.home" source="log.home" defaultValue="logs"/>
+
+    <!-- Define log file path -->
+    <property name="LOG_PATH" value="${log.home}"/>
+
+    <!-- Define console output with enhanced colors -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Define INFO and above level information output to console -->
+    <root level="INFO">
+        <appender-ref ref="console"/>
+    </root>
+
+    <!-- Reduce framework noise -->
+    <logger name="org.hibernate" level="WARN"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.apache" level="WARN"/>
+
+    <!-- Date format definition -->
+    <property name="LOG_DATEFORMAT" value="yyyy-MM-dd"/>
+
+    <!-- Define log archive file name format, generate one log file per day -->
+    <property name="ARCHIVE_PATTERN" value="${LOG_PATH}/%d{${LOG_DATEFORMAT}}/app-%d{${LOG_DATEFORMAT}}-%i.log.gz"/>
+
+    <!-- Define file output, will be cut according to defined threshold, support automatic archiving and compression of expired logs -->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/app.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- Define log file cutting threshold, this example is 50MB -->
+            <maxFileSize>50MB</maxFileSize>
+            <!-- Define log file retention time, this example generates one log file per day -->
+            <fileNamePattern>${ARCHIVE_PATTERN}</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <!-- Zip compress generated archive files -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- Delete expired files -->
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Define ERROR level and above information output to file -->
+    <logger name="com.example.demo" level="ERROR" additivity="false">
+        <appender-ref ref="file"/>
+    </logger>
+
+    <!-- Asynchronous output log information -->
+    <appender name="asyncFile" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>
+        <appender-ref ref="file"/>
+    </appender>
+
+    <!-- Define DEBUG level for com.example package - console only -->
+    <logger name="com.example" level="DEBUG" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+</configuration>

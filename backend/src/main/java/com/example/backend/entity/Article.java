@@ -2,7 +2,6 @@ package com.example.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
@@ -16,14 +15,17 @@ public class Article {
     private int id;
 
     @CreatedDate
-
     @Column(nullable = false, updatable = false)
-
     private LocalDateTime createdAt;
 
     private String title;
+    
+    @Column(columnDefinition = "TEXT")
     private String content;
+    
+    @Column(columnDefinition = "TEXT")
     private String contentEng;
+    
     private String author;
 
     @Column(unique = true)

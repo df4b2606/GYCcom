@@ -4,7 +4,7 @@ import lombok.Getter;
 /**
  * @author grtsinry43
  * @date 2024/9/1 15:44
- * @description 少年负壮气，奋烈自有时！
+ * @description Youth carries strong spirit, passion drives time forward!
  */
 @Getter
 public enum ErrorCode {

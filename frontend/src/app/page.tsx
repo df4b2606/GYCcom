@@ -14,8 +14,14 @@ const PersonalInfoCard = ({ className = "" }: PersonalInfoCardProps) => {
       className={`bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 ${className}`}
     >
       <div className="flex items-center space-x-4 mb-4">
-        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-          <span className="text-white font-bold text-lg">G</span>
+        <div className="w-12 h-12 rounded-full overflow-hidden">
+          <Image
+            src="/personal.jpg"
+            alt="GYC Profile"
+            width={48}
+            height={48}
+            className="w-full h-full object-cover"
+          />
         </div>
         <div>
           <h3 className="text-white font-semibold text-lg">GYC</h3>

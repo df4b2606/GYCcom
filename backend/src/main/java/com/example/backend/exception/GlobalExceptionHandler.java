@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
         Map<String, Object> response = new HashMap<>();
         Map<String, String> errors = new HashMap<>();
 
-        // 收集所有字段的错误信息
+        // Collect all field error messages
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
@@ -39,8 +39,10 @@ public class GlobalExceptionHandler {
         response.put("code", ex.getCode().getCode());
         response.put("message", ex.getMessage());
         
-        // Return the status code based on the error code
+        // Return corresponding HTTP status code based on error code
         int statusCode = ex.getCode().getCode();
         return ResponseEntity.status(statusCode).body(response);
     }
+
+
 }

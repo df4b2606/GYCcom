@@ -5,6 +5,8 @@ import com.example.backend.entity.Article;
 import com.example.backend.exception.BusinessException;
 import com.example.backend.repository.ArticleRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -18,13 +20,18 @@ import java.util.Optional;
 import com.example.backend.dto.ArticleDTO;
 @Service
 public class ArticleService {
+    private static final Logger logger = LoggerFactory.getLogger(ArticleService.class);
+    
     @Autowired
     private ArticleRepository articleRepository;
+    
     public Article createArticle(ArticleDTO articleDTO) {
+        logger.info("🚀 Creating article: {}", articleDTO.getTitle());
+        
         Article article = new Article();
         article.setCreatedAt(LocalDateTime.now());
         
-        // 手动设置属性，避免复制 id
+        // Manually set properties to avoid copying id
         article.setTitle(articleDTO.getTitle());
         article.setContent(articleDTO.getContent());
         article.setContentEng(articleDTO.getContentEng());
@@ -32,26 +39,52 @@ public class ArticleService {
         
         //Add shortUrl
         if (articleDTO.getShortUrl() == null || articleDTO.getShortUrl().isEmpty()) {
-            article.setShortUrl(ArticleParser.generateShortUrl(articleDTO.getTitle()));
+            String shortUrl = ArticleParser.generateShortUrl(articleDTO.getTitle());
+            article.setShortUrl(shortUrl);
+            logger.debug("🔗 Generated short URL: {}", shortUrl);
         } else {
             article.setShortUrl(articleDTO.getShortUrl());
+            logger.debug("🔗 Using provided short URL: {}", articleDTO.getShortUrl());
         }
-         // TODO 查看是否有重复的短链接
+         // TODO Check for duplicate short URLs
 
-        
-        articleRepository.save(article);
-        return article;
+        try {
+            articleRepository.save(article);
+            logger.info("✅ Article created successfully! ID: {}", article.getId());
+            return article;
+        } catch (Exception e) {
+            logger.error("❌ Failed to create article: {}", e.getMessage(), e);
+            throw new BusinessException(ErrorCode.OPERATION_ERROR, "Failed to create article");
+        }
     }
     
     public List<Article> getAllArticles() {
-        return articleRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+        logger.debug("📋 Getting all articles list");
+        List<Article> articles = articleRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+        logger.info("📚 Successfully retrieved {} articles", articles.size());
+        return articles;
     }
+    
     public Optional<Article> getArticleById(Long id) {
-        return articleRepository.findById(id);
+        logger.debug("🔍 Getting article by ID: {}", id);
+        Optional<Article> article = articleRepository.findById(id);
+        if (article.isPresent()) {
+            logger.info("✅ Found article: {}", article.get().getTitle());
+        } else {
+            logger.warn("⚠️  Article with ID {} not found", id);
+        }
+        return article;
     }
     
     public Optional<Article> getArticleByShortUrl(String shortUrl) {
-        return articleRepository.findByShortUrl(shortUrl);
+        logger.debug("🔍 Getting article by short URL: {}", shortUrl);
+        Optional<Article> article = articleRepository.findByShortUrl(shortUrl);
+        if (article.isPresent()) {
+            logger.info("✅ Found article by short URL: {}", article.get().getTitle());
+        } else {
+            logger.warn("⚠️  Article with short URL {} not found", shortUrl);
+        }
+        return article;
     }
 }
 

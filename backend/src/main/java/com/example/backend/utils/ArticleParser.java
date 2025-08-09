@@ -13,11 +13,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @auther grtsinry43
+ * @author grtsinry43
  * @date 2024/11/10 21:55
- * @description 热爱可抵岁月漫长
+ * @description Love can withstand the long years
  */
-
 public class ArticleParser {
     private static final Pattern IMAGE_PATTERN = Pattern.compile("!\\[.*?\\]\\((.*?)\\)");
 
@@ -33,14 +32,14 @@ public class ArticleParser {
         int anchorIndex = 1;
         int minLevel = Integer.MAX_VALUE;
 
-        // 找出最小的标题级别
+        // Find the minimum heading level
         while (matcher.find()) {
             int level = matcher.group(1).length();
             minLevel = Math.min(minLevel, level);
         }
-        matcher.reset();  // 重置匹配器以重新开始解析
+        matcher.reset();  // Reset matcher to start parsing again
 
-        // 根据最小标题级别构建 TOC，这样是为了防止我这种不写一级标题的（）
+        // Build TOC based on minimum heading level, this prevents issues with missing level 1 headings
         while (matcher.find()) {
             int level = matcher.group(1).length();
             String text = matcher.group(2);
@@ -78,14 +77,14 @@ public class ArticleParser {
     }
 
     public static String generateShortUrl(String title) {
-        // 去掉标题中非英文字符，空格替换为 -，汉字替换为拼音，所有字母小写
+        // Remove non-English characters from title, replace spaces with -, replace Chinese characters with pinyin, all letters lowercase
         StringBuilder pinyinTitle = new StringBuilder();
         int wordCount = 0;
         for (char c : title.toCharArray()) {
             if (Character.toString(c).matches("[\\u4e00-\\u9fa5]")) {
                 String[] pinyinArray = PinyinHelper.toHanyuPinyinStringArray(c);
                 if (pinyinArray != null) {
-                    // 去掉声调
+                    // Remove tones
                     String pinyin = pinyinArray[0].replaceAll("[1-4]", "");
                     if (wordCount > 0) {
                         pinyinTitle.append("-");

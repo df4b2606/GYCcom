@@ -1,0 +1,219 @@
+2025-07-30 17:45:03.775 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 30225 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 17:45:03.775 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 17:45:03.992 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.286 seconds (process running for 7627.324)
+2025-07-30 17:47:03.016 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 30225 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 17:47:03.016 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 17:47:03.260 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.259 seconds (process running for 7746.593)
+2025-07-30 17:57:48.640 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 30225 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 17:57:48.640 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 17:57:48.917 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.294 seconds (process running for 8392.256)
+2025-07-30 17:58:29.834 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 30225 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 17:58:29.834 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 17:58:30.079 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.255 seconds (process running for 8433.418)
+2025-07-30 17:58:57.852 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 30225 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 17:58:57.852 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 17:58:58.170 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.33 seconds (process running for 8461.509)
+2025-07-30 18:00:00.027 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 30225 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:00:00.027 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:00:00.176 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ 数据库连接成功！当前URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:00:00.224 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.206 seconds (process running for 8523.564)
+2025-07-30 18:00:28.332 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 30225 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:00:28.332 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:00:28.461 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:00:28.513 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.19 seconds (process running for 8551.853)
+2025-07-30 18:00:40.208 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 30225 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:00:40.208 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:00:40.343 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:00:40.391 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.192 seconds (process running for 8563.669)
+2025-07-30 18:00:57.014 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 30225 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:00:57.014 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:00:57.169 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:00:57.222 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.221 seconds (process running for 8580.5)
+2025-07-30 18:01:19.865 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 30225 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:01:19.865 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:01:20.020 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:01:20.097 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.243 seconds (process running for 8603.375)
+2025-07-30 18:02:01.340 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 39362 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:02:01.341 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:02:02.758 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:02:03.002 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 1.864 seconds (process running for 2.011)
+2025-07-30 18:04:34.491 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 40370 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:04:34.491 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:04:35.776 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:04:36.012 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 1.705 seconds (process running for 1.842)
+2025-07-30 18:05:32.048 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 40370 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:05:32.048 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:05:32.255 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:05:32.320 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.288 seconds (process running for 58.149)
+2025-07-30 18:05:51.929 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 40370 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:05:51.929 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:05:52.127 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:05:52.187 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.271 seconds (process running for 78.017)
+2025-07-30 18:05:58.331 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 40673 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:05:58.332 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:05:59.558 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:05:59.832 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 1.674 seconds (process running for 1.798)
+2025-07-30 18:06:08.880 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 40673 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:06:08.881 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:06:09.053 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:06:09.112 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.246 seconds (process running for 11.078)
+2025-07-30 18:06:11.331 [http-nio-8080-exec-1] INFO  c.e.backend.service.ArticleService - Successfully retrieved 3 articles
+2025-07-30 18:06:12.476 [http-nio-8080-exec-2] INFO  c.e.backend.service.ArticleService - Successfully retrieved 3 articles
+2025-07-30 18:06:12.481 [http-nio-8080-exec-3] INFO  c.e.backend.service.ArticleService - Successfully retrieved 3 articles
+2025-07-30 18:06:13.278 [http-nio-8080-exec-4] INFO  c.e.backend.service.ArticleService - Found article by short URL: 测试文章
+2025-07-30 18:06:13.291 [http-nio-8080-exec-5] INFO  c.e.backend.service.ArticleService - Found article by short URL: 测试文章
+2025-07-30 18:07:45.972 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 40673 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:07:45.972 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:07:46.185 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:07:46.241 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.292 seconds (process running for 108.207)
+2025-07-30 18:09:29.293 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 41316 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:09:29.293 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:09:30.546 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:09:30.791 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 1.684 seconds (process running for 1.827)
+2025-07-30 18:09:50.476 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 41544 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:09:50.477 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:09:51.557 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:09:51.798 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 1.491 seconds (process running for 1.612)
+2025-07-30 18:15:37.249 [http-nio-8080-exec-1] INFO  c.e.backend.service.ArticleService - Successfully retrieved 3 articles
+2025-07-30 18:15:37.285 [http-nio-8080-exec-2] INFO  c.e.backend.service.ArticleService - Successfully retrieved 3 articles
+2025-07-30 18:15:39.047 [http-nio-8080-exec-3] INFO  c.e.backend.service.ArticleService - Found article by short URL: 万岁
+2025-07-30 18:15:39.059 [http-nio-8080-exec-4] INFO  c.e.backend.service.ArticleService - Found article by short URL: 万岁
+2025-07-30 18:15:40.351 [http-nio-8080-exec-5] INFO  c.e.backend.service.ArticleService - Successfully retrieved 3 articles
+2025-07-30 18:15:40.366 [http-nio-8080-exec-6] INFO  c.e.backend.service.ArticleService - Successfully retrieved 3 articles
+2025-07-30 18:15:42.340 [http-nio-8080-exec-9] INFO  c.e.backend.service.ArticleService - Found article by short URL: 测试文章
+2025-07-30 18:15:42.373 [http-nio-8080-exec-10] INFO  c.e.backend.service.ArticleService - Found article by short URL: 测试文章
+2025-07-30 18:15:44.807 [http-nio-8080-exec-1] INFO  c.e.backend.service.ArticleService - Successfully retrieved 3 articles
+2025-07-30 18:15:44.817 [http-nio-8080-exec-2] INFO  c.e.backend.service.ArticleService - Successfully retrieved 3 articles
+2025-07-30 18:16:20.856 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 41544 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:16:20.856 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:16:21.135 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:16:21.205 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.365 seconds (process running for 391.053)
+2025-07-30 18:17:01.515 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 42526 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:17:01.515 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:17:02.802 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:17:03.079 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 1.761 seconds (process running for 1.901)
+2025-07-30 18:19:36.185 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 42526 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:19:36.186 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:19:36.186 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:19:36.385 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:19:36.451 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.285 seconds (process running for 155.274)
+2025-07-30 18:19:41.640 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 43166 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:19:41.640 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:19:41.640 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:19:41.929 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 42526 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:19:41.929 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:19:41.929 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:19:42.086 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:19:42.146 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.233 seconds (process running for 160.969)
+2025-07-30 18:19:42.883 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:20:03.566 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 43434 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:20:03.566 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:20:03.566 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:20:04.693 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:20:04.918 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 1.522 seconds (process running for 1.648)
+2025-07-30 18:21:23.188 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 43434 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:21:23.188 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:21:23.188 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:21:23.340 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:21:23.396 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.223 seconds (process running for 80.126)
+2025-07-30 18:21:30.939 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 43434 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:21:30.939 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:21:30.939 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:21:31.085 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:21:31.141 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.219 seconds (process running for 87.872)
+2025-07-30 18:21:43.084 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 43714 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:21:43.084 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:21:43.085 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:21:43.715 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 43434 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:21:43.715 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:21:43.715 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:21:43.853 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:21:43.911 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.206 seconds (process running for 100.642)
+2025-07-30 18:21:44.276 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:23:22.010 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 44098 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:23:22.010 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:23:22.010 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:23:23.134 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:23:23.388 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 1.552 seconds (process running for 1.678)
+2025-07-30 18:24:28.469 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 44098 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:24:28.469 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:24:28.469 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:24:28.617 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:24:28.673 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.217 seconds (process running for 66.963)
+2025-07-30 18:24:36.011 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 44393 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:24:36.012 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:24:36.012 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:24:36.639 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 44098 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:24:36.639 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:24:36.639 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:24:36.791 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:24:36.852 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.227 seconds (process running for 75.141)
+2025-07-30 18:24:37.142 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:24:53.508 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 44669 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:24:53.508 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:24:53.509 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:24:54.592 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:24:54.823 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 1.494 seconds (process running for 1.62)
+2025-07-30 18:25:23.973 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 44898 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:25:23.973 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:25:23.973 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:25:25.067 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:25:25.291 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 1.495 seconds (process running for 1.626)
+2025-07-30 18:25:35.855 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 44898 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:25:35.855 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:25:35.855 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:25:36.011 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:25:36.071 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.231 seconds (process running for 12.406)
+2025-07-30 18:25:43.629 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 45134 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:25:43.630 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:25:43.630 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:25:44.716 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:25:44.941 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 1.48 seconds (process running for 1.606)
+2025-07-30 18:31:30.725 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 45134 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:31:30.725 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:31:30.725 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:31:30.900 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:31:30.958 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.247 seconds (process running for 347.613)
+2025-07-30 18:32:24.026 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 45628 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:32:24.026 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:32:24.026 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:32:25.144 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:32:25.381 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 1.54 seconds (process running for 1.667)
+2025-07-30 18:33:01.182 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 45628 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:33:01.182 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:33:01.182 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:33:01.447 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:33:01.511 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.344 seconds (process running for 37.797)
+2025-07-30 18:33:40.410 [http-nio-8080-exec-1] DEBUG c.e.backend.service.ArticleService - 🔍 Getting article by short URL: test-article
+2025-07-30 18:33:40.496 [http-nio-8080-exec-1] INFO  c.e.backend.service.ArticleService - ✅ Found article by short URL: 测试文章
+2025-07-30 18:33:40.526 [http-nio-8080-exec-2] DEBUG c.e.backend.service.ArticleService - 🔍 Getting article by short URL: test-article
+2025-07-30 18:33:40.530 [http-nio-8080-exec-2] INFO  c.e.backend.service.ArticleService - ✅ Found article by short URL: 测试文章
+2025-07-30 18:33:48.418 [restartedMain] INFO  c.e.backend.BackendApplication - Starting BackendApplication using Java 17.0.12 with PID 45628 (/Users/gyc/Desktop/study/GYCcom/backend/target/classes started by gyc in /Users/gyc/Desktop/study/GYCcom/backend)
+2025-07-30 18:33:48.418 [restartedMain] DEBUG c.e.backend.BackendApplication - Running with Spring Boot v3.5.3, Spring v6.2.8
+2025-07-30 18:33:48.418 [restartedMain] INFO  c.e.backend.BackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-30 18:33:48.571 [restartedMain] INFO  c.e.backend.config.DBConnectionTest - ✅ Database connection successful! Current URL: jdbc:mysql://localhost:3306/GYCcom
+2025-07-30 18:33:48.629 [restartedMain] INFO  c.e.backend.BackendApplication - Started BackendApplication in 0.223 seconds (process running for 84.914)
+2025-07-30 18:33:52.315 [http-nio-8080-exec-1] DEBUG c.e.backend.service.ArticleService - 📋 Getting all articles list
+2025-07-30 18:33:52.333 [http-nio-8080-exec-1] INFO  c.e.backend.service.ArticleService - 📚 Successfully retrieved 3 articles
+2025-07-30 18:33:52.341 [http-nio-8080-exec-2] DEBUG c.e.backend.service.ArticleService - 📋 Getting all articles list
+2025-07-30 18:33:52.345 [http-nio-8080-exec-2] INFO  c.e.backend.service.ArticleService - 📚 Successfully retrieved 3 articles
+2025-07-30 18:33:53.418 [http-nio-8080-exec-3] DEBUG c.e.backend.service.ArticleService - 🔍 Getting article by short URL: null
+2025-07-30 18:33:53.426 [http-nio-8080-exec-3] WARN  c.e.backend.service.ArticleService - ⚠️  Article with short URL null not found
+2025-07-30 18:33:53.432 [http-nio-8080-exec-4] DEBUG c.e.backend.service.ArticleService - 🔍 Getting article by short URL: null
+2025-07-30 18:33:53.436 [http-nio-8080-exec-4] WARN  c.e.backend.service.ArticleService - ⚠️  Article with short URL null not found
+2025-07-30 18:33:53.931 [http-nio-8080-exec-5] DEBUG c.e.backend.service.ArticleService - 📋 Getting all articles list
+2025-07-30 18:33:53.935 [http-nio-8080-exec-5] INFO  c.e.backend.service.ArticleService - 📚 Successfully retrieved 3 articles
+2025-07-30 18:33:53.947 [http-nio-8080-exec-6] DEBUG c.e.backend.service.ArticleService - 📋 Getting all articles list
+2025-07-30 18:33:53.951 [http-nio-8080-exec-6] INFO  c.e.backend.service.ArticleService - 📚 Successfully retrieved 3 articles
+2025-07-30 18:33:55.449 [http-nio-8080-exec-9] DEBUG c.e.backend.service.ArticleService - 🔍 Getting article by short URL: uuuu
+2025-07-30 18:33:55.454 [http-nio-8080-exec-9] INFO  c.e.backend.service.ArticleService - ✅ Found article by short URL: 万岁
+2025-07-30 18:33:55.466 [http-nio-8080-exec-10] DEBUG c.e.backend.service.ArticleService - 🔍 Getting article by short URL: uuuu
+2025-07-30 18:33:55.471 [http-nio-8080-exec-10] INFO  c.e.backend.service.ArticleService - ✅ Found article by short URL: 万岁
+2025-07-30 18:34:13.998 [http-nio-8080-exec-3] DEBUG c.e.backend.service.ArticleService - 📋 Getting all articles list
+2025-07-30 18:34:14.008 [http-nio-8080-exec-3] INFO  c.e.backend.service.ArticleService - 📚 Successfully retrieved 3 articles
+2025-07-30 18:34:14.013 [http-nio-8080-exec-4] DEBUG c.e.backend.service.ArticleService - 📋 Getting all articles list
+2025-07-30 18:34:14.024 [http-nio-8080-exec-4] INFO  c.e.backend.service.ArticleService - 📚 Successfully retrieved 3 articles
+2025-07-30 18:34:15.163 [http-nio-8080-exec-7] DEBUG c.e.backend.service.ArticleService - 🔍 Getting article by short URL: uuuu
+2025-07-30 18:34:15.169 [http-nio-8080-exec-7] INFO  c.e.backend.service.ArticleService - ✅ Found article by short URL: 万岁
+2025-07-30 18:34:15.179 [http-nio-8080-exec-8] DEBUG c.e.backend.service.ArticleService - 🔍 Getting article by short URL: uuuu
+2025-07-30 18:34:15.185 [http-nio-8080-exec-8] INFO  c.e.backend.service.ArticleService - ✅ Found article by short URL: 万岁
