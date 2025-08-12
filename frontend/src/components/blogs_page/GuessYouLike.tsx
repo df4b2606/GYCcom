@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Article, getArticleList } from "@/api/article";
+import BlogsListCard from "./BlogsListCard";
 
 export interface GuessYouLikeProps {
   className?: string;
@@ -40,36 +41,10 @@ const GuessYouLike = ({
 
   return (
     <aside
-      className={`bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 ${className}`}
+      className={`bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-6 ${className}`}
     >
       <h3 className="text-white font-semibold text-lg mb-4">Guess you like</h3>
-      {loading ? (
-        <div className="text-gray-400 text-sm">Loading...</div>
-      ) : candidates.length === 0 ? (
-        <div className="text-gray-400 text-sm">No recommendations</div>
-      ) : (
-        <ul className="space-y-3">
-          {candidates.map((a) => (
-            <li key={a.id} className="group">
-              <Link
-                href={`/blogs/${a.shortUrl}`}
-                className="block px-3 py-2 rounded-lg hover:bg-white/10 transition-colors"
-              >
-                <div className="text-gray-200 text-sm font-medium truncate group-hover:text-blue-300">
-                  {a.title}
-                </div>
-                <div className="text-gray-500 text-xs">
-                  {new Date(a.createdAt).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      <BlogsListCard articles={candidates} loading={loading} error={null} />
     </aside>
   );
 };

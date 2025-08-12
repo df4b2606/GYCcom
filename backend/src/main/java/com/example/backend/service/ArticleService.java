@@ -3,6 +3,7 @@ package com.example.backend.service;
 import com.example.backend.common.ErrorCode;
 import com.example.backend.entity.Article;
 import com.example.backend.entity.Tag;
+import com.example.backend.entity.Category;
 import com.example.backend.exception.BusinessException;
 import com.example.backend.repository.ArticleRepository;
 
@@ -17,6 +18,7 @@ import com.example.backend.utils.ArticleParser;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
 
 import com.example.backend.dto.ArticleDTO;
 @Service
@@ -110,26 +112,25 @@ public class ArticleService {
         return articles;
     }
     
-    public Optional<Article> getArticleById(Long id) {
-        logger.debug("🔍 Getting article by ID: {}", id);
-        Optional<Article> article = articleRepository.findById(id);
-        if (article.isPresent()) {
-            logger.info("✅ Found article: {}", article.get().getTitle());
-        } else {
-            logger.warn("⚠️  Article with ID {} not found", id);
-        }
-        return article;
+    public Article getRequiredById(Long id) {
+        return articleRepository.findById(id)
+            .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND, "Article not found"));
     }
-    
-    public Optional<Article> getArticleByShortUrl(String shortUrl) {
-        logger.debug("🔍 Getting article by short URL: {}", shortUrl);
-        Optional<Article> article = articleRepository.findByShortUrl(shortUrl);
-        if (article.isPresent()) {
-            logger.info("✅ Found article by short URL: {}", article.get().getTitle());
-        } else {
-            logger.warn("⚠️  Article with short URL {} not found", shortUrl);
+
+    public Article getRequiredByShortUrl(String shortUrl) {
+        try {
+            return articleRepository.findByShortUrl(shortUrl)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND, "Article not found"));
+        } catch (Exception e) {
+            throw new BusinessException(ErrorCode.SERVER_ERROR, "Failed to query article");
         }
-        return article;
+    }
+
+    public List<Article> getArticlesByCategory(Category category) {
+        logger.debug("🔍 Getting articles by category: {}", category);
+        List<Article> articles = articleRepository.findByCategory(category);
+        logger.info("📚 Successfully retrieved {} articles", articles.size());
+        return articles;
     }
 }
 

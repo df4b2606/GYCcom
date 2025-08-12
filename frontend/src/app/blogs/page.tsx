@@ -13,14 +13,20 @@ import Image from "next/image";
 
 export default function BlogList() {
   const [articles, setArticles] = useState<Article[]>([]);
+  // Keep a copy of the full list to compute categories so they don't disappear when filtering
+  const [allArticles, setAllArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // Currently selected category id for server-side filtering
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const categories = useMemo<CategoryItem[]>(() => {
+    const source = allArticles.length > 0 ? allArticles : articles;
     const nameToItem = new Map<string, CategoryItem>();
-    articles.forEach((article) => {
+    source.forEach((article) => {
       const c = article.category as unknown;
       let name: string | undefined;
       let color: string | undefined;
+      let id: number | undefined;
       if (typeof c === "string") {
         name = c;
       } else if (c && typeof c === "object") {
@@ -28,6 +34,7 @@ export default function BlogList() {
         const obj = c as any;
         name = obj?.name ?? obj?.title ?? undefined;
         color = obj?.color;
+        id = typeof obj?.id === "number" ? obj.id : undefined;
       }
       if (!name) return;
       const key = String(name);
@@ -35,45 +42,47 @@ export default function BlogList() {
       if (existing) {
         existing.count = (existing.count ?? 0) + 1;
         if (!existing.color && color) existing.color = color;
+        if (!existing.id && id) existing.id = id;
       } else {
-        nameToItem.set(key, { name: key, count: 1, color });
+        nameToItem.set(key, { id, name: key, count: 1, color });
       }
     });
     return Array.from(nameToItem.values()).sort(
       (a, b) => (b.count ?? 0) - (a.count ?? 0)
     );
-  }, [articles]);
+  }, [articles, allArticles]);
 
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        console.log("🔍 Start fetching article list...");
-        const response = await getArticleList();
-        console.log("📡 API response:", response);
-        console.log("📊 Response status:", response.status);
-        console.log("📋 Response data:", response.data);
-        console.log("📋 Data type:", typeof response.data);
-        console.log("📋 Is array:", Array.isArray(response.data));
-
+        setLoading(true);
+        const response = await getArticleList(
+          selectedCategory != null
+            ? { category: String(selectedCategory) }
+            : undefined
+        );
         // Ensure articles is an array
         if (response.data && Array.isArray(response.data)) {
-          console.log("✅ Article data valid, setting to state");
           setArticles(response.data);
+          if (selectedCategory == null) {
+            setAllArticles(response.data);
+          }
         } else {
-          console.warn("⚠️ Article data invalid:", response.data);
           setArticles([]);
+          if (selectedCategory == null) {
+            setAllArticles([]);
+          }
         }
-
-        setLoading(false);
       } catch (error) {
         console.error("❌ Failed to fetch articles:", error);
         setError("Failed to fetch articles, please try again later");
+      } finally {
         setLoading(false);
       }
     };
 
     fetchArticles();
-  }, []);
+  }, [selectedCategory]);
 
   if (loading)
     return (
@@ -134,31 +143,32 @@ export default function BlogList() {
         <div className="absolute inset-0 bg-black/80" />
       </div>
 
-      {/* Right sidebar information area */}
-      <div className="relative z-10">
-        {/* Right sidebar cards container - using flexbox for vertical layout with automatic spacing */}
-        <div className="absolute top-24 right-6 w-72 hidden lg:flex lg:flex-col lg:gap-6 z-10">
-          {/* Personal Info Card */}
-          <PersonalInfoCard />
-
-          {/* Category Card */}
-          <CategoryCard categories={categories} />
-
-          {/* Tags Card */}
-          <TagsCard />
-
-          {/* Latest Updates Card */}
-          <LatestUpdatesCard />
-        </div>
-
-        {/* Main Content - Responsive layout */}
-        <div className="px-6 lg:pl-6 lg:pr-88 pb-48 pt-24">
-          <div className="max-w-8xl lg:max-w-8xl mx-auto lg:mx-0">
+      {/* Content area using grid so the sidebar participates in normal flow */}
+      <div className="relative z-10 px-6 pb-24 pt-24">
+        <div className="max-w-8xl mx-auto lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-6">
+          {/* Main column */}
+          <div>
+            <h1 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+              All Blogs
+            </h1>
             <BlogsListCard
               articles={articles}
               loading={loading}
               error={error}
             />
+          </div>
+          {/* Sidebar column */}
+          <div className="hidden lg:block">
+            <div className="flex flex-col gap-6">
+              <PersonalInfoCard />
+              <CategoryCard
+                categories={categories}
+                selected={selectedCategory}
+                onSelect={(id) => setSelectedCategory(id)}
+              />
+              <TagsCard />
+              <LatestUpdatesCard />
+            </div>
           </div>
         </div>
       </div>

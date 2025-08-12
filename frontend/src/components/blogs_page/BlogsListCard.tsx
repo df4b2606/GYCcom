@@ -79,6 +79,7 @@ const BlogsListCard = ({
   const years = Object.keys(groupedArticles).sort(
     (a, b) => parseInt(b) - parseInt(a)
   );
+  const currentYear = new Date().getFullYear().toString();
 
   // Safety check: ensure articles is a valid array
   if (!articles || !Array.isArray(articles)) {
@@ -101,9 +102,17 @@ const BlogsListCard = ({
         </div>
       ) : (
         <div>
-          {years.map((year) => (
+          {years.map((year, idx) => (
             <div key={year} className="space-y-5">
-              <h2 className="text-4xl font-bold text-white mb-7">{year}</h2>
+              {year !== currentYear && (
+                <h2
+                  className={`text-4xl font-bold text-white mb-7 ${
+                    idx === 0 ? "" : "mt-10"
+                  }`}
+                >
+                  {year}
+                </h2>
+              )}
               <div className="space-y-5">
                 {groupedArticles[year].map((article, index) => (
                   <Link
@@ -127,6 +136,12 @@ const BlogsListCard = ({
                           <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors">
                             {article.title}
                           </h3>
+                          {/* Excerpt - render only when provided */}
+                          {article.excerpt && (
+                            <p className="text-gray-300 text-sm mb-3 line-clamp-2">
+                              {article.excerpt}
+                            </p>
+                          )}
 
                           {/* Tags */}
                           <div className="flex flex-wrap gap-3 mb-3">
@@ -151,7 +166,8 @@ const BlogsListCard = ({
                                 );
                                 return (
                                   <span
-                                    className={`inline-block px-3 py-1 text-sm rounded-full text-white bg-gradient-to-r ${resolvedColor}`}
+                                    className="inline-block px-3 py-1 text-sm rounded-full text-white"
+                                    style={{ backgroundColor: resolvedColor }}
                                   >
                                     {categoryName}
                                   </span>

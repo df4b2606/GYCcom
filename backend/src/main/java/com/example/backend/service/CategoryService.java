@@ -13,20 +13,21 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    // 预定义的颜色数组 - 柔和的色调
+    // Pleasant solid colors (hex). These will be used when a category is created without an explicit color.
     private static final String[] COLORS = {
-        "from-slate-400 to-slate-500",
-        "from-gray-400 to-gray-500", 
-        "from-zinc-400 to-zinc-500",
-        "from-neutral-400 to-neutral-500",
-        "from-stone-400 to-stone-500",
-        "from-slate-500 to-gray-500",
-        "from-zinc-500 to-neutral-500",
-        "from-stone-500 to-slate-500",
-        "from-rose-400 to-pink-500",
-        "from-blue-400 to-indigo-500",
-        "from-emerald-400 to-teal-500",
-        "from-amber-400 to-orange-500"
+        "#ef4444", // red-500
+        "#f97316", // orange-500
+        "#f59e0b", // amber-500
+        "#10b981", // emerald-500
+        "#22c55e", // green-500
+        "#06b6d4", // cyan-500
+        "#3b82f6", // blue-500
+        "#6366f1", // indigo-500
+        "#8b5cf6", // violet-500
+        "#a855f7", // purple-500
+        "#ec4899", // pink-500
+        "#14b8a6", // teal-500
+        "#64748b"  // slate-500 (fallback neutral)
     };
 
     private final Random random = new Random();
@@ -35,6 +36,10 @@ public class CategoryService {
         return COLORS[random.nextInt(COLORS.length)];
     }
 
+    /**
+     * Find a category by name or create a new one. If a new category is created
+     * and no color is provided externally, assign a pleasant random solid color.
+     */
     public Category findOrCreateByName(String name) {
         if (name == null || name.isBlank()) {
             return null;
@@ -43,7 +48,8 @@ public class CategoryService {
         return existing.orElseGet(() -> {
             Category c = new Category();
             c.setName(name);
-            c.setColor(getRandomColor()); // 随机分配颜色
+            // Assign a random solid color by default
+            c.setColor(getRandomColor());
             return categoryRepository.save(c);
         });
     }

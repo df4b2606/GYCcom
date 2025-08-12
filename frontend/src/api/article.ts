@@ -19,11 +19,13 @@ export interface Article {
   tags?: any;
 }
 
-// 获取文章列表
-export const getArticleList = () => {
-  return getAxios<Article[]>({
-    url: "/article",
-  });
+// 获取文章列表（前端合并：若传 category，走分类接口；否则走全量接口）
+export const getArticleList = (params?: { category?: string }) => {
+  if (params?.category) {
+    const category = encodeURIComponent(params.category);
+    return getAxios<Article[]>({ url: `/article/category/${category}` });
+  }
+  return getAxios<Article[]>({ url: "/article" });
 };
 
 // 通过 shortUrl 获取文章详情

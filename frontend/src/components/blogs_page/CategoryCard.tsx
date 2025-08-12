@@ -1,38 +1,61 @@
 "use client";
 
-import Link from "next/link";
+// import Link from "next/link";
 
 export interface CategoryItem {
+  id?: number;
   name: string;
   count?: number;
-  color?: string; // 后端返回的颜色
+  color?: string; // color provided by backend (hex recommended)
 }
 
 export interface CategoryCardProps {
   className?: string;
   categories: CategoryItem[];
+  onSelect?: (id: number | null) => void;
+  selected?: number | null;
 }
 
-const getCategoryColor = (name?: string, provided?: string) => {
+// Resolve final color: prefer backend-provided color; fall back to a neutral tone
+const resolveColor = (provided?: string) => {
   if (provided && typeof provided === "string" && provided.trim().length > 0) {
-    return provided; // 优先使用后端返回的颜色
+    return provided;
   }
-  // 如果没有后端颜色，使用默认的柔和灰色
-  return "from-gray-500 to-gray-600";
+  return "#64748b"; // slate-500 as fallback
 };
 
-const CategoryBadge = ({ name, color }: { name: string; color?: string }) => {
-  const resolved = getCategoryColor(name, color);
+const CategoryBadge = ({
+  id,
+  name,
+  color,
+  selected,
+  onSelect,
+}: {
+  id?: number;
+  name: string;
+  color?: string;
+  selected?: number | null;
+  onSelect?: (id: number | null) => void;
+}) => {
+  const bg = resolveColor(color);
+  const active = selected != null && id != null && selected === id;
   return (
-    <span
-      className={`inline-flex items-center px-3 py-1 rounded-full text-sm text-white bg-gradient-to-r ${resolved}`}
+    <button
+      className="inline-flex items-center px-3 py-1 rounded-full text-sm text-white"
+      style={{ backgroundColor: bg }}
+      onClick={() => onSelect?.(active ? null : id ?? null)}
     >
       {name}
-    </span>
+    </button>
   );
 };
 
-const CategoryCard = ({ className = "", categories }: CategoryCardProps) => {
+const CategoryCard = ({
+  className = "",
+  categories,
+  onSelect,
+  selected,
+}: CategoryCardProps) => {
   return (
     <div
       className={`bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 ${className}`}
@@ -43,28 +66,38 @@ const CategoryCard = ({ className = "", categories }: CategoryCardProps) => {
         </svg>
         Categories
       </h3>
-      <div className="space-y-3">
-        {categories.map((c) => (
-          <div key={c.name} className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <CategoryBadge name={c.name} color={c.color} />
+      {/* Fixed height to show ~7 items; overflow scrollable */}
+      <div className="space-y-3 h-72 overflow-y-auto pr-1">
+        {categories.map((c) => {
+          const isActive =
+            selected != null && c.id != null && selected === c.id;
+          return (
+            <div key={c.name} className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <CategoryBadge
+                  id={c.id}
+                  name={c.name}
+                  color={c.color}
+                  selected={selected}
+                  onSelect={onSelect}
+                />
+              </div>
+              {typeof c.count === "number" && (
+                <span
+                  className={
+                    isActive
+                      ? "text-white text-xs bg-red-500 px-2 py-1 rounded-full"
+                      : "text-gray-300 text-xs bg-white/5 px-2 py-1 rounded-full"
+                  }
+                >
+                  {c.count}
+                </span>
+              )}
             </div>
-            {typeof c.count === "number" && (
-              <span className="text-gray-300 text-xs bg-white/5 px-2 py-1 rounded-full">
-                {c.count}
-              </span>
-            )}
-          </div>
-        ))}
+          );
+        })}
       </div>
-      <div className="mt-4 pt-4 border-t border-white/20">
-        <Link
-          href="/blogs"
-          className="w-full block text-center text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors"
-        >
-          查看全部文章 →
-        </Link>
-      </div>
+      {/* Footer removed per request */}
     </div>
   );
 };

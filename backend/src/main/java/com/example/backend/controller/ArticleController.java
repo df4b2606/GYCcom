@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.dto.ArticleDTO;
 import com.example.backend.entity.Article;
+import com.example.backend.entity.Category;
 import com.example.backend.service.ArticleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,16 +33,18 @@ public class ArticleController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Article> get(@PathVariable Long id) {
-        return articleService.getArticleById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(articleService.getRequiredById(id));
     }
-    
+
     @GetMapping("/slug/{shortUrl}")
     public ResponseEntity<Article> getByShortUrl(@PathVariable String shortUrl) {
-        return articleService.getArticleByShortUrl(shortUrl)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(articleService.getRequiredByShortUrl(shortUrl));
+    }
+
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<Article>> getByCategory(@PathVariable Category category) {
+        return ResponseEntity.ok(articleService.getArticlesByCategory(category));
+              
     }
 
 

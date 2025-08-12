@@ -1,7 +1,6 @@
 "use client";
 
 import { Article } from "@/api/article";
-import PersonalInfoCard from "@/components/home_components/PersonalInfoCard";
 
 export interface BlogCatalogCardProps {
   article: Article;
@@ -71,15 +70,7 @@ const BlogCatalogCard = ({ article }: BlogCatalogCardProps) => {
     return headings;
   };
 
-  return (
-    <>
-      <PersonalInfoCard className="absolute top-24 right-6 w-72 hidden lg:block z-10" />
-      <TocCard
-        className="absolute right-6 top-[12rem] w-72 hidden lg:block z-10"
-        headings={extractHeadings(article.content)}
-      />
-    </>
-  );
+  return <TocCard className="" headings={extractHeadings(article.content)} />;
 };
 
 export default BlogCatalogCard;
