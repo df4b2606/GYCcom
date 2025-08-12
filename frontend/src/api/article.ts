@@ -1,4 +1,4 @@
-import { getAxios, postAxios, putAxios, deleteAxios } from "../utils/axios";
+import { getAxios } from "../utils/axios";
 
 // 文章列表接口类型
 export interface Article {
@@ -10,6 +10,13 @@ export interface Article {
   shortUrl?: string;
   createdAt: string;
   updatedAt?: string;
+  // 新增字段：文章简介（由后端返回）
+  excerpt?: string;
+  // 新增字段：分类（单个）
+  category?: { id?: number; name: string; color?: string } | string;
+  // 可选：标签，如果后端返回
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  tags?: any;
 }
 
 // 获取文章列表

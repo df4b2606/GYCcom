@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 
 export default function AboutPage() {
@@ -9,23 +9,26 @@ export default function AboutPage() {
     Array<{ x: number; y: number; dx: number; dy: number }>
   >([]);
 
-  const skills = [
-    { name: "Java", color: "bg-orange-600" },
-    { name: "Spring Boot", color: "bg-green-600" },
-    { name: "Django", color: "bg-green-700" },
-    { name: "Cursor", color: "bg-purple-600" },
-    { name: "React", color: "bg-blue-500" },
-    { name: "Next.js", color: "bg-black" },
-    { name: "TypeScript", color: "bg-blue-600" },
-    { name: "Python", color: "bg-yellow-600" },
-    { name: "MySQL", color: "bg-blue-700" },
-    { name: "Node.js", color: "bg-green-500" },
-    { name: "Git", color: "bg-red-500" },
-    { name: "Docker", color: "bg-blue-400" },
-    { name: "AWS", color: "bg-orange-500" },
-    { name: "VS Code", color: "bg-blue-400" },
-    { name: "PostgreSQL", color: "bg-blue-800" },
-  ];
+  const skills = useMemo(
+    () => [
+      { name: "Java", color: "bg-orange-600" },
+      { name: "Spring Boot", color: "bg-green-600" },
+      { name: "Django", color: "bg-green-700" },
+      { name: "Cursor", color: "bg-purple-600" },
+      { name: "React", color: "bg-blue-500" },
+      { name: "Next.js", color: "bg-black" },
+      { name: "TypeScript", color: "bg-blue-600" },
+      { name: "Python", color: "bg-yellow-600" },
+      { name: "MySQL", color: "bg-blue-700" },
+      { name: "Node.js", color: "bg-green-500" },
+      { name: "Git", color: "bg-red-500" },
+      { name: "Docker", color: "bg-blue-400" },
+      { name: "AWS", color: "bg-orange-500" },
+      { name: "VS Code", color: "bg-blue-400" },
+      { name: "PostgreSQL", color: "bg-blue-800" },
+    ],
+    []
+  );
 
   // 生成随机位置的函数
   const generateRandomPosition = () => ({
@@ -70,7 +73,7 @@ export default function AboutPage() {
     }, 50);
 
     return () => clearInterval(interval);
-  }, [mounted]);
+  }, [mounted, skills]);
 
   if (!mounted)
     return (

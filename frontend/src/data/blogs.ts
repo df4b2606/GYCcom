@@ -7,6 +7,7 @@ export interface BlogPost {
   date: string;
   readTime: string;
   category: string;
+  categoryColor?: string; // 分类颜色，从后端获取
   tags: string[];
 }
 

@@ -2,15 +2,16 @@ package com.example.backend.service;
 
 import com.example.backend.common.ErrorCode;
 import com.example.backend.entity.Article;
+import com.example.backend.entity.Tag;
 import com.example.backend.exception.BusinessException;
 import com.example.backend.repository.ArticleRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.backend.utils.ArticleParser;
 import java.time.LocalDateTime;
@@ -25,6 +26,13 @@ public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
     
+    @Autowired
+    private TagService tagService;
+
+    @Autowired
+    private CategoryService categoryService;
+    
+    @Transactional
     public Article createArticle(ArticleDTO articleDTO) {
         logger.info("🚀 Creating article: {}", articleDTO.getTitle());
         
@@ -36,6 +44,21 @@ public class ArticleService {
         article.setContent(articleDTO.getContent());
         article.setContentEng(articleDTO.getContentEng());
         article.setAuthor(articleDTO.getAuthor());
+        // excerpt: 如果前端提交了就用提交的；否则使用内容前120字符作为默认摘要
+        if (articleDTO.getExcerpt() != null && !articleDTO.getExcerpt().isEmpty()) {
+            article.setExcerpt(articleDTO.getExcerpt());
+        } else if (articleDTO.getContent() != null) {
+            String plain = articleDTO.getContent()
+                    .replaceAll("```[\\s\\S]*?```", " ")
+                    .replaceAll("`[^`]*`", " ")
+                    .replaceAll("[#>*_\\-\\\\[\\\\]\\(\\)!]", " ")
+                    .replaceAll("\\s+", " ")
+                    .trim();
+            if (plain.length() > 120) {
+                plain = plain.substring(0, 120) + "...";
+            }
+            article.setExcerpt(plain);
+        }
         
         //Add shortUrl
         if (articleDTO.getShortUrl() == null || articleDTO.getShortUrl().isEmpty()) {
@@ -46,12 +69,34 @@ public class ArticleService {
             article.setShortUrl(articleDTO.getShortUrl());
             logger.debug("🔗 Using provided short URL: {}", articleDTO.getShortUrl());
         }
-         // TODO Check for duplicate short URLs
+        
+        // Handle tags
+        if (articleDTO.getTags() != null && !articleDTO.getTags().isEmpty()) {
+            logger.debug("🏷️ Processing tags: {}", articleDTO.getTags());
+            
+            // Find or create tags
+            List<Tag> tags = tagService.findOrCreateTags(articleDTO.getTags());
+            article.setTags(tags);
+            
+            // Increment usage count for each tag
+            tags.forEach(tag -> tagService.incrementUsageCount(tag.getId()));
+            
+            logger.info("✅ Associated {} tags with article", tags.size());
+        }
+
+        // Handle category (single)
+        if (articleDTO.getCategory() != null && !articleDTO.getCategory().isEmpty()) {
+            article.setCategory(categoryService.findOrCreateByName(articleDTO.getCategory()));
+        }
+        
+        // TODO Check for duplicate short URLs
 
         try {
-            articleRepository.save(article);
-            logger.info("✅ Article created successfully! ID: {}", article.getId());
-            return article;
+            Article savedArticle = articleRepository.save(article);
+            logger.info("✅ Article created successfully! ID: {}, Tags: {}", 
+                       savedArticle.getId(), 
+                       savedArticle.getTags() != null ? savedArticle.getTags().size() : 0);
+            return savedArticle;
         } catch (Exception e) {
             logger.error("❌ Failed to create article: {}", e.getMessage(), e);
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "Failed to create article");

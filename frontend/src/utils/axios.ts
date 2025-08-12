@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 // API response type
 export interface ApiResponse<T = unknown> {
@@ -39,7 +39,7 @@ export interface RequestOptions<T = unknown> {
 
 // Unified response wrapper function
 // (interface is only for checking if the returned data type is correct)
-function wrapResponse<T>(axiosResponse: any): ApiResponse<T> {
+function wrapResponse<T>(axiosResponse: AxiosResponse): ApiResponse<T> {
   return {
     data: axiosResponse.data,
     message: axiosResponse.statusText || "success",

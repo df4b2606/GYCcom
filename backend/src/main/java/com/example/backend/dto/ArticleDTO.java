@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class ArticleDTO {
     // ID is not required when creating an article, but needed when returning
@@ -23,12 +25,19 @@ public class ArticleDTO {
     @Size(max = 50, message = "Author name cannot exceed 50 characters")
     private String author;
 
+    // Tags for the article
+    private List<String> tags;
+
+    // Category for the article
+    private String category;
+
+    // Excerpt for the article
+    private String excerpt;
+
     // Additional fields for display
    
     private String createdAt;    // Formatted creation time
     private String preview;      // Article preview
     private int readingTime;     // Estimated reading time (minutes)
     private String shortUrl;
-
-
 }

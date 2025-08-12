@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "article")
@@ -30,4 +31,21 @@ public class Article {
 
     @Column(unique = true)
     private String shortUrl;
+    
+    // 文章简介，用于列表页摘要展示
+    @Column(columnDefinition = "TEXT")
+    private String excerpt;
+
+    // 单分类：一个 Article 只能属于一个 Category
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "article_tag",
+        joinColumns = @JoinColumn(name = "article_id"),
+        inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private List<Tag> tags;
 }

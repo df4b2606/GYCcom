@@ -1,7 +1,7 @@
 // Footer Component
 const Footer = () => {
   return (
-    <footer className="relative bg-black/80 backdrop-blur-sm text-white py-12 z-10">
+    <footer className="relative bg-black/80 backdrop-blur-sm text-white py-12 mt-24 z-10">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>

@@ -3,6 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import { getAllMoments, formatTimestamp, Moment } from "../../data/moments";
+import PersonalInfoCard from "@/components/home_components/PersonalInfoCard";
+import LatestUpdatesCard from "@/components/home_components/LatestUpdatesCard";
+import TagsCard from "@/components/home_components/TagsCard";
 
 const MomentCard = ({
   moment,
@@ -14,16 +17,16 @@ const MomentCard = ({
   onComment: (id: number) => void;
 }) => {
   return (
-    <article className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:border-white/20 transition-all duration-300 hover:transform hover:scale-[1.02] group">
+    <article className="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10 hover:border-white/20 transition-all duration-300 hover:bg-white/10 group cursor-pointer">
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-            <span className="text-white font-bold text-xs">GYC</span>
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+            <span className="text-white font-bold text-sm">GYC</span>
           </div>
           <div>
-            <h3 className="text-white font-semibold text-sm">GYC</h3>
-            <p className="text-gray-400 text-xs">
+            <h3 className="text-white font-semibold text-base">GYC</h3>
+            <p className="text-gray-400 text-sm">
               {formatTimestamp(moment.timestamp)}
             </p>
           </div>
@@ -44,8 +47,8 @@ const MomentCard = ({
       </div>
 
       {/* Content */}
-      <div className="mb-3">
-        <p className="text-gray-200 leading-relaxed mb-3 text-sm">
+      <div className="mb-4">
+        <p className="text-gray-200 leading-relaxed mb-3 text-base">
           {moment.content}
         </p>
 
@@ -78,18 +81,18 @@ const MomentCard = ({
       </div>
 
       {/* Actions */}
-      <div className="flex items-center justify-between pt-2 border-t border-white/10">
-        <div className="flex items-center space-x-4">
+      <div className="flex items-center justify-between pt-3 border-t border-white/10">
+        <div className="flex items-center space-x-6">
           <button
             onClick={() => onLike(moment.id)}
-            className={`flex items-center space-x-1 transition-colors ${
+            className={`flex items-center space-x-2 transition-colors p-2 rounded-full hover:bg-white/10 ${
               moment.isLiked
                 ? "text-red-500 hover:text-red-400"
                 : "text-gray-400 hover:text-red-500"
             }`}
           >
             <svg
-              className="w-4 h-4"
+              className="w-5 h-5"
               fill={moment.isLiked ? "currentColor" : "none"}
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -101,15 +104,15 @@ const MomentCard = ({
                 d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
               />
             </svg>
-            <span className="text-xs">{moment.likes}</span>
+            <span className="text-sm">{moment.likes}</span>
           </button>
 
           <button
             onClick={() => onComment(moment.id)}
-            className="flex items-center space-x-1 text-gray-400 hover:text-blue-500 transition-colors"
+            className="flex items-center space-x-2 text-gray-400 hover:text-blue-500 transition-colors p-2 rounded-full hover:bg-white/10"
           >
             <svg
-              className="w-4 h-4"
+              className="w-5 h-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -121,7 +124,7 @@ const MomentCard = ({
                 d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
               />
             </svg>
-            <span className="text-xs">{moment.comments}</span>
+            <span className="text-sm">{moment.comments}</span>
           </button>
 
           <button className="flex items-center space-x-1 text-gray-400 hover:text-green-500 transition-colors">
@@ -168,6 +171,7 @@ const NewMomentForm = ({
 }) => {
   const [content, setContent] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
+  const [charCount, setCharCount] = useState(0);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -181,7 +185,7 @@ const NewMomentForm = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 mb-6"
+      className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 mb-6 hover:border-white/20 transition-all duration-200"
     >
       <div className="flex items-start space-x-3">
         <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
@@ -191,11 +195,15 @@ const NewMomentForm = ({
         <div className="flex-1">
           <textarea
             value={content}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={(e) => {
+              setContent(e.target.value);
+              setCharCount(e.target.value.length);
+            }}
             onFocus={() => setIsExpanded(true)}
             placeholder="有什么新想法？"
             className="w-full bg-transparent text-white placeholder-gray-400 resize-none border-none outline-none text-sm"
             rows={isExpanded ? 3 : 1}
+            maxLength={280}
           />
 
           {isExpanded && (
@@ -251,16 +259,16 @@ const NewMomentForm = ({
               <div className="flex items-center space-x-2">
                 <span
                   className={`text-xs ${
-                    content.length > 200 ? "text-red-400" : "text-gray-400"
+                    charCount > 200 ? "text-red-400" : "text-gray-400"
                   }`}
                 >
-                  {content.length}/280
+                  {charCount}/280
                 </span>
 
                 <button
                   type="submit"
-                  disabled={!content.trim() || content.length > 280}
-                  className="px-4 py-1 bg-blue-500 text-white rounded-full font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-600 transition-colors text-sm"
+                  disabled={!content.trim() || charCount > 280}
+                  className="px-6 py-2 bg-blue-500 text-white rounded-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-600 transition-all duration-200 text-sm shadow-lg shadow-blue-500/25"
                 >
                   发布
                 </button>
@@ -318,53 +326,64 @@ export default function MomentsPage() {
       : moments.filter((moment) => moment.tags?.includes(filter));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 pt-16">
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* New Moment Form */}
-        <div className="mb-6 max-w-2xl mx-auto">
-          <NewMomentForm onSubmit={handleNewMoment} />
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      {/* Personal Info Card - Top Right */}
+      <PersonalInfoCard className="absolute top-24 right-6 w-72 hidden lg:block z-10" />
 
-        {/* Filter Tabs */}
-        <div className="flex flex-wrap gap-2 mb-6 justify-center">
-          {filters.map((filterOption) => (
-            <button
-              key={filterOption}
-              onClick={() => setFilter(filterOption)}
-              className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
-                filter === filterOption
-                  ? "bg-blue-500 text-white shadow-lg shadow-blue-500/25"
-                  : "bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white backdrop-blur-sm"
-              }`}
-            >
-              {filterOption}
-            </button>
-          ))}
-        </div>
+      {/* Tags Card - Right Middle */}
+      <TagsCard className="absolute right-6 top-[22rem] w-72 hidden lg:block z-10" />
 
-        {/* Moments Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-          {filteredMoments.map((moment) => (
-            <MomentCard
-              key={moment.id}
-              moment={moment}
-              onLike={handleLike}
-              onComment={handleComment}
-            />
-          ))}
-        </div>
+      {/* Latest Updates Card - Right Bottom */}
+      <LatestUpdatesCard className="absolute right-6 top-[50.5rem] w-72 hidden lg:block z-10" />
 
-        {/* Load More */}
-        {filteredMoments.length > 0 && (
-          <div className="text-center">
-            <button className="px-6 py-2 bg-white/5 backdrop-blur-sm text-white rounded-lg border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all group">
-              <span className="group-hover:translate-x-1 transition-transform inline-block text-sm">
-                加载更多
-              </span>
-            </button>
+      {/* Main Content - Twitter-style layout */}
+      <div className="px-6 lg:pl-6 lg:pr-80 pb-20 pt-24">
+        <div className="max-w-4xl lg:max-w-4xl mx-auto lg:mx-0">
+          {/* New Moment Form */}
+          <div className="mb-6">
+            <NewMomentForm onSubmit={handleNewMoment} />
           </div>
-        )}
+
+          {/* Filter Tabs */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            {filters.map((filterOption) => (
+              <button
+                key={filterOption}
+                onClick={() => setFilter(filterOption)}
+                className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
+                  filter === filterOption
+                    ? "bg-blue-500 text-white shadow-lg shadow-blue-500/25"
+                    : "bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white backdrop-blur-sm"
+                }`}
+              >
+                {filterOption}
+              </button>
+            ))}
+          </div>
+
+          {/* Moments List - Twitter-style vertical layout */}
+          <div className="space-y-4">
+            {filteredMoments.map((moment) => (
+              <MomentCard
+                key={moment.id}
+                moment={moment}
+                onLike={handleLike}
+                onComment={handleComment}
+              />
+            ))}
+          </div>
+
+          {/* Load More */}
+          {filteredMoments.length > 0 && (
+            <div className="text-center mt-6">
+              <button className="px-6 py-2 bg-white/5 backdrop-blur-sm text-white rounded-lg border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all group">
+                <span className="group-hover:translate-x-1 transition-transform inline-block text-sm">
+                  加载更多
+                </span>
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
