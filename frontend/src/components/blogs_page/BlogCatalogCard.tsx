@@ -20,13 +20,14 @@ const TocCard: React.FC<{
 
   return (
     <aside
-      className={`bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 ${className}`}
+      className={`bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 flex flex-col ${className}`}
+      style={{ height: "min(400px, calc(100vh - 290px))" }}
     >
-      <h3 className="text-white font-semibold text-lg mb-3">Contents</h3>
+      <h3 className="text-white font-semibold text-lg mb-2">Contents</h3>
       {headings.length === 0 ? (
         <div className="text-gray-400 text-sm">No headings</div>
       ) : (
-        <nav className="space-y-1">
+        <nav className="space-y-1 overflow-y-auto pr-1 flex-1">
           {headings.map((h) => (
             <button
               key={h.id}

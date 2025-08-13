@@ -8,7 +8,9 @@ export interface Article {
   contentEng?: string;
   author?: string;
   shortUrl?: string;
+  backgroundImageUrl?: string;
   createdAt: string;
+  views?: number;
   updatedAt?: string;
   // 新增字段：文章简介（由后端返回）
   excerpt?: string;

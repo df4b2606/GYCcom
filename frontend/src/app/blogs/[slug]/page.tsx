@@ -15,6 +15,8 @@ import ArticleInlineLink from "@/components/article/ArticleInlineLink";
 import { BlogCatalogCard } from "@/components/blogs_page";
 import { GuessYouLike } from "@/components/blogs_page";
 import PersonalInfoCard from "@/components/home_components/PersonalInfoCard";
+import Image from "next/image";
+import EnjoyActionsCard from "@/components/article/EnjoyActionsCard";
 
 interface BlogDetailPageProps {
   params: Promise<{
@@ -68,6 +70,36 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
     )}-${String(date.getDate()).padStart(2, "0")}`;
   };
 
+  // Extract category display info from article data
+  const getCategoryMeta = (
+    category: NonNullable<Article["category"]> | undefined
+  ): { name: string; color: string } => {
+    const fallback = { name: "Category", color: "#60a5fa" };
+    if (!category) return fallback;
+    if (typeof category === "string")
+      return { name: category, color: fallback.color };
+    return {
+      name: category.name || fallback.name,
+      color: category.color || fallback.color,
+    };
+  };
+
+  const hexToRgba = (hex: string, alpha: number) => {
+    const normalized = hex.replace("#", "");
+    const parsed =
+      normalized.length === 3
+        ? normalized
+            .split("")
+            .map((c) => c + c)
+            .join("")
+        : normalized;
+    const r = parseInt(parsed.substring(0, 2), 16);
+    const g = parseInt(parsed.substring(2, 4), 16);
+    const b = parseInt(parsed.substring(4, 6), 16);
+    const a = Math.min(Math.max(alpha, 0), 1);
+    return `rgba(${r}, ${g}, ${b}, ${a})`;
+  };
+
   // 预览功能已移除
 
   if (loading) {
@@ -89,21 +121,38 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
             href="/blogs"
             className="text-blue-400 hover:text-blue-300 transition-colors"
           >
-            返回博客列表
+            Back to All Blogs
           </Link>
         </div>
       </div>
     );
   }
 
+  // If no background image is provided by the article, fall back to the global default background image used on home/blog list pages.
+  const bgImage =
+    article.backgroundImageUrl && article.backgroundImageUrl.trim().length > 0
+      ? article.backgroundImageUrl
+      : "/DSC07098.jpg"; // Using default background image
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div className="min-h-screen relative">
+      {/* Background image with same blur/overlay style as list/home */}
+      <div className="fixed inset-0 z-0">
+        <Image
+          src={bgImage}
+          alt="Background"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/80" />
+      </div>
       {/* Main content grid: catalog sidebar + content */}
-      <div className="pt-24 pb-20 px-6">
-        <div className="max-w-6xl mx-auto lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-6">
+      <div className="pt-24 pb-20 px-6 relative z-10">
+        <div className="max-w-8xl mx-auto lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-6">
           {/* Content column */}
           <div>
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8 md:p-12">
+            <div className="bg-[#242526] rounded-2xl border border-white/5 p-8 md:p-12">
               {/* Back Button */}
               <Link
                 href="/blogs"
@@ -122,33 +171,48 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
                     d="M15 19l-7-7 7-7"
                   />
                 </svg>
-                返回博客列表
+                Back to All Blogs
               </Link>
 
               {/* Article Header */}
               <header className="mb-8">
-                <div className="flex items-center space-x-4 mb-6">
-                  <span className="px-4 py-2 bg-blue-500/20 text-blue-300 rounded-full text-sm font-medium">
-                    博客文章
-                  </span>
-                  <span className="text-gray-400">
-                    {formatDate(article.createdAt)}
-                  </span>
-                  {article.author && (
-                    <>
-                      <span className="text-gray-400">•</span>
-                      <span className="text-gray-400">
-                        作者: {article.author}
-                      </span>
-                    </>
-                  )}
-                </div>
-
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                {/* Title first */}
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight text-center font-serif italic tracking-wide drop-shadow-md">
                   {article.title}
                 </h1>
-
-                {/* preview & shortUrl removed as requested */}
+                {/* Meta info centered with dynamic category */}
+                <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-gray-400">
+                  {(() => {
+                    const { name, color } = getCategoryMeta(article.category);
+                    return (
+                      <span
+                        className="px-3 py-1 rounded-full border"
+                        style={{
+                          backgroundColor: hexToRgba(color, 0.15),
+                          color: color,
+                          borderColor: hexToRgba(color, 0.35),
+                        }}
+                      >
+                        {name}
+                      </span>
+                    );
+                  })()}
+                  {article.author && <span>Author: {article.author}</span>}
+                  <span>Published: {formatDate(article.createdAt)}</span>
+                  <span>
+                    Views:{" "}
+                    {typeof article.views === "number" ? article.views : 0}
+                  </span>
+                  {/* Could be computed on backend later */}
+                  <span>
+                    Reading time: ~
+                    {Math.max(
+                      1,
+                      Math.round((article.content?.length || 0) / 800)
+                    ).toString()}{" "}
+                    min
+                  </span>
+                </div>
               </header>
 
               {/* Article Content */}
@@ -228,7 +292,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
                     // 段落样式
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     p: ({ children }: any) => (
-                      <p className="text-gray-300 leading-relaxed mb-4">
+                      <p className="text-[#d7d7d7] leading-relaxed mb-4">
                         {children}
                       </p>
                     ),
@@ -242,24 +306,24 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
                     // 列表样式
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     ul: ({ children }: any) => (
-                      <ul className="list-disc list-inside text-gray-300 mb-4 space-y-1">
+                      <ul className="list-disc list-inside text-[#d7d7d7] mb-4 space-y-1">
                         {children}
                       </ul>
                     ),
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     ol: ({ children }: any) => (
-                      <ol className="list-decimal list-inside text-gray-300 mb-4 space-y-1">
+                      <ol className="list-decimal list-inside text-[#d7d7d7] mb-4 space-y-1">
                         {children}
                       </ol>
                     ),
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     li: ({ children }: any) => (
-                      <li className="text-gray-300">{children}</li>
+                      <li className="text-[#d7d7d7]">{children}</li>
                     ),
                     // 强调样式
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     strong: ({ children }: any) => (
-                      <strong className="font-bold text-white">
+                      <strong className="font-bold text-[#f3f4f6]">
                         {children}
                       </strong>
                     ),
@@ -308,14 +372,18 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
                   {article.content}
                 </ReactMarkdown>
               </div>
+            </div>
+            {/* Actions card */}
+            <div className="mt-8">
+              <EnjoyActionsCard articleTitle={article.title} />
+            </div>
 
-              {/* Guess you like below the article content, reusing blog list cards */}
-              <div className="mt-8">
-                <GuessYouLike excludeShortUrl={article.shortUrl} />
-              </div>
+            {/* Guess you like module below the actions card (outside the article card) */}
+            <div className="mt-8">
+              <GuessYouLike excludeShortUrl={article.shortUrl} />
             </div>
           </div>
-          {/* Sidebar column: Personal info + Contents (catalog), same order as blogs list */}
+          {/* Sidebar column: fixed position while scrolling */}
           <div className="hidden lg:block">
             <div className="sticky top-24 flex flex-col gap-6">
               <PersonalInfoCard />
@@ -325,49 +393,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
         </div>
       </div>
 
-      {/* Article Footer */}
-      <div className="border-t border-white/10 py-12 px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="mb-6 md:mb-0">
-              <h3 className="text-white font-semibold mb-2">喜欢这篇文章？</h3>
-              <p className="text-gray-400">分享给更多人吧！</p>
-            </div>
-
-            <div className="flex items-center space-x-4">
-              <button className="flex items-center space-x-2 px-4 py-2 bg-white/5 backdrop-blur-sm text-white rounded-lg border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all">
-                <svg
-                  className="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <span>收藏</span>
-              </button>
-
-              <button className="flex items-center space-x-2 px-4 py-2 bg-blue-500/20 text-blue-300 rounded-lg hover:bg-blue-500/30 transition-all">
-                <svg
-                  className="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <span>分享</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Footer section removed as requested */}
     </div>
   );
 }

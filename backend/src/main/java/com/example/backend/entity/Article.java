@@ -32,6 +32,9 @@ public class Article {
     @Column(unique = true)
     private String shortUrl;
     
+    // Background image URL for article detail page hero/background
+    private String backgroundImageUrl;
+
     // 文章简介，用于列表页摘要展示
     @Column(columnDefinition = "TEXT")
     private String excerpt;

@@ -34,6 +34,9 @@ public class ArticleDTO {
     // Excerpt for the article
     private String excerpt;
 
+    // Background image for detail page
+    private String backgroundImageUrl;
+
     // Additional fields for display
    
     private String createdAt;    // Formatted creation time

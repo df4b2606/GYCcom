@@ -46,6 +46,7 @@ public class ArticleService {
         article.setContent(articleDTO.getContent());
         article.setContentEng(articleDTO.getContentEng());
         article.setAuthor(articleDTO.getAuthor());
+        article.setBackgroundImageUrl(articleDTO.getBackgroundImageUrl());
         // excerpt: 如果前端提交了就用提交的；否则使用内容前120字符作为默认摘要
         if (articleDTO.getExcerpt() != null && !articleDTO.getExcerpt().isEmpty()) {
             article.setExcerpt(articleDTO.getExcerpt());
