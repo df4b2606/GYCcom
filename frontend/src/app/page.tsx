@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import PersonalInfoCard from "@/components/home_components/PersonalInfoCard";
 import LatestUpdatesCard from "@/components/home_components/LatestUpdatesCard";
 
@@ -53,9 +54,12 @@ export default function Home() {
           </p>
           {/* Button Group */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-center max-w-lg mx-auto">
-            <button className="px-6 py-2 bg-white/90 text-black font-medium text-sm rounded-lg hover:bg-white transition-colors w-full sm:w-auto backdrop-blur-sm">
+            <Link
+              href="/about"
+              className="px-6 py-2 border border-white/60 text-white font-medium text-sm rounded-lg hover:border-white hover:bg-white/20 transition-all w-full sm:w-auto backdrop-blur-sm"
+            >
               Learn More About Me
-            </button>
+            </Link>
             <button className="px-6 py-2 border border-white/60 text-white font-medium text-sm rounded-lg hover:border-white hover:bg-white/20 transition-all w-full sm:w-auto backdrop-blur-sm">
               I Am Feeling Lucky
             </button>

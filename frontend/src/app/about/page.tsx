@@ -1,95 +1,60 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 export default function AboutPage() {
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
-  const [skillPositions, setSkillPositions] = useState<
-    Array<{ x: number; y: number; dx: number; dy: number }>
-  >([]);
-
-  const skills = useMemo(
-    () => [
-      { name: "Java", color: "bg-orange-600" },
-      { name: "Spring Boot", color: "bg-green-600" },
-      { name: "Django", color: "bg-green-700" },
-      { name: "Cursor", color: "bg-purple-600" },
-      { name: "React", color: "bg-blue-500" },
-      { name: "Next.js", color: "bg-black" },
-      { name: "TypeScript", color: "bg-blue-600" },
-      { name: "Python", color: "bg-yellow-600" },
-      { name: "MySQL", color: "bg-blue-700" },
-      { name: "Node.js", color: "bg-green-500" },
-      { name: "Git", color: "bg-red-500" },
-      { name: "Docker", color: "bg-blue-400" },
-      { name: "AWS", color: "bg-orange-500" },
-      { name: "VS Code", color: "bg-blue-400" },
-      { name: "PostgreSQL", color: "bg-blue-800" },
-    ],
-    []
-  );
-
-  // 生成随机位置的函数
-  const generateRandomPosition = () => ({
-    x: Math.random() * 80 + 10, // 10% to 90%
-    y: Math.random() * 80 + 10, // 10% to 90%
-    dx: (Math.random() - 0.5) * 0.5, // 移动速度
-    dy: (Math.random() - 0.5) * 0.5,
-  });
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (!mounted) return;
-
-    // 初始化技能位置
-    const positions = skills.map(() => generateRandomPosition());
-    setSkillPositions(positions);
-
-    // 启动漂浮动画
-    const interval = setInterval(() => {
-      setSkillPositions((prev) =>
-        prev.map((pos) => {
-          const newX = pos.x + pos.dx;
-          const newY = pos.y + pos.dy;
-          let newDx = pos.dx;
-          let newDy = pos.dy;
-
-          // 边界检测和反弹
-          if (newX <= 5 || newX >= 95) newDx = -newDx;
-          if (newY <= 5 || newY >= 95) newDy = -newDy;
-
-          return {
-            x: Math.max(5, Math.min(95, newX)),
-            y: Math.max(5, Math.min(95, newY)),
-            dx: newDx,
-            dy: newDy,
-          };
-        })
-      );
-    }, 50);
-
-    return () => clearInterval(interval);
-  }, [mounted, skills]);
-
   if (!mounted)
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-rose-300 via-orange-200 to-indigo-300 flex items-center justify-center">
         <div className="text-gray-800 text-xl">Loading...</div>
       </div>
     );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-rose-300 via-orange-200 to-indigo-300 relative overflow-hidden">
+      {/* Return button */}
+      <button
+        onClick={() => {
+          if (typeof window !== "undefined" && window.history.length > 1) {
+            router.back();
+          } else {
+            router.push("/");
+          }
+        }}
+        className="fixed top-4 left-4 z-50 inline-flex items-center gap-2 rounded-full bg-white/70 hover:bg-white text-gray-800 px-4 py-2 shadow-md backdrop-blur transition-colors"
+        aria-label="Return"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          className="w-5 h-5"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+        <span>Return</span>
+      </button>
       {/* Floating Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-blue-200/30 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-24 h-24 bg-purple-200/30 rounded-full blur-lg animate-pulse delay-1000"></div>
-        <div className="absolute bottom-20 left-20 w-40 h-40 bg-pink-200/30 rounded-full blur-xl animate-pulse delay-2000"></div>
-        <div className="absolute bottom-40 right-10 w-28 h-28 bg-cyan-200/30 rounded-full blur-lg animate-pulse delay-500"></div>
+        <div className="absolute -top-40 -left-40 w-[30rem] h-[30rem] bg-rose-300/60 rounded-full blur-3xl"></div>
+        <div className="absolute top-24 -right-32 w-[26rem] h-[26rem] bg-indigo-300/60 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-48 -left-32 w-[34rem] h-[34rem] bg-orange-300/60 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-32 -right-16 w-[26rem] h-[26rem] bg-sky-300/60 rounded-full blur-3xl"></div>
       </div>
 
       {/* Main Content */}
@@ -102,11 +67,12 @@ export default function AboutPage() {
 
           {/* Subtitle */}
           <p className="text-xl text-gray-600 mb-16 max-w-2xl mx-auto">
-            Full Stack Developer & Creative Problem Solver
+            Full Stack Developer & Creative Problem Solver & Amateur
+            Photographer
           </p>
 
-          {/* Avatar and Skills Container */}
-          <div className="relative w-full max-w-4xl mx-auto h-96 md:h-[500px]">
+          {/* Avatar Container */}
+          <div className="relative w-full max-w-4xl mx-auto h-64 md:h-72">
             {/* Central Avatar */}
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
               <div className="relative">
@@ -125,29 +91,6 @@ export default function AboutPage() {
                 <div className="absolute inset-0 w-32 h-32 md:w-40 md:h-40 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full animate-ping opacity-20"></div>
               </div>
             </div>
-
-            {/* Floating Skills */}
-            {skills.map((skill, index) => {
-              const position = skillPositions[index];
-              if (!position) return null;
-
-              return (
-                <div
-                  key={skill.name}
-                  className="absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-100 ease-linear"
-                  style={{
-                    left: `${position.x}%`,
-                    top: `${position.y}%`,
-                  }}
-                >
-                  <div
-                    className={`${skill.color} text-white px-3 py-2 md:px-4 md:py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-pointer text-sm md:text-base font-medium`}
-                  >
-                    {skill.name}
-                  </div>
-                </div>
-              );
-            })}
           </div>
 
           {/* Description */}

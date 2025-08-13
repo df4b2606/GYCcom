@@ -2,20 +2,13 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import AboutMeButton from "@/components/button/AboutMeButton";
 
 export interface PersonalInfoCardProps {
   className?: string;
-  articlesCount?: number;
-  followingCount?: number;
-  followersCount?: number;
 }
 
-const PersonalInfoCard = ({
-  className = "",
-  articlesCount = 42,
-  followingCount = 44,
-  followersCount = 12,
-}: PersonalInfoCardProps) => {
+const PersonalInfoCard = ({ className = "" }: PersonalInfoCardProps) => {
   const [currentTime, setCurrentTime] = useState<string>("");
   const [timezone, setTimezone] = useState<string>("");
 
@@ -146,25 +139,8 @@ const PersonalInfoCard = ({
           <span className="ml-2 text-xs opacity-75">({timezone})</span>
         </div>
       </div>
-      <div className="mt-4 grid grid-cols-3 divide-x divide-white/20 text-center">
-        <div className="px-3">
-          <div className="text-white text-xl font-semibold">
-            {articlesCount}
-          </div>
-          <div className="text-gray-300 text-xs mt-1">articles</div>
-        </div>
-        <div className="px-3">
-          <div className="text-white text-xl font-semibold">
-            {followingCount}
-          </div>
-          <div className="text-gray-300 text-xs mt-1">following</div>
-        </div>
-        <div className="px-3">
-          <div className="text-white text-xl font-semibold">
-            {followersCount}
-          </div>
-          <div className="text-gray-300 text-xs mt-1">followers</div>
-        </div>
+      <div className="mt-4">
+        <AboutMeButton variant="gradient" className="w-full" />
       </div>
       {/* icons moved next to the name */}
     </div>
