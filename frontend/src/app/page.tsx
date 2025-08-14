@@ -72,37 +72,6 @@ export default function Home() {
         {/* Latest Updates Card - Right Lower (moved further down) */}
         <LatestUpdatesCard className="absolute right-6 top-96 w-72 hidden lg:block z-30" />
       </section>
-
-      {/* Photo Viewing Section */}
-      <section className="relative h-screen z-10">
-        {/* Photo Info Card - Bottom Right */}
-        <div className="absolute bottom-6 right-6 w-80 bg-black/80 backdrop-blur-sm rounded-lg p-6 border border-white/20 hidden lg:block">
-          <div className="mb-4">
-            <h3 className="text-white text-lg font-semibold mb-2">
-              关于这张照片
-            </h3>
-            <div className="text-gray-300 text-sm space-y-2">
-              <p>
-                <span className="text-white">拍摄地点：</span>上海外滩
-              </p>
-              <p>
-                <span className="text-white">拍摄时间：</span>2024年春季
-              </p>
-              <p>
-                <span className="text-white">设备：</span>Sony A7R5
-              </p>
-              <p>
-                <span className="text-white">镜头：</span>FE 24-70mm f/2.8 GM
-              </p>
-            </div>
-          </div>
-          <div className="border-t border-white/20 pt-4">
-            <p className="text-gray-300 text-sm leading-relaxed">
-              这张照片捕捉了上海外滩的现代都市风貌，展现了城市绿意与现代建筑的和谐共存。透过树叶的光影变化，记录了这座城市独特的魅力时刻。
-            </p>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
