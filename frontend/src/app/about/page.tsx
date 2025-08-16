@@ -3,10 +3,48 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import SkillCard from "@/components/ personal_page/skillCard";
 
 export default function AboutPage() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
+  const categories = [
+    "All",
+    "Programming",
+    "Front end",
+    "Backend",
+    "Framework",
+    "Tool",
+    "Language",
+    "Hobby",
+  ];
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+  const skills = [
+    // Language / Programming
+    { name: "Java", category: "Language", color: "#f97316" },
+    { name: "Python", category: "Language", color: "#10b981" },
+    { name: "TypeScript", category: "Language", color: "#3b82f6" },
+
+    // Front end
+    { name: "React", category: "Front end", color: "#22d3ee" },
+    { name: "Next.js", category: "Front end", color: "#111827" },
+
+    // Backend / Framework
+    { name: "Spring Boot", category: "Framework", color: "#16a34a" },
+    { name: "Node.js", category: "Backend", color: "#059669" },
+
+    // Tools
+    { name: "Docker", category: "Tool", color: "#0ea5e9" },
+    { name: "Git", category: "Tool", color: "#ef4444" },
+
+    // Hobby (examples)
+    { name: "Photography", category: "Hobby", color: "#a78bfa" },
+    { name: "Travel", category: "Hobby", color: "#f472b6" },
+  ];
+  const filteredSkills =
+    activeCategory === "All"
+      ? skills
+      : skills.filter((s) => s.category === activeCategory);
 
   useEffect(() => {
     setMounted(true);
@@ -90,7 +128,8 @@ export default function AboutPage() {
                     overflowWrap: "break-word",
                   }}
                 >
-                  I am a second-year M.S. student in Electrical and Computer
+                  My name is Yuechen Guo and you can also call me David. I am a
+                  second-year M.S. student in Electrical and Computer
                   Engineering at the University of Washington (GPA 3.9/4.0). I’m
                   driven by building human-centered technology and turning ideas
                   into practical products. With a strong CS foundation and
@@ -127,6 +166,35 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
+
+      {/* Skills Section */}
+      <section id="skills" className="relative z-10 px-6 py-16 md:py-24">
+        <div className="max-w-6xl mx-auto">
+          {/* Category row */}
+          <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-6">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-3 py-1.5 rounded-full text-sm border transition-colors backdrop-blur-sm ${
+                  activeCategory === cat
+                    ? "bg-white/80 text-gray-900 border-white/60 shadow"
+                    : "bg-white/20 text-gray-800 border-white/40 hover:bg-white/30"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* Skills grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+            {filteredSkills.map((s) => (
+              <SkillCard key={s.name} name={s.name} accentColor={s.color} />
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
