@@ -7,6 +7,6 @@ RUN mkdir "/home/test"
 # Enter the created directory
 WORKDIR "/home/test"
 # Copy the packaged jar file to the specified directory (here I copied it to the created working directory) and rename it
-COPY --from=build /app/target/backend-0.0.1-SNAPSHOT.jar app.jar
+COPY  ./target/backend-0.0.1-SNAPSHOT.jar app.jar
 # Run command
 CMD ["java","-jar","/home/test/app.jar"]
