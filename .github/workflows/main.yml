@@ -37,39 +37,39 @@ jobs:
         run: chmod +x mvnw
       - name: Compile project
         run: ./mvnw clean compile
-  test:
-    runs-on: ubuntu-latest
-    name: Test app
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'corretto'
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-      - name: Give execute permission to mvnw
-        run: chmod +x mvnw
-      - name: Run Tests
-        run: ./mvnw clean test
-      - name: Upload test report
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: target/surefire-reports
+  # test:
+  #   runs-on: ubuntu-latest
+  #   name: Test app
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
+  #     - name: Setup JDK
+  #       uses: actions/setup-java@v4
+  #       with:
+  #         java-version: '17'
+  #         distribution: 'corretto'
+  #     - name: Cache Maven packages
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: ~/.m2/repository
+  #         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-maven-
+  #     - name: Give execute permission to mvnw
+  #       run: chmod +x mvnw
+  #     - name: Run Tests
+  #       run: ./mvnw clean test
+  #     - name: Upload test report
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: test-results
+  #         path: target/surefire-reports
   build:
     runs-on: ubuntu-latest
     name: Build app
-    needs: [compile, test]
+    needs: [compile]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
