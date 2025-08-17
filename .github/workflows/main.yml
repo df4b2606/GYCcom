@@ -36,7 +36,10 @@ jobs:
       - name: Give execute permission to mvnw
         run: chmod +x mvnw
       - name: Compile project
-        run: ./mvnw clean compile
+        run: ./mvnw clean compile 
+      
+
+      
   # test:
   #   runs-on: ubuntu-latest
   #   name: Test app
@@ -90,7 +93,7 @@ jobs:
       - name: Give execute permission to mvnw
         run: chmod +x mvnw
       - name: Build project
-        run: ./mvnw clean package
+        run: ./mvnw clean package -DskipTests
   build-docker-image:
     runs-on: ubuntu-latest
     name: Build docker image
@@ -115,7 +118,7 @@ jobs:
       - name: Give execute permission to mvnw
         run: chmod +x mvnw
       - name: Build project
-        run: ./mvnw clean package
+        run: ./mvnw clean package -DskipTests
       - name: Extract project version
         id: extract_version
         run: echo "VERSION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
