@@ -121,7 +121,7 @@ jobs:
       - name: Give execute permission to mvnw
         run: chmod +x mvnw
       - name: Build project
-        run: ./mvnw clean package -DskipTests
+        run: ./mvnw clean package -DskipTests -Dspring.profiles.active=prod
       - name: Extract project version
         id: extract_version
         run: echo "VERSION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
