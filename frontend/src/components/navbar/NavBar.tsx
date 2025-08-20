@@ -115,6 +115,13 @@ const NavBar = () => {
                         About Me
                       </Link>
                       <Link
+                        href="/history"
+                        className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
+                        onClick={() => setIsMoreMenuOpen(false)}
+                      >
+                        History
+                      </Link>
+                      <Link
                         href="/friends"
                         className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
                         onClick={() => setIsMoreMenuOpen(false)}
@@ -197,6 +204,13 @@ const NavBar = () => {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   About Me
+                </Link>
+                <Link
+                  href="/history"
+                  className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium transition-colors pl-6"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  History
                 </Link>
                 <Link
                   href="/friends"

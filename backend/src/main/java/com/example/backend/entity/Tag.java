@@ -17,7 +17,8 @@ import java.util.Random;
 public class Tag {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tag_id_seq")
+    @SequenceGenerator(name = "tag_id_seq", sequenceName = "tag_id_seq", allocationSize = 1)
     private Long id;
     
     @Column(nullable = false, unique = true, length = 50)

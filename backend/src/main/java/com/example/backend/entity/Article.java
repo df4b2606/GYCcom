@@ -12,7 +12,8 @@ import java.util.List;
 @Data
 public class Article {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "article_id_seq")
+    @SequenceGenerator(name = "article_id_seq", sequenceName = "article_id_seq", allocationSize = 1)
     private int id;
 
     @CreatedDate
