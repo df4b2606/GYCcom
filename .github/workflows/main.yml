@@ -141,7 +141,7 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/myapp-api:${{steps.extract_version.outputs.VERSION}}
             ${{ secrets.DOCKERHUB_USERNAME }}/myapp-api:latest
           build-args: |
-            PROFILE:dev
+            PROFILE:prod
             APP_VERSION:${{steps.extract_version.outputs.VERSION}}
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/myapp:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/myapp:buildcache,mode=max
