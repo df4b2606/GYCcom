@@ -1,58 +1,158 @@
-# 安全配置说明
+# Security Setup Guide
 
-## 当前配置的安全问题
+## 🔒 Database Security Configuration
 
-原始配置存在以下安全问题：
+This guide helps you set up secure database configuration without exposing sensitive information in your Git repository.
 
-1. **数据库密码明文存储** - 密码直接写在配置文件中
-2. **使用 root 用户** - 权限过大
-3. **禁用 SSL 连接** - 数据传输不加密
+## 📁 File Structure
 
-## 安全改进方案
+```
+backend/
+├── src/main/resources/
+│   ├── application.yml          # Common config (safe to commit)
+│   ├── application-dev.yml      # Dev config with env vars (safe to commit)
+│   └── application-prod.yml     # Prod config with env vars (safe to commit)
+├── .env                         # Your actual secrets (NEVER commit)
+├── env.example                  # Template file (safe to commit)
+└── .gitignore                   # Ignores .env files
+```
 
-### 1. 使用环境变量
+## 🚀 Quick Setup
 
-将敏感信息移到环境变量中：
+### 1. Create your .env file
 
 ```bash
-# 复制示例文件
+cd backend
 cp env.example .env
-
-# 编辑 .env 文件，设置真实的密码
-DB_PASSWORD=your_actual_secure_password
 ```
 
-### 2. 创建专用数据库用户
-
-```sql
--- 创建专用用户
-CREATE USER 'blog_user'@'localhost' IDENTIFIED BY 'your_secure_password';
-
--- 只授予必要权限
-GRANT SELECT, INSERT, UPDATE, DELETE ON blogdb.* TO 'blog_user'@'localhost';
-
--- 刷新权限
-FLUSH PRIVILEGES;
-```
-
-### 3. 启用 SSL 连接
-
-确保 `DB_USE_SSL=true`，这样数据库连接会使用加密传输。
-
-### 4. 生产环境建议
-
-- 使用强密码（至少 12 位，包含大小写字母、数字、特殊字符）
-- 定期更换密码
-- 使用数据库连接池
-- 启用数据库审计日志
-- 考虑使用密钥管理服务（如 AWS KMS、Azure Key Vault）
-
-### 5. 开发环境
-
-开发时可以使用：
+### 2. Edit .env with your actual credentials
 
 ```bash
-export DB_PASSWORD=dev_password
+# Open .env and replace placeholder values
+nano .env
 ```
 
-但不要将真实密码提交到版本控制系统。
+### 3. Update your actual values
+
+```env
+# Development Database
+LOCAL_DB_URL=jdbc:postgresql://localhost:5432/gyccom
+LOCAL_DB_USERNAME=gyc
+LOCAL_DB_PASSWORD=your_actual_password_here
+
+# Production Database (Supabase)
+SUPABASE_DB_URL=jdbc:postgresql://db.xxxxx.supabase.co:5432/postgres
+SUPABASE_DB_USERNAME=postgres
+SUPABASE_DB_PASSWORD=your_supabase_password_here
+```
+
+## ✅ Security Checklist
+
+- [ ] ✅ `.env` is in `.gitignore`
+- [ ] ✅ No hardcoded passwords in config files
+- [ ] ✅ Environment variables used for all sensitive data
+- [ ] ✅ `env.example` has placeholder values only
+- [ ] ✅ Production uses `validate` DDL mode
+- [ ] ✅ Swagger UI disabled in production
+
+## 🔍 Verification
+
+### Check what will be committed:
+
+```bash
+git status
+git diff --cached
+```
+
+### Ensure .env is ignored:
+
+```bash
+git check-ignore .env
+# Should output: .env
+```
+
+### Test environment loading:
+
+```bash
+# Development
+SPRING_PROFILES_ACTIVE=dev mvn spring-boot:run
+
+# Production
+SPRING_PROFILES_ACTIVE=prod mvn spring-boot:run
+```
+
+## 🚨 What NOT to Commit
+
+❌ **NEVER commit these files:**
+
+- `.env`
+- `.env.local`
+- `.env.production`
+- `application-local.yml` (if you create one)
+- Any file with actual passwords/secrets
+
+## ✅ Safe to Commit
+
+✅ **These files are safe to commit:**
+
+- `application.yml` (common config)
+- `application-dev.yml` (uses env vars)
+- `application-prod.yml` (uses env vars)
+- `env.example` (template only)
+- `.gitignore`
+- This guide
+
+## 🌐 Environment Variables in Different Environments
+
+### Local Development
+
+Create `.env` file in backend root directory.
+
+### Docker
+
+```yaml
+# docker-compose.yml
+environment:
+  - SPRING_PROFILES_ACTIVE=prod
+  - SUPABASE_DB_URL=${SUPABASE_DB_URL}
+  - SUPABASE_DB_USERNAME=${SUPABASE_DB_USERNAME}
+  - SUPABASE_DB_PASSWORD=${SUPABASE_DB_PASSWORD}
+```
+
+### Cloud Deployment (Heroku, Railway, etc.)
+
+Set environment variables in your platform's dashboard:
+
+- `SPRING_PROFILES_ACTIVE=prod`
+- `SUPABASE_DB_URL=your-url`
+- `SUPABASE_DB_USERNAME=postgres`
+- `SUPABASE_DB_PASSWORD=your-password`
+
+## 🔧 Troubleshooting
+
+### Environment variables not loading?
+
+1. Check `.env` file exists in backend root
+2. Verify variable names match exactly
+3. No spaces around `=` in .env file
+4. Restart your IDE/terminal
+
+### Still seeing placeholder values?
+
+1. Check `SPRING_PROFILES_ACTIVE` is set correctly
+2. Verify `.env` file is in the correct location
+3. Check for typos in variable names
+
+## 📞 Support
+
+If you encounter issues:
+
+1. Check this guide first
+2. Verify all files are in correct locations
+3. Test with simple values first
+4. Check application logs for specific errors
+
+---
+
+**Remember: Security is everyone's responsibility! 🔐**

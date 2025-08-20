@@ -1,26 +1,23 @@
+# Common configuration for all environments
 spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/GYCcom
-    username: root
-    password: 19530507
+  application:
+    name: blog-backend
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
     properties:
       hibernate:
-        format_sql: true
-  application:
-    name: blog-backend
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc.batch_size: 20
+        order_inserts: true
+        order_updates: true
+
 server:
   port: ${SERVER_PORT:8080}
 
-logging:
-  level:
-    org.hibernate: warn
-    org.springframework: info
-    com.example: debug
-
+# Swagger/OpenAPI Configuration
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
@@ -31,31 +28,8 @@ springdoc:
   group-configs:
     - group: "default"
       paths-to-match: "/**"
-      packages-to-scan: com.xiaominfo.knife4j.demo.web
+      packages-to-scan: com.example.backend
 
+# Knife4j Configuration
 knife4j:
   enable: false
-
----
-# Production environment configuration
-spring:
-  config:
-    activate:
-      on-profile: prod
-  jpa:
-    show-sql: false
-    properties:
-      hibernate:
-        format_sql: false
-
-logging:
-  level:
-    org.hibernate: warn
-    org.springframework: warn
-    com.example: info
-
-springdoc:
-  api-docs:
-    enabled: false
-  swagger-ui:
-    enabled: false
