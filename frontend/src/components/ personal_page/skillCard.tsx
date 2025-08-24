@@ -37,7 +37,9 @@ export default function SkillCard({
 
   return (
     <div className={mergedClass} onClick={onClick}>
-      <span className="text-sm font-medium text-gray-900 truncate">{name}</span>
+      <span className="text-sm font-medium text-gray-900 dark:text-white truncate">
+        {name}
+      </span>
       {!isCompact && (
         <span
           className="ml-3 h-8 w-4 rounded-md"

@@ -6,6 +6,7 @@ import { getAllMoments, formatTimestamp, Moment } from "../../data/moments";
 import PersonalInfoCard from "@/components/home_components/PersonalInfoCard";
 import LatestUpdatesCard from "@/components/home_components/LatestUpdatesCard";
 import TagsCard from "@/components/home_components/TagsCard";
+import { useTheme } from "@/components/common/ThemeProvider";
 
 const MomentCard = ({
   moment,
@@ -16,8 +17,15 @@ const MomentCard = ({
   onLike: (id: number) => void;
   onComment: (id: number) => void;
 }) => {
+  const { isDark } = useTheme();
   return (
-    <article className="bg-white/5 backdrop-blur-sm rounded-xl p-5 border border-white/10 hover:border-white/20 transition-all duration-300 hover:bg-white/10 group cursor-pointer">
+    <article
+      className={`${
+        isDark
+          ? "bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10"
+          : "bg-white border border-black/10 hover:border-black/20"
+      } backdrop-blur-sm rounded-xl p-5 transition-all duration-300 group cursor-pointer`}
+    >
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center space-x-3">
@@ -25,15 +33,29 @@ const MomentCard = ({
             <span className="text-white font-bold text-sm">GYC</span>
           </div>
           <div>
-            <h3 className="text-white font-semibold text-base">GYC</h3>
-            <p className="text-gray-400 text-sm">
+            <h3
+              className={`${
+                isDark ? "text-white" : "text-gray-900"
+              } font-semibold text-base`}
+            >
+              GYC
+            </h3>
+            <p
+              className={`${
+                isDark ? "text-gray-400" : "text-gray-600"
+              } text-sm`}
+            >
               {formatTimestamp(moment.timestamp)}
             </p>
           </div>
         </div>
 
         {moment.location && (
-          <div className="flex items-center space-x-1 text-gray-400">
+          <div
+            className={`flex items-center space-x-1 ${
+              isDark ? "text-gray-400" : "text-gray-600"
+            }`}
+          >
             <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
               <path
                 fillRule="evenodd"
@@ -48,7 +70,11 @@ const MomentCard = ({
 
       {/* Content */}
       <div className="mb-4">
-        <p className="text-gray-200 leading-relaxed mb-3 text-base">
+        <p
+          className={`${
+            isDark ? "text-gray-200" : "text-gray-800"
+          } leading-relaxed mb-3 text-base`}
+        >
           {moment.content}
         </p>
 
@@ -71,7 +97,11 @@ const MomentCard = ({
             {moment.tags.map((tag, index) => (
               <span
                 key={index}
-                className="px-2 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs font-medium hover:bg-blue-500/30 transition-colors cursor-pointer"
+                className={`${
+                  isDark
+                    ? "px-2 py-1 bg-blue-500/20 text-blue-300"
+                    : "px-2 py-1 bg-blue-100 text-blue-700"
+                } rounded-full text-xs font-medium transition-colors cursor-pointer`}
               >
                 #{tag}
               </span>
@@ -81,14 +111,22 @@ const MomentCard = ({
       </div>
 
       {/* Actions */}
-      <div className="flex items-center justify-between pt-3 border-t border-white/10">
+      <div
+        className={`flex items-center justify-between pt-3 border-t ${
+          isDark ? "border-white/10" : "border-black/10"
+        }`}
+      >
         <div className="flex items-center space-x-6">
           <button
             onClick={() => onLike(moment.id)}
-            className={`flex items-center space-x-2 transition-colors p-2 rounded-full hover:bg-white/10 ${
+            className={`flex items-center space-x-2 transition-colors p-2 rounded-full ${
+              isDark ? "hover:bg-white/10" : "hover:bg-black/5"
+            } ${
               moment.isLiked
-                ? "text-red-500 hover:text-red-400"
-                : "text-gray-400 hover:text-red-500"
+                ? "text-red-500"
+                : isDark
+                ? "text-gray-400"
+                : "text-gray-600"
             }`}
           >
             <svg
@@ -109,7 +147,11 @@ const MomentCard = ({
 
           <button
             onClick={() => onComment(moment.id)}
-            className="flex items-center space-x-2 text-gray-400 hover:text-blue-500 transition-colors p-2 rounded-full hover:bg-white/10"
+            className={`flex items-center space-x-2 transition-colors p-2 rounded-full ${
+              isDark
+                ? "text-gray-400 hover:text-blue-500 hover:bg-white/10"
+                : "text-gray-600 hover:text-blue-600 hover:bg-black/5"
+            }`}
           >
             <svg
               className="w-5 h-5"
@@ -144,7 +186,13 @@ const MomentCard = ({
           </button>
         </div>
 
-        <button className="text-gray-400 hover:text-white transition-colors">
+        <button
+          className={`${
+            isDark
+              ? "text-gray-400 hover:text-white"
+              : "text-gray-600 hover:text-black"
+          } transition-colors`}
+        >
           <svg
             className="w-4 h-4"
             fill="none"
@@ -284,6 +332,7 @@ const NewMomentForm = ({
 export default function MomentsPage() {
   const [moments, setMoments] = useState(getAllMoments());
   const [filter, setFilter] = useState("全部");
+  const { isDark } = useTheme();
 
   const filters = ["全部", "生活", "工作", "思考", "摄影"];
 
@@ -326,7 +375,13 @@ export default function MomentsPage() {
       : moments.filter((moment) => moment.tags?.includes(filter));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div
+      className={`${
+        isDark
+          ? "min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
+          : "min-h-screen bg-white"
+      }`}
+    >
       {/* Personal Info Card - Top Right */}
       <PersonalInfoCard className="absolute top-24 right-6 w-72 hidden lg:block z-10" />
 
@@ -352,8 +407,12 @@ export default function MomentsPage() {
                 onClick={() => setFilter(filterOption)}
                 className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
                   filter === filterOption
-                    ? "bg-blue-500 text-white shadow-lg shadow-blue-500/25"
-                    : "bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white backdrop-blur-sm"
+                    ? isDark
+                      ? "bg-blue-500 text-white shadow-lg shadow-blue-500/25"
+                      : "bg-blue-600 text-white"
+                    : isDark
+                    ? "bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white backdrop-blur-sm"
+                    : "bg-black/5 text-gray-700 hover:bg-black/10"
                 }`}
               >
                 {filterOption}
@@ -376,7 +435,13 @@ export default function MomentsPage() {
           {/* Load More */}
           {filteredMoments.length > 0 && (
             <div className="text-center mt-6">
-              <button className="px-6 py-2 bg-white/5 backdrop-blur-sm text-white rounded-lg border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all group">
+              <button
+                className={`${
+                  isDark
+                    ? "px-6 py-2 bg-white/5 backdrop-blur-sm text-white rounded-lg border border-white/10 hover:bg-white/10 hover:border-white/20"
+                    : "px-6 py-2 bg-white text-gray-800 rounded-lg border border-black/10 hover:bg-black/5"
+                } transition-all group`}
+              >
                 <span className="group-hover:translate-x-1 transition-transform inline-block text-sm">
                   加载更多
                 </span>

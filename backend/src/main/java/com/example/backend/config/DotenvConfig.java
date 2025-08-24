@@ -3,7 +3,7 @@ package com.example.backend.config;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 /**
  * Configuration class to load environment variables from .env file

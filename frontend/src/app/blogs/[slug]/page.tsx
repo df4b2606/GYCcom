@@ -152,11 +152,11 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
         <div className="max-w-8xl mx-auto lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-6">
           {/* Content column */}
           <div>
-            <div className="bg-[#242526] rounded-2xl border border-white/5 p-8 md:p-12">
+            <div className="rounded-2xl p-8 md:p-12 paper-surface">
               {/* Back Button */}
               <Link
                 href="/blogs"
-                className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors mb-8 group"
+                className="inline-flex items-center text-blue-700 hover:text-blue-600 transition-colors mb-8 group"
               >
                 <svg
                   className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform"
@@ -177,11 +177,11 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
               {/* Article Header */}
               <header className="mb-8">
                 {/* Title first */}
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight text-center font-serif italic tracking-wide drop-shadow-md">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight text-center font-serif italic tracking-wide">
                   {article.title}
                 </h1>
                 {/* Meta info centered with dynamic category */}
-                <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-gray-400">
+                <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-gray-700 dark:text-gray-300">
                   {(() => {
                     const { name, color } = getCategoryMeta(article.category);
                     return (
@@ -255,91 +255,99 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
                     // 标题样式
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     h1: ({ children }: any) => (
-                      <h1 className="text-3xl font-bold text-white mb-6 mt-8 border-b border-gray-700 pb-2">
+                      <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 mt-8 border-b border-gray-300 dark:border-gray-600 pb-2">
                         {children}
                       </h1>
                     ),
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     h2: ({ children }: any) => (
-                      <h2 className="text-2xl font-bold text-white mb-4 mt-6">
+                      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 mt-6">
                         {children}
                       </h2>
                     ),
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     h3: ({ children }: any) => (
-                      <h3 className="text-xl font-bold text-white mb-3 mt-5">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 mt-5">
                         {children}
                       </h3>
                     ),
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     h4: ({ children }: any) => (
-                      <h4 className="text-lg font-bold text-white mb-2 mt-4">
+                      <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2 mt-4">
                         {children}
                       </h4>
                     ),
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     h5: ({ children }: any) => (
-                      <h5 className="text-base font-bold text-white mb-2 mt-3">
+                      <h5 className="text-base font-bold text-gray-900 dark:text-white mb-2 mt-3">
                         {children}
                       </h5>
                     ),
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     h6: ({ children }: any) => (
-                      <h6 className="text-sm font-bold text-white mb-1 mt-2">
+                      <h6 className="text-sm font-bold text-gray-900 dark:text-white mb-1 mt-2">
                         {children}
                       </h6>
                     ),
                     // 段落样式
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     p: ({ children }: any) => (
-                      <p className="text-[#d7d7d7] leading-relaxed mb-4">
+                      <p className="text-gray-800 dark:text-gray-200 leading-relaxed mb-4">
                         {children}
                       </p>
                     ),
                     // 引用样式
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     blockquote: ({ children }: any) => (
-                      <blockquote className="border-l-4 border-blue-500 pl-4 py-2 my-4 bg-blue-500/10 rounded-r-lg">
-                        <div className="text-gray-300 italic">{children}</div>
+                      <blockquote className="border-l-4 border-blue-500 pl-4 py-2 my-4 bg-blue-100 dark:bg-blue-900/30 rounded-r-lg">
+                        <div className="text-gray-700 dark:text-gray-300 italic">
+                          {children}
+                        </div>
                       </blockquote>
                     ),
                     // 列表样式
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     ul: ({ children }: any) => (
-                      <ul className="list-disc list-inside text-[#d7d7d7] mb-4 space-y-1">
+                      <ul className="list-disc list-inside text-gray-800 dark:text-gray-200 mb-4 space-y-1">
                         {children}
                       </ul>
                     ),
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     ol: ({ children }: any) => (
-                      <ol className="list-decimal list-inside text-[#d7d7d7] mb-4 space-y-1">
+                      <ol className="list-decimal list-inside text-gray-800 dark:text-gray-200 mb-4 space-y-1">
                         {children}
                       </ol>
                     ),
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     li: ({ children }: any) => (
-                      <li className="text-[#d7d7d7]">{children}</li>
+                      <li className="text-gray-800 dark:text-gray-200">
+                        {children}
+                      </li>
                     ),
                     // 强调样式
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     strong: ({ children }: any) => (
-                      <strong className="font-bold text-[#f3f4f6]">
+                      <strong className="font-bold text-gray-900 dark:text-white">
                         {children}
                       </strong>
                     ),
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     em: ({ children }: any) => (
-                      <em className="italic text-gray-200">{children}</em>
+                      <em className="italic text-gray-700 dark:text-gray-300">
+                        {children}
+                      </em>
                     ),
                     // 删除线样式
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     del: ({ children }: any) => (
-                      <del className="line-through text-gray-500">
+                      <del className="line-through text-gray-500 dark:text-gray-400">
                         {children}
                       </del>
                     ),
                     // 分割线样式
-                    hr: () => <hr className="border-gray-700 my-8" />,
+                    hr: () => (
+                      <hr className="border-gray-300 dark:border-gray-600 my-8" />
+                    ),
                     // 表格样式
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     table: ({ children }: any) => (
@@ -347,25 +355,33 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
                     ),
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     thead: ({ children }: any) => (
-                      <thead className="bg-gray-800">{children}</thead>
+                      <thead className="bg-gray-200 dark:bg-gray-700">
+                        {children}
+                      </thead>
                     ),
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     tbody: ({ children }: any) => (
-                      <tbody className="bg-gray-900">{children}</tbody>
+                      <tbody className="bg-[#FBF7EF] dark:bg-gray-800">
+                        {children}
+                      </tbody>
                     ),
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     tr: ({ children }: any) => (
-                      <tr className="border-b border-gray-700">{children}</tr>
+                      <tr className="border-b border-gray-300 dark:border-gray-700">
+                        {children}
+                      </tr>
                     ),
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     th: ({ children }: any) => (
-                      <th className="px-4 py-2 text-left text-white font-semibold">
+                      <th className="px-4 py-2 text-left text-gray-900 dark:text-white font-semibold">
                         {children}
                       </th>
                     ),
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     td: ({ children }: any) => (
-                      <td className="px-4 py-2 text-gray-300">{children}</td>
+                      <td className="px-4 py-2 text-gray-800 dark:text-gray-200">
+                        {children}
+                      </td>
                     ),
                   }}
                 >

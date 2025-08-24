@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTheme } from "../common/ThemeProvider";
 
 export type AboutMeButtonVariant = "solid" | "gradient";
 
@@ -19,6 +20,7 @@ const AboutMeButton = ({
   fullWidth = false,
   variant = "solid",
 }: AboutMeButtonProps) => {
+  const { isDark } = useTheme();
   const [sparkles, setSparkles] = useState<
     {
       id: string;
@@ -119,8 +121,12 @@ const AboutMeButton = ({
     return (
       <a
         href={href}
-        className={`px-6 py-2 bg-white/90 text-black font-medium text-sm rounded-lg hover:bg-white transition-colors ${
+        className={`px-6 py-2 font-medium text-sm rounded-lg transition-colors ${
           fullWidth ? "w-full sm:w-auto" : ""
+        } ${
+          isDark
+            ? "bg-white/10 text-white border border-white/20 hover:bg-white/20"
+            : "bg-white text-gray-900 border border-black/10 hover:bg-black/5"
         } backdrop-blur-sm ${className}`}
       >
         {label}
@@ -137,7 +143,13 @@ const AboutMeButton = ({
       onMouseEnter={handleSparkleEnter}
       onMouseLeave={handleSparkleLeave}
     >
-      <div className="relative w-full overflow-hidden text-white/80 group-hover:text-white text-sm font-medium rounded-lg py-2 text-center transition duration-300 backdrop-blur-sm bg-gradient-to-r from-white/10 via-white/5 to-white/10 border border-white/20 group-hover:from-orange-500 group-hover:via-amber-400 group-hover:to-fuchsia-600 group-hover:saturate-150 group-hover:brightness-110">
+      <div
+        className={`relative w-full overflow-hidden text-sm font-medium rounded-lg py-2 text-center transition duration-300 backdrop-blur-sm ${
+          isDark
+            ? "text-white/80 group-hover:text-white bg-gradient-to-r from-white/10 via-white/5 to-white/10 border border-white/20"
+            : "text-gray-900 bg-white border border-black/10"
+        } group-hover:bg-gradient-to-r group-hover:from-orange-500 group-hover:via-amber-400 group-hover:to-fuchsia-600 group-hover:saturate-150 group-hover:brightness-110`}
+      >
         <span className="relative z-10">{label}</span>
         {sparkles.map((s) => (
           <span

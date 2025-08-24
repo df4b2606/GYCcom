@@ -4,18 +4,14 @@ import Image from "next/image";
 export interface ProjectCardProps {
   /** Project title */
   title: string;
-  /** Project description */
-  description: string;
+  /** Project description - array of bullet points */
+  description: string[];
   /** Project image URL */
   imageUrl: string;
   /** Project image alt text */
   imageAlt: string;
   /** Project technologies used */
   technologies: string[];
-  /** Project GitHub link */
-  githubUrl?: string;
-  /** Project live demo link */
-  demoUrl?: string;
   /** Optional click handler */
   onClick?: () => void;
   /** Optional extra classes */
@@ -29,8 +25,8 @@ export interface ProjectCardProps {
 }
 
 /**
- * A project card component with image on top and description below.
- * Features hover effects, technology tags, and action buttons.
+ * A project card component with image on top and bullet-point description below.
+ * Features hover effects and technology tags.
  */
 export default function ProjectCard({
   title,
@@ -38,8 +34,6 @@ export default function ProjectCard({
   imageUrl,
   imageAlt,
   technologies,
-  githubUrl,
-  demoUrl,
   onClick,
   className,
   isActive = true,
@@ -48,27 +42,30 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   // Check if we should use compact styling for "All" category
   const isCompactMode = category === "All";
+  // Use isActive to subtly adjust opacity when inactive
+  const activeStateClasses = isActive ? "" : "opacity-90";
 
   const getPositionClasses = () => {
     switch (position) {
       case "left":
-        return "opacity-60 scale-95 rounded-xl relative"; // Left card - semi-transparent and slightly smaller
+        return "opacity-60 rounded-xl relative"; // Left card - semi-transparent, no transform scaling
       case "right":
-        return "opacity-60 scale-95 rounded-xl relative"; // Right card - semi-transparent and slightly smaller
+        return "opacity-60 rounded-xl relative"; // Right card - semi-transparent, no transform scaling
       default:
-        return "opacity-100 scale-100 rounded-xl"; // Center card - fully opaque and normal size
+        return "opacity-100 rounded-xl"; // Center card - no transform scaling
     }
   };
 
   // Unified dimensions for all cards to keep consistent style
   const getCardDimensions = () => {
-    // Use w-80 instead of w-90 (which doesn't exist in Tailwind)
-    return isCompactMode ? "w-80 h-[400px]" : "w-90 h-[580px]";
+    // Increase container size to show more text without changing font size
+    // Slightly shorten height per request while keeping width
+    return isCompactMode ? "w-80 h-[440px]" : "w-[440px] h-[640px]";
   };
 
   return (
     <div
-      className={`group relative overflow-hidden bg-white shadow-lg transition-all duration-700 hover:shadow-xl hover:-translate-y-1 ${getCardDimensions()} ${getPositionClasses()} ${
+      className={`group relative overflow-hidden bg-white shadow-lg transition-all duration-700 hover:shadow-xl hover:-translate-y-1 ${getCardDimensions()} ${getPositionClasses()} ${activeStateClasses} ${
         className || ""
       }`}
       onClick={onClick}
@@ -96,21 +93,30 @@ export default function ProjectCard({
       <div className={`${isCompactMode ? "p-4" : "p-6"}`}>
         {/* Title (visible on mobile, hidden on hover) */}
         <h3
-          className={`font-bold text-gray-900 mb-3 group-hover:hidden ${
+          className={`font-bold text-gray-900 dark:text-white mb-3 group-hover:hidden ${
             isCompactMode ? "text-lg mb-2" : "text-xl mb-3"
           }`}
         >
           {title}
         </h3>
 
-        {/* Description */}
-        <p
-          className={`text-gray-600 leading-relaxed mb-4 line-clamp-4 ${
+        {/* Description - Bullet Points */}
+        <ul
+          className={`text-gray-600 leading-relaxed mb-4 space-y-1 ${
             isCompactMode ? "text-sm mb-3" : "text-base mb-4"
           }`}
         >
-          {description}
-        </p>
+          {description.map((point, index) => (
+            <li key={index} className="flex items-start">
+              <span className="text-black dark:text-white mr-2 mt-1 text-xs">
+                ●
+              </span>
+              <span className="flex-1 text-gray-600 dark:text-gray-300">
+                {point}
+              </span>
+            </li>
+          ))}
+        </ul>
 
         {/* Technology Tags */}
         <div
@@ -121,63 +127,13 @@ export default function ProjectCard({
           {technologies.map((tech, index) => (
             <span
               key={index}
-              className={`font-medium bg-blue-100/30 text-blue-800 rounded-full ${
+              className={`font-medium bg-blue-100/30 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full ${
                 isCompactMode ? "px-2 py-1 text-xs" : "px-3 py-2 text-sm"
               }`}
             >
               {tech}
             </span>
           ))}
-        </div>
-
-        {/* Action Buttons */}
-        <div className={`flex gap-3 ${isCompactMode ? "gap-2" : "gap-3"}`}>
-          {githubUrl && (
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`flex-1 inline-flex items-center justify-center font-medium text-blue-700 bg-blue-100/40 border border-blue-200/60 rounded-lg hover:bg-blue-200/50 transition-colors duration-200 ${
-                isCompactMode ? "px-3 py-2 text-sm" : "px-4 py-3 text-base"
-              }`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <svg
-                className={`mr-2 ${isCompactMode ? "w-4 h-4" : "w-5 h-5"}`}
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-              </svg>
-              GitHub
-            </a>
-          )}
-          {demoUrl && (
-            <a
-              href={demoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`flex-1 inline-flex items-center justify-center font-medium text-blue-700 bg-blue-100/50 border border-blue-200/60 rounded-lg hover:bg-blue-200/60 transition-colors duration-200 ${
-                isCompactMode ? "px-3 py-2 text-sm" : "px-4 py-3 text-base"
-              }`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <svg
-                className={`mr-2 ${isCompactMode ? "w-4 h-4" : "w-5 h-5"}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
-              Demo
-            </a>
-          )}
         </div>
       </div>
     </div>

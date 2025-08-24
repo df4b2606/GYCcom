@@ -3,12 +3,10 @@ import ProjectCard from "./ProjectCard";
 
 export interface Project {
   title: string;
-  description: string;
+  description: string[];
   imageUrl: string;
   imageAlt: string;
   technologies: string[];
-  githubUrl?: string;
-  demoUrl?: string;
 }
 
 interface ProjectCarouselProps {
@@ -107,9 +105,17 @@ export default function ProjectCarousel({
         </svg>
       </button>
 
-      {/* Projects Container */}
-      <div className="relative flex items-center justify-center min-h-[300px] px-32 overflow-hidden">
-        <div className="flex items-center gap-8 justify-center">
+      {/* Projects Container with edge fade using CSS mask-image */}
+      <div className="relative flex items-center justify-center min-h-[300px] px-10 overflow-hidden">
+        <div
+          className="flex items-center gap-8 justify-center w-full"
+          style={{
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent 0, black 20px, black calc(100% - 20px), transparent 100%)",
+            maskImage:
+              "linear-gradient(to right, transparent 0, black 30px, black calc(100% - 30px), transparent 100%)",
+          }}
+        >
           {visibleProjects}
         </div>
       </div>

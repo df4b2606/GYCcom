@@ -20,12 +20,16 @@ const TocCard: React.FC<{
 
   return (
     <aside
-      className={`bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 flex flex-col ${className}`}
+      className={`paper-surface rounded-xl p-4 flex flex-col ${className}`}
       style={{ height: "min(400px, calc(100vh - 290px))" }}
     >
-      <h3 className="text-white font-semibold text-lg mb-2">Contents</h3>
+      <h3 className="text-gray-900 dark:text-white font-semibold text-lg mb-2">
+        Contents
+      </h3>
       {headings.length === 0 ? (
-        <div className="text-gray-400 text-sm">No headings</div>
+        <div className="text-gray-700 dark:text-gray-400 text-sm">
+          No headings
+        </div>
       ) : (
         <nav className="space-y-1 overflow-y-auto pr-1 flex-1">
           {headings.map((h) => (
@@ -33,7 +37,7 @@ const TocCard: React.FC<{
               key={h.id}
               onClick={() => handleClick(h.id)}
               className={
-                `block w-full text-left text-sm text-gray-300 hover:text-blue-300 transition-colors rounded-md px-2 py-1 ` +
+                `block w-full text-left text-sm text-gray-700 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-300 transition-colors rounded-md px-2 py-1 ` +
                 (h.level === 1 ? "pl-1" : h.level === 2 ? "pl-4" : "pl-7")
               }
             >

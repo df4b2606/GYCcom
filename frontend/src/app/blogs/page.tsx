@@ -10,9 +10,11 @@ import CategoryCard, {
   CategoryItem,
 } from "@/components/blogs_page/CategoryCard";
 import Image from "next/image";
+import { useTheme } from "@/components/common/ThemeProvider";
 
 export default function BlogList() {
   const [articles, setArticles] = useState<Article[]>([]);
+  const { isDark } = useTheme();
   // Keep a copy of the full list to compute categories so they don't disappear when filtering
   const [allArticles, setAllArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
@@ -96,12 +98,18 @@ export default function BlogList() {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-black/80" />
+          <div
+            className={`absolute inset-0 ${
+              isDark ? "bg-black/80" : "bg-white/80"
+            }`}
+          />
         </div>
 
         {/* Content */}
         <div className="relative z-10 min-h-screen flex items-center justify-center">
-          <div className="text-white text-xl">loading...</div>
+          <div className={`${isDark ? "text-white" : "text-gray-800"} text-xl`}>
+            loading...
+          </div>
         </div>
       </div>
     );
@@ -118,12 +126,16 @@ export default function BlogList() {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-black/80" />
+          <div
+            className={`absolute inset-0 ${
+              isDark ? "bg-black/80" : "bg-white/80"
+            }`}
+          />
         </div>
 
         {/* Content */}
         <div className="relative z-10 min-h-screen flex items-center justify-center">
-          <div className="text-red-400 text-xl">{error}</div>
+          <div className="text-red-500 text-xl">{error}</div>
         </div>
       </div>
     );
@@ -140,7 +152,11 @@ export default function BlogList() {
           priority
         />
         {/* Constant overlay, no change on scroll, ensuring readability */}
-        <div className="absolute inset-0 bg-black/80" />
+        <div
+          className={`absolute inset-0 ${
+            isDark ? "bg-black/80" : "bg-white/80"
+          }`}
+        />
       </div>
 
       {/* Content area using grid so the sidebar participates in normal flow */}
@@ -148,7 +164,11 @@ export default function BlogList() {
         <div className="max-w-8xl mx-auto lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-6">
           {/* Main column */}
           <div>
-            <h1 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+            <h1
+              className={`text-3xl lg:text-4xl font-bold mb-6 ${
+                isDark ? "text-white" : "text-gray-900"
+              }`}
+            >
               All Blogs
             </h1>
             <BlogsListCard

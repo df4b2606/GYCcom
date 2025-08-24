@@ -72,63 +72,69 @@ export default function AboutPage() {
   // Sample projects data - 6 projects for carousel
   const projects = [
     {
-      title: "Personal Blog System",
-      description:
-        "A full-stack blog application built with Next.js, Spring Boot, and PostgreSQL. Features include article management, category filtering, and responsive design.",
-      imageUrl: "/personal.jpg",
+      title: "VoiceShield: Intelligent Voice Risk Detection System",
+      description: [
+        "Built modular APIs for deepfake and duress analysis endpoints and managed deployment on AWS. ",
+        "Integrated asynchronous I/O and thread pooling to maximize concurrency, reducing latency by 50%",
+      ],
+      imageUrl: "/BECU.jpg",
       imageAlt: "Personal Blog System",
-      technologies: ["Next.js", "Spring Boot", "PostgreSQL", "Tailwind CSS"],
-      githubUrl: "https://github.com/yourusername/blog-system",
-      demoUrl: "https://your-blog-demo.com",
+      technologies: ["AWS", "Spring Boot", "PostgreSQL", "Tailwind CSS"],
     },
     {
       title: "E-commerce Platform",
-      description:
-        "A modern e-commerce solution with user authentication, product management, shopping cart, and payment integration using Stripe.",
+      description: [
+        "Modern e-commerce solution with user authentication",
+        "Product management and shopping cart functionality",
+        "Payment integration using Stripe",
+      ],
       imageUrl: "/shanhowen.jpg",
       imageAlt: "E-commerce Platform",
       technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      githubUrl: "https://github.com/yourusername/ecommerce",
-      demoUrl: "https://your-ecommerce-demo.com",
     },
     {
       title: "Task Management App",
-      description:
-        "A collaborative task management application with real-time updates, team collaboration, and progress tracking features.",
+      description: [
+        "Collaborative task management application",
+        "Real-time updates and team collaboration",
+        "Progress tracking features",
+      ],
       imageUrl: "/DSC07098.jpg",
       imageAlt: "Task Management App",
       technologies: ["Vue.js", "Spring Boot", "MySQL", "WebSocket"],
-      githubUrl: "https://github.com/yourusername/task-manager",
     },
     {
       title: "AI Chat Assistant",
-      description:
-        "An intelligent chatbot powered by machine learning, featuring natural language processing and context-aware responses.",
+      description: [
+        "Intelligent chatbot powered by machine learning",
+        "Natural language processing capabilities",
+        "Context-aware responses",
+      ],
       imageUrl: "/personal.jpg",
       imageAlt: "AI Chat Assistant",
       technologies: ["Python", "TensorFlow", "Flask", "React"],
-      githubUrl: "https://github.com/yourusername/ai-chat",
-      demoUrl: "https://your-ai-chat-demo.com",
     },
     {
-      title: "Weather Dashboard",
-      description:
-        "A beautiful weather application with real-time data, 7-day forecasts, and interactive charts using OpenWeatherMap API.",
+      title: "Wr Dashboard",
+      description: [
+        "Beautiful weather application with real-time data",
+        "7-day forecasts and interactive charts",
+        "OpenWeatherMap API integration",
+      ],
       imageUrl: "/shanhowen.jpg",
       imageAlt: "Weather Dashboard",
       technologies: ["React", "Chart.js", "OpenWeatherMap API", "CSS3"],
-      githubUrl: "https://github.com/yourusername/weather-app",
-      demoUrl: "https://your-weather-demo.com",
     },
     {
-      title: "Portfolio Website",
-      description:
-        "A modern, responsive portfolio website showcasing projects, skills, and professional experience with smooth animations.",
-      imageUrl: "/DSC07098.jpg",
+      title: "Personal Website",
+      description: [
+        "Modern, responsive portfolio website",
+        "Showcases projects, skills, and professional experience",
+        "Smooth animations and transitions",
+      ],
+      imageUrl: "/PersonalBlog.jpg",
       imageAlt: "Portfolio Website",
       technologies: ["Next.js", "Framer Motion", "Tailwind CSS", "TypeScript"],
-      githubUrl: "https://github.com/yourusername/portfolio",
-      demoUrl: "https://your-portfolio-demo.com",
     },
   ];
   const filteredSkills =
@@ -143,7 +149,7 @@ export default function AboutPage() {
   if (!mounted)
     return (
       <div className="min-h-screen bg-gradient-to-br from-rose-300 via-orange-200 to-indigo-300 flex items-center justify-center">
-        <div className="text-gray-800 text-xl">Loading...</div>
+        <div className="text-gray-800 dark:text-white text-xl">Loading...</div>
       </div>
     );
 
@@ -158,7 +164,7 @@ export default function AboutPage() {
             router.push("/");
           }
         }}
-        className="fixed top-4 left-4 z-50 inline-flex items-center gap-2 rounded-full bg-white/70 hover:bg-white text-gray-800 px-4 py-2 shadow-md backdrop-blur transition-colors"
+        className="fixed top-4 left-4 z-50 inline-flex items-center gap-2 rounded-full bg-white/70 hover:bg-white text-gray-800 dark:text-gray-900 px-4 py-2 shadow-md backdrop-blur transition-colors"
         aria-label="Return"
       >
         <svg
@@ -204,7 +210,7 @@ export default function AboutPage() {
               </div>
               {/* Right Bio */}
               <div className="md:col-span-2 p-6 md:p-8 text-left md:overflow-auto">
-                <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-3 font-mono">
+                <h2 className="text-xl md:text-2xl font-semibold text-gray-800 dark:text-white mb-3 font-mono">
                   👋 About Me
                 </h2>
                 <p
@@ -235,12 +241,12 @@ export default function AboutPage() {
           </div>
           {/* Bouncing scroll hint */}
           <div className="absolute inset-x-0 bottom-8 flex flex-col items-center justify-center gap-2">
-            <span className="text-sm md:text-base text-gray-800/80">
+            <span className="text-sm md:text-base text-gray-800/80 dark:text-white/80">
               Scroll down to explore my skills, projects, education, and career
               opportunities
             </span>
             <svg
-              className="w-6 h-6 md:w-7 md:h-7 text-gray-800/80 animate-bounce"
+              className="w-6 h-6 md:w-7 md:h-7 text-gray-800/80 dark:text-white/80 animate-bounce"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="none"
@@ -261,7 +267,7 @@ export default function AboutPage() {
       {/* Skills Section */}
       <section id="skills" className="relative z-10 px-6 py-16 md:py-24">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 text-center mb-12 font-mono">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white text-center mb-12 font-mono">
             Technical Skills
           </h2>
 
@@ -274,7 +280,7 @@ export default function AboutPage() {
                 className={`px-3 py-1.5 rounded-full text-sm border transition-colors backdrop-blur-sm ${
                   activeCategory === cat
                     ? "bg-white text-gray-900 border-white/60 shadow"
-                    : "bg-white/20 text-gray-800 border-white/40 hover:bg-white/30"
+                    : "bg-white/20 text-gray-800 dark:text-white border-white/40 hover:bg-white/30"
                 }`}
               >
                 {cat}
@@ -287,11 +293,11 @@ export default function AboutPage() {
             // All skills - text block format
             <div className="max-w-4xl mx-auto">
               <div className="bg-white/90 rounded-2xl p-8 md:p-12 shadow-xl border border-white/60 backdrop-blur-sm">
-                <p className="text-gray-700 text-lg leading-relaxed mb-8">
+                <p className="text-gray-700 dark:text-gray-200 text-lg leading-relaxed mb-8">
                   I work with a wide range of technologies, including:
                 </p>
 
-                <div className="space-y-6 text-gray-700">
+                <div className="space-y-6 text-gray-700 dark:text-gray-200">
                   <div className="flex flex-col md:flex-row md:items-start">
                     <div className="flex items-center mb-2 md:mb-0 md:mr-4 min-w-fit">
                       <span className="text-2xl mr-2">💻</span>
@@ -349,16 +355,18 @@ export default function AboutPage() {
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-gray-200">
-                  <p className="text-gray-600 text-base">
+                  <p className="text-gray-600 dark:text-gray-300 text-base">
                     This portfolio site is built with modern technologies
                     including{" "}
-                    <span className="font-semibold text-gray-800">Next.js</span>
+                    <span className="font-semibold text-gray-800 dark:text-white">
+                      Next.js
+                    </span>
                     ,{" "}
-                    <span className="font-semibold text-gray-800">
+                    <span className="font-semibold text-gray-800 dark:text-white">
                       TypeScript
                     </span>
                     , and{" "}
-                    <span className="font-semibold text-gray-800">
+                    <span className="font-semibold text-gray-800 dark:text-white">
                       Tailwind CSS
                     </span>
                     , hosted on{" "}
@@ -394,7 +402,7 @@ export default function AboutPage() {
       {/* Projects Section */}
       <section id="projects" className="relative z-10 px-6 py-16 md:py-24">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 text-center mb-12 font-mono">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white text-center mb-12 font-mono">
             Featured Projects ➕ Working Experience
           </h2>
 
@@ -406,7 +414,7 @@ export default function AboutPage() {
       {/* Education Section */}
       <section id="education" className="relative z-10 px-6 py-16 md:py-24">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 text-center mb-12 font-mono">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white text-center mb-12 font-mono">
             Education Background
           </h2>
 
@@ -415,7 +423,7 @@ export default function AboutPage() {
             <div className="bg-white/90 rounded-2xl p-6 md:p-8 shadow-xl border border-white/60 backdrop-blur-sm">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                 <div>
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2 font-mono">
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-white mb-2 font-mono">
                     University of Washington
                   </h3>
                   <p className="text-lg text-blue-600 font-semibold">
@@ -427,7 +435,7 @@ export default function AboutPage() {
                   <p className="text-blue-600 font-bold">GPA: 3.9/4.0</p>
                 </div>
               </div>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="text-gray-700 dark:text-gray-200 leading-relaxed">
                 Focusing on software engineering, system design, and advanced
                 computer science fundamentals. Coursework includes algorithms,
                 data structures, distributed systems, and machine learning.
@@ -438,7 +446,7 @@ export default function AboutPage() {
             <div className="bg-white/90 rounded-2xl p-6 md:p-8 shadow-xl border border-white/60 backdrop-blur-sm">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                 <div>
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2 font-mono">
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-white mb-2 font-mono">
                     Sun Yat-sen University
                   </h3>
                   <p className="text-lg text-blue-600 font-semibold">
@@ -450,7 +458,7 @@ export default function AboutPage() {
                   <p className="text-blue-600 font-bold">GPA: 3.8/4.0</p>
                 </div>
               </div>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="text-gray-700 dark:text-gray-200 leading-relaxed">
                 Comprehensive foundation in software engineering principles,
                 programming languages, and computer science fundamentals.
                 Coursework included object-oriented programming, database
@@ -464,15 +472,15 @@ export default function AboutPage() {
       {/* Contact/Career Section */}
       <section id="contact" className="relative z-10 px-6 py-16 md:py-24">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 font-mono">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-8 font-mono">
             😊 Let&apos;s Work Together
           </h2>
 
           <div className="mb-8">
-            <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 font-mono">
+            <h3 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-white mb-4 font-mono">
               Seeking Full-Time Software Engineer Opportunities
             </h3>
-            <p className="text-gray-800 text-lg leading-relaxed max-w-3xl mx-auto">
+            <p className="text-gray-800 dark:text-gray-200 text-lg leading-relaxed max-w-3xl mx-auto">
               I&apos;m actively looking for a full-time software engineer
               position where I can contribute my technical skills and passion
               for building innovative solutions. I&apos;m excited to join a team
@@ -482,7 +490,7 @@ export default function AboutPage() {
           </div>
 
           <div className="space-y-6">
-            <p className="text-xl font-semibold text-gray-800">
+            <p className="text-xl font-semibold text-gray-800 dark:text-white">
               Feel free to contact me!
             </p>
 
@@ -520,7 +528,7 @@ export default function AboutPage() {
               </a>
             </div>
 
-            <p className="text-gray-700 text-sm">
+            <p className="text-gray-700 dark:text-gray-300 text-sm">
               I&apos;m available for immediate start and open to discussing
               opportunities that align with my skills and interests.
             </p>
@@ -556,9 +564,9 @@ function TypewriterTitle() {
   }, []);
 
   return (
-    <h1 className="text-4xl md:text-6xl font-bold mb-10 text-gray-800 mb-6 font-mono -mt-30 md:-mt-28">
+    <h1 className="text-4xl md:text-6xl font-bold mb-10 text-gray-800 dark:text-white mb-6 font-mono -mt-30 md:-mt-28">
       {display}
-      <span className="inline-block w-1.5 h-8 md:h-10 bg-gray-800 ml-1 align-middle animate-pulse" />
+      <span className="inline-block w-1.5 h-8 md:h-10 bg-gray-800 dark:bg-white ml-1 align-middle animate-pulse" />
     </h1>
   );
 }

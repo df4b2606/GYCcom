@@ -2,6 +2,7 @@
 
 import { Article } from "@/api/article";
 import Link from "next/link";
+import { useTheme } from "../common/ThemeProvider";
 
 export interface BlogsListCardProps {
   className?: string;
@@ -35,6 +36,7 @@ const BlogsListCard = ({
   loading,
   error,
 }: BlogsListCardProps) => {
+  const { isDark } = useTheme();
   // Group articles by year
   const groupArticlesByYear = (articles: Article[]) => {
     // Safety check: ensure articles is a valid array
@@ -85,7 +87,11 @@ const BlogsListCard = ({
   if (!articles || !Array.isArray(articles)) {
     return (
       <div className={`text-center py-12 ${className}`}>
-        <div className="text-gray-400 text-lg">Invalid articles data</div>
+        <div
+          className={`${isDark ? "text-gray-400" : "text-gray-600"} text-lg`}
+        >
+          Invalid articles data
+        </div>
       </div>
     );
   }
@@ -94,11 +100,13 @@ const BlogsListCard = ({
     <div className={className}>
       {loading ? (
         <div className="text-center py-12">
-          <div className="text-white text-xl">Loading...</div>
+          <div className={`${isDark ? "text-white" : "text-gray-800"} text-xl`}>
+            Loading...
+          </div>
         </div>
       ) : error ? (
         <div className="text-center py-12">
-          <div className="text-red-400 text-xl">{error}</div>
+          <div className="text-red-500 text-xl">{error}</div>
         </div>
       ) : (
         <div>
@@ -106,9 +114,9 @@ const BlogsListCard = ({
             <div key={year} className="space-y-5">
               {year !== currentYear && (
                 <h2
-                  className={`text-4xl font-bold text-white mb-7 ${
+                  className={`text-4xl font-bold mb-7 ${
                     idx === 0 ? "" : "mt-10"
-                  }`}
+                  } ${isDark ? "text-white" : "text-gray-900"}`}
                 >
                   {year}
                 </h2>
@@ -120,7 +128,13 @@ const BlogsListCard = ({
                     href={`/blogs/${article.shortUrl}`}
                     className="block group"
                   >
-                    <article className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:border-white/40 transition-all duration-300 hover:transform hover:scale-[1.02] group">
+                    <article
+                      className={`${
+                        isDark
+                          ? "bg-white/10 border border-white/20 hover:border-white/40"
+                          : "paper-surface"
+                      } backdrop-blur-sm rounded-2xl p-8 transition-all duration-300 hover:transform hover:scale-[1.02] group`}
+                    >
                       <div className="flex items-start gap-8">
                         {/* Thumbnail - Larger rectangle with better proportions */}
                         <div
@@ -133,12 +147,22 @@ const BlogsListCard = ({
 
                         {/* Content - Wider area for better distribution */}
                         <div className="flex-1 min-w-0 max-w-2xl">
-                          <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors">
+                          <h3
+                            className={`text-xl font-bold mb-3 transition-colors ${
+                              isDark
+                                ? "text-white group-hover:text-blue-300"
+                                : "text-gray-900 group-hover:text-blue-600"
+                            }`}
+                          >
                             {article.title}
                           </h3>
                           {/* Excerpt - render only when provided */}
                           {article.excerpt && (
-                            <p className="text-gray-300 text-sm mb-3 line-clamp-2">
+                            <p
+                              className={`${
+                                isDark ? "text-gray-300" : "text-gray-600"
+                              } text-sm mb-3 line-clamp-2`}
+                            >
                               {article.excerpt}
                             </p>
                           )}
@@ -187,7 +211,11 @@ const BlogsListCard = ({
                               return randomTags.map((tag, tagIndex) => (
                                 <span
                                   key={tagIndex}
-                                  className="inline-block px-4 py-1 bg-white/15 text-gray-300 text-sm rounded-full hover:bg-blue-500/30 hover:text-blue-300 transition-colors"
+                                  className={`inline-block px-4 py-1 text-sm rounded-full transition-colors ${
+                                    isDark
+                                      ? "bg-white/15 text-gray-300 hover:bg-blue-500/30 hover:text-blue-300"
+                                      : "bg-black/5 text-gray-600 hover:bg-blue-100 hover:text-blue-700"
+                                  }`}
                                 >
                                   #{tag}
                                 </span>
@@ -196,7 +224,11 @@ const BlogsListCard = ({
                           </div>
 
                           {/* Date */}
-                          <div className="text-sm text-gray-400">
+                          <div
+                            className={`text-sm ${
+                              isDark ? "text-gray-400" : "text-gray-500"
+                            }`}
+                          >
                             Published:{" "}
                             {new Date(article.createdAt).toLocaleDateString(
                               "en-US",
@@ -218,7 +250,13 @@ const BlogsListCard = ({
 
           {articles.length === 0 && (
             <div className="text-center py-12">
-              <div className="text-gray-400 text-lg">No articles yet</div>
+              <div
+                className={`${
+                  isDark ? "text-gray-400" : "text-gray-600"
+                } text-lg`}
+              >
+                No articles yet
+              </div>
             </div>
           )}
         </div>

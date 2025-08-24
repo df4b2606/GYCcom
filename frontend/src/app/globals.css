@@ -10,13 +10,18 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-logo: var(--font-logo-script);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Explicit theme classes */
+.light {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
@@ -47,4 +52,23 @@ body {
 
 .aspect-21-9 {
   aspect-ratio: 21 / 9;
+}
+
+/* Paper-like surface utility for light mode */
+.paper-surface {
+  background-color: #fbf7ef; /* soft paper tone */
+  background-image: radial-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    radial-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+  background-size: 12px 12px, 18px 18px; /* subtle fiber texture */
+  background-position: 0 0, 6px 6px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02), 0 6px 24px rgba(0, 0, 0, 0.07);
+}
+
+/* Safe fallback when accidentally used in dark theme */
+.dark .paper-surface {
+  background-color: rgba(255, 255, 255, 0.06);
+  background-image: none;
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: none;
 }
