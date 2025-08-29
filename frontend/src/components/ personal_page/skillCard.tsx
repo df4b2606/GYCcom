@@ -27,10 +27,12 @@ export default function SkillCard({
   const isCompact = size === "compact";
   const baseClass = `flex items-center ${
     isCompact ? "justify-center" : "justify-between"
-  } rounded-lg border border-black/50 bg-white shadow-sm hover:shadow transition-colors ${
+  } rounded-lg border border-black/50 dark:border-white/20 bg-white dark:bg-white/10 shadow-sm hover:shadow transition-colors ${
     isCompact ? "px-2 py-1.5" : "px-4 py-2"
   }`;
-  const interactiveClass = onClick ? " cursor-pointer hover:bg-gray-50" : "";
+  const interactiveClass = onClick
+    ? " cursor-pointer hover:bg-gray-50 dark:hover:bg-white/20"
+    : "";
   const mergedClass = `${baseClass}${interactiveClass}${
     className ? ` ${className}` : ""
   }`;

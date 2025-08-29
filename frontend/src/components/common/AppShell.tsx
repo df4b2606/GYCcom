@@ -28,8 +28,8 @@ export default function AppShell({ children }: AppShellProps) {
 
   return (
     <>
-      {/* Global light-mode background with white overlay */}
-      {!isDark && (
+      {/* Global background - different for light and dark modes */}
+      {isDark ? (
         <div className="fixed inset-0 -z-10">
           <Image
             src="/DSC07098.jpg"
@@ -38,8 +38,10 @@ export default function AppShell({ children }: AppShellProps) {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-white/80" />
+          <div className="absolute inset-0 bg-black/85" />
         </div>
+      ) : (
+        <div className="fixed inset-0 -z-10 bg-gray-100" />
       )}
       {!hideNavOnly && <NavBar />}
       <main className="flex-1">{children}</main>

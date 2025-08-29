@@ -1,37 +1,97 @@
-# Development environment configuration
+# Development Environment Configuration
+# This file contains development-specific settings for the GYCcom backend application
+
 spring:
+  # Database Configuration
   datasource:
     url: ${LOCAL_DB_URL:jdbc:postgresql://localhost:5432/gyccom}
     username: ${LOCAL_DB_USERNAME:gyc}
     password: ${LOCAL_DB_PASSWORD:19530507}
+
+    # HikariCP Connection Pool Configuration
     hikari:
-      maximum-pool-size: 10
-      minimum-idle: 5
-      idle-timeout: 300000
-      max-lifetime: 1200000
-      connection-timeout: 20000
+      maximum-pool-size: 10 # Maximum number of connections in the pool
+      minimum-idle: 5 # Minimum number of idle connections
+      idle-timeout: 300000 # Maximum time a connection can be idle (5 minutes)
+      max-lifetime: 1200000 # Maximum lifetime of a connection (20 minutes)
+      connection-timeout: 20000 # Maximum time to wait for a connection (20 seconds)
+
+    # PostgreSQL Performance Monitoring Configuration
+    properties:
+      # Enable PostgreSQL slow query logging
+      postgresql:
+        log_min_duration_statement: 500ms
+        log_statement: all
+        log_line_prefix: "%t [%p]: [%l-1] user=%u,db=%d,app=%a,client=%h "
+        # Enable query performance monitoring
+        track_activities: true
+        track_counts: true
+        track_io_timing: true
+        track_functions: all
+
+  # Redis Configuration for Caching
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    timeout: 2000ms
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1ms
+
+  # JPA/Hibernate Configuration
   jpa:
-    show-sql: true
+    show-sql: true # Enable SQL logging in console
+
     properties:
       hibernate:
-        format_sql: true
+        # SQL Formatting and Logging
+        format_sql: true # Format SQL for better readability
+        use_sql_comments: true # Include SQL comments in generated queries
 
-# Development logging configuration
+        # Performance Monitoring
+        generate_statistics: true # Enable Hibernate statistics for performance analysis
+        jdbc.batch_size: 20 # Batch size for JDBC operations
+
+        # Enable SQL performance logging
+        jdbc:
+          time_zone: UTC
+          # Log slow queries
+          slow_query_threshold: 500 # 500ms threshold for slow queries
+          # Enable query plan logging
+          log_slow_queries: true
+
+# Logging Configuration for Development
 logging:
   level:
-    org.hibernate: warn
-    org.springframework: info
-    com.example: debug
-    org.hibernate.SQL: debug
-    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    # Framework Logging Levels
+    org.hibernate: warn # Hibernate framework logging
+    org.springframework: info # Spring framework logging
 
-# Enable Swagger UI in development
+    # Application Logging Levels
+    com.example: debug # General application logging
+    com.example.backend: debug # Backend-specific logging
+
+    # Hibernate SQL and Performance Logging
+    org.hibernate.SQL: debug # Log all SQL statements
+    org.hibernate.type.descriptor.sql.BasicBinder: trace # Log SQL parameter values
+    org.hibernate.engine.jdbc.batch.internal.BatchingBatch: debug # Log batch operations
+    org.hibernate.stat: debug # Log Hibernate statistics
+
+    # PostgreSQL Driver Logging
+    org.postgresql: debug # PostgreSQL driver logging
+    org.postgresql.jdbc: debug # PostgreSQL JDBC logging
+
+# API Documentation Configuration
 springdoc:
   swagger-ui:
-    enabled: true
+    enabled: true # Enable Swagger UI for API documentation
   api-docs:
-    enabled: true
+    enabled: true # Enable OpenAPI documentation generation
 
-# Enable Knife4j in development
+# Knife4j Enhanced API Documentation
 knife4j:
-  enable: true
+  enable: true # Enable Knife4j enhanced Swagger UI

@@ -379,7 +379,7 @@ export default function MomentsPage() {
       className={`${
         isDark
           ? "min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
-          : "min-h-screen bg-white"
+          : "min-h-screen bg-gray-100"
       }`}
     >
       {/* Personal Info Card - Top Right */}

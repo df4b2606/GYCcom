@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #f3f4f6;
   --foreground: #171717;
+  --text-primary: #171717;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
 }
 
 @theme inline {
@@ -15,19 +18,34 @@
 
 /* Explicit theme classes */
 .light {
-  --background: #ffffff;
+  --background: #f3f4f6;
   --foreground: #171717;
+  --text-primary: #111827;
+  --text-secondary: #374151;
+  --text-muted: #6b7280;
 }
 
 .dark {
   --background: #0a0a0a;
   --foreground: #ededed;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* 确保暗色模式下的文本对比度 */
+.dark body {
+  color: #ffffff;
+}
+
+.dark {
+  color: #ffffff;
 }
 
 /* 文本截断工具类 */
@@ -56,19 +74,182 @@ body {
 
 /* Paper-like surface utility for light mode */
 .paper-surface {
-  background-color: #fbf7ef; /* soft paper tone */
-  background-image: radial-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
-    radial-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+  background-color: #f8f6f3; /* softer warm beige tone - easier on eyes */
+  background-image: radial-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px),
+    radial-gradient(rgba(0, 0, 0, 0.01) 1px, transparent 1px);
   background-size: 12px 12px, 18px 18px; /* subtle fiber texture */
   background-position: 0 0, 6px 6px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02), 0 6px 24px rgba(0, 0, 0, 0.07);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.015), 0 6px 24px rgba(0, 0, 0, 0.05);
 }
 
 /* Safe fallback when accidentally used in dark theme */
 .dark .paper-surface {
-  background-color: rgba(255, 255, 255, 0.06);
+  background-color: rgba(255, 255, 255, 0.15);
   background-image: none;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 6px 24px rgba(0, 0, 0, 0.4);
+  color: #ffffff !important; /* 强制文本颜色为纯白色 */
+}
+
+/* 确保暗色模式下所有文本都是白色 */
+.dark .paper-surface * {
+  color: inherit !important;
+}
+
+.dark .paper-surface h1,
+.dark .paper-surface h2,
+.dark .paper-surface h3,
+.dark .paper-surface h4,
+.dark .paper-surface h5,
+.dark .paper-surface h6 {
+  color: #ffffff !important;
+}
+
+.dark .paper-surface p,
+.dark .paper-surface li,
+.dark .paper-surface span {
+  color: #e5e7eb !important;
+}
+
+/* 强制暗色模式下的内容可读性 */
+.dark-content {
+  background-color: #232b35 !important; /* 不透明的深灰色背景 */
+  color: #ffffff !important;
+}
+
+.dark-content * {
+  color: #ffffff !important;
+}
+
+.dark-content p,
+.dark-content li,
+.dark-content span,
+.dark-content div {
+  color: #e5e7eb !important;
+}
+
+.dark-content h1,
+.dark-content h2,
+.dark-content h3,
+.dark-content h4,
+.dark-content h5,
+.dark-content h6 {
+  color: #ffffff !important;
+}
+
+/* Light content styling for better readability */
+.light-content {
+  background-color: #f8f6f3 !important; /* warm beige background */
+  color: #171717 !important;
+}
+
+.light-content * {
+  color: #171717 !important;
+}
+
+.light-content p,
+.light-content li,
+.light-content span,
+.light-content div {
+  color: #374151 !important;
+}
+
+.light-content h1,
+.light-content h2,
+.light-content h3,
+.light-content h4,
+.light-content h5,
+.light-content h6 {
+  color: #111827 !important;
+}
+
+/* 保持代码块和表格的原有颜色 - light mode */
+.light-content pre,
+.light-content pre *,
+.light-content code,
+.light-content table,
+.light-content table *,
+.light-content th,
+.light-content td {
+  color: inherit !important;
+}
+
+/* 排除具有特定背景色的元素 - light mode */
+.light-content [class*="bg-gray"],
+.light-content [class*="bg-gray"] *,
+.light-content [class*="text-green"],
+.light-content [class*="text-gray"] {
+  color: inherit !important;
+}
+
+/* 排除代码相关的组件 - light mode */
+.light-content .font-mono,
+.light-content .font-mono * {
+  color: inherit !important;
+}
+
+/* 保持代码块和表格的原有颜色 */
+.dark-content pre,
+.dark-content pre *,
+.dark-content code,
+.dark-content table,
+.dark-content table *,
+.dark-content th,
+.dark-content td {
+  color: inherit !important;
+}
+
+/* 排除具有特定背景色的元素 */
+.dark-content [class*="bg-gray"],
+.dark-content [class*="bg-gray"] *,
+.dark-content [class*="text-green"],
+.dark-content [class*="text-gray"] {
+  color: inherit !important;
+}
+
+/* 排除代码相关的组件 */
+.dark-content .font-mono,
+.dark-content .font-mono * {
+  color: inherit !important;
+}
+
+/* Text color utilities that respond to theme */
+.text-theme-primary {
+  color: var(--text-primary);
+}
+
+.text-theme-secondary {
+  color: var(--text-secondary);
+}
+
+.text-theme-muted {
+  color: var(--text-muted);
+}
+
+/* Hover states for theme-aware text */
+.hover-text-theme-primary:hover {
+  color: var(--text-primary);
+}
+
+.hover-text-theme-secondary:hover {
+  color: var(--text-secondary);
+}
+
+/* Theme-aware border colors */
+.border-theme-light {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark .border-theme-light {
   border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: none;
+}
+
+/* Theme-aware background colors for cards */
+.bg-theme-card {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.dark .bg-theme-card {
+  background-color: rgba(0, 0, 0, 0.4);
 }

@@ -148,13 +148,13 @@ export default function AboutPage() {
 
   if (!mounted)
     return (
-      <div className="min-h-screen bg-gradient-to-br from-rose-300 via-orange-200 to-indigo-300 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-pink-300 via-orange-300 to-yellow-200 bg-fixed flex items-center justify-center">
         <div className="text-gray-800 dark:text-white text-xl">Loading...</div>
       </div>
     );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-300 via-orange-200 to-indigo-300 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-pink-300 via-orange-300 to-yellow-200 bg-fixed relative overflow-hidden">
       {/* Return button */}
       <button
         onClick={() => {
@@ -164,7 +164,7 @@ export default function AboutPage() {
             router.push("/");
           }
         }}
-        className="fixed top-4 left-4 z-50 inline-flex items-center gap-2 rounded-full bg-white/70 hover:bg-white text-gray-800 dark:text-gray-900 px-4 py-2 shadow-md backdrop-blur transition-colors"
+        className="fixed top-4 left-4 z-50 inline-flex items-center gap-2 rounded-full bg-white/70 dark:bg-black/70 hover:bg-white dark:hover:bg-black/80 text-gray-800 dark:text-white px-4 py-2 shadow-md backdrop-blur transition-colors"
         aria-label="Return"
       >
         <svg
@@ -198,7 +198,7 @@ export default function AboutPage() {
           <TypewriterTitle />
           {/* Center Card: image left + bio right */}
           <div className="mt-2 md:mt-4 w-full flex  items-center justify-center ">
-            <div className="max-w-5xl w-full mx-auto rounded-3xl shadow-2xl border border-white/60 overflow-hidden bg-white grid md:grid-cols-3 md:h-[350px]">
+            <div className="max-w-5xl w-full mx-auto rounded-3xl shadow-2xl border border-white/60 dark:border-white/20 overflow-hidden bg-white dark:bg-white/10 grid md:grid-cols-3 md:h-[350px]">
               {/* Left Image (edge-to-edge) */}
               <div className="relative h-48 md:h-full md:col-span-1 w-full">
                 <Image
@@ -214,7 +214,7 @@ export default function AboutPage() {
                   👋 About Me
                 </h2>
                 <p
-                  className="text-gray-700 text-sm md:text-base leading-6 md:leading-7 tracking-normal max-w-3xl"
+                  className="text-gray-700 dark:text-gray-300 text-sm md:text-base leading-6 md:leading-7 tracking-normal max-w-3xl"
                   lang="en"
                   style={{
                     textAlign: "justify",
@@ -292,7 +292,7 @@ export default function AboutPage() {
           {activeCategory === "All" ? (
             // All skills - text block format
             <div className="max-w-4xl mx-auto">
-              <div className="bg-white/90 rounded-2xl p-8 md:p-12 shadow-xl border border-white/60 backdrop-blur-sm">
+              <div className="bg-white/90 dark:bg-black/40 rounded-2xl p-8 md:p-12 shadow-xl border border-white/60 dark:border-white/20 backdrop-blur-sm">
                 <p className="text-gray-700 dark:text-gray-200 text-lg leading-relaxed mb-8">
                   I work with a wide range of technologies, including:
                 </p>
@@ -354,7 +354,7 @@ export default function AboutPage() {
                   </div>
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-gray-200">
+                <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-600">
                   <p className="text-gray-600 dark:text-gray-300 text-base">
                     This portfolio site is built with modern technologies
                     including{" "}

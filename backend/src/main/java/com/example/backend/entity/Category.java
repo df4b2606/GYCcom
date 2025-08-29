@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 
 @Entity
 @Table(name = "category")
 @Data
+@ToString(exclude = "articles")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Category {
     @Id

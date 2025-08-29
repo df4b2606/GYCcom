@@ -46,7 +46,9 @@ const PersonalInfoCard = ({ className = "" }: PersonalInfoCardProps) => {
   }, []);
 
   return (
-    <div className={`paper-surface rounded-xl p-6 shadow-lg ${className}`}>
+    <div
+      className={`bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-shadow ${className}`}
+    >
       <div className="flex items-center space-x-4 mb-4">
         <div className="w-12 h-12 rounded-full overflow-hidden">
           <Image

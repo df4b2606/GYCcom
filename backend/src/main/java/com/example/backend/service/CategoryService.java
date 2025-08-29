@@ -2,14 +2,20 @@ package com.example.backend.service;
 
 import com.example.backend.entity.Category;
 import com.example.backend.repository.CategoryRepository;
+import com.example.backend.exception.BusinessException;
+import com.example.backend.common.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 import java.util.Random;
 
 @Service
 public class CategoryService {
+    private static final Logger logger = LoggerFactory.getLogger(CategoryService.class);
+    
     @Autowired
     private CategoryRepository categoryRepository;
 
@@ -52,6 +58,42 @@ public class CategoryService {
             c.setColor(getRandomColor());
             return categoryRepository.save(c);
         });
+    }
+
+    /**
+     * Find category by ID
+     * @param id Category ID
+     * @return Optional<Category> - Category if found, empty if not found
+     */
+    public Optional<Category> findById(Long id) {
+        if (id == null) {
+            logger.warn("⚠️ Category ID is null");
+            return Optional.empty();
+        }
+        
+        try {
+            Optional<Category> category = categoryRepository.findById(id);
+            if (category.isPresent()) {
+                logger.debug("✅ Found category by ID: {} - {}", id, category.get().getName());
+            } else {
+                logger.debug("⚠️ Category not found by ID: {}", id);
+            }
+            return category;
+        } catch (Exception e) {
+            logger.error("❌ Error finding category by ID: {}", id, e);
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Find category by ID or throw exception if not found
+     * @param id Category ID
+     * @return Category - Category if found
+     * @throws BusinessException if category not found
+     */
+    public Category findByIdOrThrow(Long id) {
+        return findById(id)
+            .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND, "Category not found with ID: " + id));
     }
 }
 

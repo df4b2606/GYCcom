@@ -9,6 +9,8 @@ export interface BlogsListCardProps {
   articles: Article[];
   loading: boolean;
   error: string | null;
+  onCategorySelect?: (categoryId: number | null) => void;
+  onTagSelect?: (tagName: string) => void;
 }
 
 // 名称到颜色的映射（与CategoryCard保持一致）
@@ -35,6 +37,8 @@ const BlogsListCard = ({
   articles,
   loading,
   error,
+  onCategorySelect,
+  onTagSelect,
 }: BlogsListCardProps) => {
   const { isDark } = useTheme();
   // Group articles by year
@@ -132,7 +136,7 @@ const BlogsListCard = ({
                       className={`${
                         isDark
                           ? "bg-white/10 border border-white/20 hover:border-white/40"
-                          : "paper-surface"
+                          : "bg-white border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md"
                       } backdrop-blur-sm rounded-2xl p-8 transition-all duration-300 hover:transform hover:scale-[1.02] group`}
                     >
                       <div className="flex items-start gap-8">
@@ -173,6 +177,7 @@ const BlogsListCard = ({
                             {(() => {
                               let categoryName: string | undefined;
                               let categoryColor: string | undefined;
+                              let categoryId: number | undefined;
 
                               if (article.category) {
                                 if (typeof article.category === "string") {
@@ -180,6 +185,7 @@ const BlogsListCard = ({
                                 } else if (article.category.name) {
                                   categoryName = article.category.name;
                                   categoryColor = article.category.color;
+                                  categoryId = article.category.id;
                                 }
                               }
 
@@ -190,8 +196,13 @@ const BlogsListCard = ({
                                 );
                                 return (
                                   <span
-                                    className="inline-block px-3 py-1 text-sm rounded-full text-white"
+                                    className="inline-block px-3 py-1 text-sm rounded-full text-white cursor-pointer hover:opacity-80 transition-opacity"
                                     style={{ backgroundColor: resolvedColor }}
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      e.stopPropagation();
+                                      onCategorySelect?.(categoryId || null);
+                                    }}
                                   >
                                     {categoryName}
                                   </span>
@@ -200,27 +211,53 @@ const BlogsListCard = ({
                               return null;
                             })()}
 
-                            {/* Generate tags based on article title or use default */}
-                            {(() => {
-                              const defaultTags = [
-                                "Tech",
-                                "Development",
-                                "Learning",
-                              ];
-                              const randomTags = defaultTags.slice(0, 2);
-                              return randomTags.map((tag, tagIndex) => (
-                                <span
-                                  key={tagIndex}
-                                  className={`inline-block px-4 py-1 text-sm rounded-full transition-colors ${
-                                    isDark
-                                      ? "bg-white/15 text-gray-300 hover:bg-blue-500/30 hover:text-blue-300"
-                                      : "bg-black/5 text-gray-600 hover:bg-blue-100 hover:text-blue-700"
-                                  }`}
-                                >
-                                  #{tag}
-                                </span>
-                              ));
-                            })()}
+                            {/* Display real tags from backend */}
+                            {article.tags &&
+                            Array.isArray(article.tags) &&
+                            article.tags.length > 0
+                              ? article.tags.map((tag, tagIndex) => (
+                                  <span
+                                    key={tag.id || tagIndex}
+                                    className={`inline-block px-4 py-1 text-sm rounded-full transition-colors cursor-pointer ${
+                                      isDark
+                                        ? "bg-white/15 text-gray-300 hover:bg-blue-500/30 hover:text-blue-300"
+                                        : "bg-black/5 text-gray-600 hover:bg-blue-100 hover:text-blue-700"
+                                    }`}
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      e.stopPropagation();
+                                      onTagSelect?.(tag.name);
+                                    }}
+                                  >
+                                    {tag.name}
+                                  </span>
+                                ))
+                              : // Fallback to default tags if no real tags
+                                (() => {
+                                  const defaultTags = [
+                                    "Tech",
+                                    "Development",
+                                    "Learning",
+                                  ];
+                                  const randomTags = defaultTags.slice(0, 2);
+                                  return randomTags.map((tag, tagIndex) => (
+                                    <span
+                                      key={tagIndex}
+                                      className={`inline-block px-4 py-1 text-sm rounded-full transition-colors cursor-pointer ${
+                                        isDark
+                                          ? "bg-white/15 text-gray-300 hover:bg-blue-500/30 hover:text-blue-300"
+                                          : "bg-black/5 text-gray-600 hover:bg-blue-100 hover:text-blue-700"
+                                      }`}
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        onTagSelect?.(tag);
+                                      }}
+                                    >
+                                      #{tag}
+                                    </span>
+                                  ));
+                                })()}
                           </div>
 
                           {/* Date */}

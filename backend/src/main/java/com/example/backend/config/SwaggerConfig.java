@@ -15,14 +15,14 @@ public class SwaggerConfig {
     public OpenAPI springShopOpenApi() {
         return new OpenAPI()
                 // 接口文档标题
-                .info(new Info().title("蒾酒的demo")
+                .info(new Info().title("GYC comdemo")
                         // 接口文档简介
                         .description("这是基于Knife4j OpenApi3的测试接口文档")
                         // 接口文档版本
                         .version("1.0版本")
                         // 开发者联系方式
-                        .contact(new Contact().name("蒾酒")
-                                .email("000000000@qq.com")));
+                        .contact(new Contact().name("Yuechen Guo")
+                                .email("davidguo59@outlook.com")));
 
     }
 

@@ -38,10 +38,6 @@
             <!-- Define log file retention time, this example generates one log file per day -->
             <fileNamePattern>${ARCHIVE_PATTERN}</fileNamePattern>
             <maxHistory>30</maxHistory>
-            <!-- Zip compress generated archive files -->
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>50MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
             <!-- Delete expired files -->
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>

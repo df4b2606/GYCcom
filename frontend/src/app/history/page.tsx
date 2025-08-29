@@ -13,13 +13,13 @@ export default function HistoryPage() {
 
   if (!mounted)
     return (
-      <div className="min-h-screen bg-gradient-to-br from-rose-300 via-orange-200 to-indigo-300 flex items-center justify-center">
-        <div className="text-gray-800 text-xl">Loading...</div>
+      <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center">
+        <div className="text-gray-800 dark:text-white text-xl">Loading...</div>
       </div>
     );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-300 via-orange-200 to-indigo-300 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
       {/* Return button */}
       <button
         onClick={() => {
@@ -29,7 +29,7 @@ export default function HistoryPage() {
             router.push("/");
           }
         }}
-        className="fixed top-4 left-4 z-50 inline-flex items-center gap-2 rounded-full bg-white/70 hover:bg-white text-gray-800 px-4 py-2 shadow-md backdrop-blur transition-colors"
+        className="fixed top-4 left-4 z-50 inline-flex items-center gap-2 rounded-full bg-white/70 dark:bg-black/70 hover:bg-white dark:hover:bg-black/80 text-gray-800 dark:text-white px-4 py-2 shadow-md backdrop-blur transition-colors"
         aria-label="Return"
       >
         <svg

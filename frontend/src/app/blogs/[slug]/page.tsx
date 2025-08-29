@@ -17,6 +17,7 @@ import { GuessYouLike } from "@/components/blogs_page";
 import PersonalInfoCard from "@/components/home_components/PersonalInfoCard";
 import Image from "next/image";
 import EnjoyActionsCard from "@/components/article/EnjoyActionsCard";
+import { useTheme } from "@/components/common/ThemeProvider";
 
 interface BlogDetailPageProps {
   params: Promise<{
@@ -26,6 +27,7 @@ interface BlogDetailPageProps {
 
 export default function BlogDetailPage({ params }: BlogDetailPageProps) {
   const { slug } = use(params);
+  const { isDark } = useTheme();
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -104,25 +106,63 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center">
-        <div className="text-white text-xl">加载中...</div>
+      <div className="min-h-screen relative">
+        {isDark ? (
+          <div className="fixed inset-0 z-0">
+            <Image
+              src="/DSC07098.jpg"
+              alt="Background"
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/80" />
+          </div>
+        ) : (
+          <div className="inset-0 z-0 " />
+        )}
+        <div className="relative z-10 min-h-screen flex items-center justify-center">
+          <div className={`${isDark ? "text-white" : "text-gray-800"} text-xl`}>
+            加载中...
+          </div>
+        </div>
       </div>
     );
   }
 
   if (error || !article) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-red-400 text-xl mb-4">
-            {error || "文章不存在"}
+      <div className="min-h-screen relative">
+        {isDark ? (
+          <div className="fixed inset-0 z-0">
+            <Image
+              src="/DSC07098.jpg"
+              alt="Background"
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/80" />
           </div>
-          <Link
-            href="/blogs"
-            className="text-blue-400 hover:text-blue-300 transition-colors"
-          >
-            Back to All Blogs
-          </Link>
+        ) : (
+          <div className="fixed inset-0 z-0" />
+        )}
+        <div className="relative z-10 min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <div className="text-red-500 text-xl mb-4">
+              {error || "文章不存在"}
+            </div>
+            <Link
+              href="/blogs"
+              className={`${
+                isDark
+                  ? "text-blue-400 hover:text-blue-300"
+                  : "text-blue-600 hover:text-blue-700"
+              } transition-colors`}
+            >
+              Back to All Blogs
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -137,26 +177,34 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
   return (
     <div className="min-h-screen relative">
       {/* Background image with same blur/overlay style as list/home */}
-      <div className="fixed inset-0 z-0">
-        <Image
-          src={bgImage}
-          alt="Background"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-black/80" />
-      </div>
+      {isDark ? (
+        <div className="fixed inset-0 z-0">
+          <Image
+            src={bgImage}
+            alt="Background"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-black/80" />
+        </div>
+      ) : (
+        <div className="fixed inset-0 z-0 bg-white" />
+      )}
       {/* Main content grid: catalog sidebar + content */}
       <div className="pt-24 pb-20 px-6 relative z-10">
         <div className="max-w-8xl mx-auto lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-6">
           {/* Content column */}
           <div>
-            <div className="rounded-2xl p-8 md:p-12 paper-surface">
+            <div
+              className={`rounded-2xl p-8 md:p-12 paper-surface ${
+                isDark ? "dark-content" : "light-content"
+              }`}
+            >
               {/* Back Button */}
               <Link
                 href="/blogs"
-                className="inline-flex items-center text-blue-700 hover:text-blue-600 transition-colors mb-8 group"
+                className="inline-flex items-center text-blue-700 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors mb-8 group"
               >
                 <svg
                   className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform"
@@ -213,6 +261,27 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
                     min
                   </span>
                 </div>
+
+                {/* Tags display */}
+                {article.tags &&
+                  Array.isArray(article.tags) &&
+                  article.tags.length > 0 && (
+                    <div className="flex flex-wrap items-center justify-center gap-2 mt-4">
+                      {article.tags.map(
+                        (
+                          tag: { id?: number; name: string; color?: string },
+                          index: number
+                        ) => (
+                          <span
+                            key={tag.id || index}
+                            className="px-3 py-1 rounded-full text-xs font-medium border transition-colors hover:scale-105 bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200"
+                          >
+                            {tag.name}
+                          </span>
+                        )
+                      )}
+                    </div>
+                  )}
               </header>
 
               {/* Article Content */}

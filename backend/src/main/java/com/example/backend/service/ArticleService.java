@@ -5,8 +5,10 @@ import com.example.backend.entity.Article;
 import com.example.backend.entity.Tag;
 import com.example.backend.entity.Category;
 import com.example.backend.exception.BusinessException;
-import com.example.backend.repository.ArticleRepository;
 
+import com.example.backend.repository.ArticleRepository;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,10 @@ import java.util.Optional;
 
 
 import com.example.backend.dto.ArticleDTO;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+
 @Service
 public class ArticleService {
     private static final Logger logger = LoggerFactory.getLogger(ArticleService.class);
@@ -33,8 +39,13 @@ public class ArticleService {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private CacheManager cacheManager;
     
-    @Transactional
+    @Transactional   
+    @CacheEvict(value = "articles",key="'all'")
+    
     public Article createArticle(ArticleDTO articleDTO) {
         logger.info("🚀 Creating article: {}", articleDTO.getTitle());
         
@@ -47,7 +58,7 @@ public class ArticleService {
         article.setContentEng(articleDTO.getContentEng());
         article.setAuthor(articleDTO.getAuthor());
         article.setBackgroundImageUrl(articleDTO.getBackgroundImageUrl());
-        // excerpt: 如果前端提交了就用提交的；否则使用内容前120字符作为默认摘要
+        // excerpt: If frontend provides excerpt, use it; otherwise use first 120 characters of content as default
         if (articleDTO.getExcerpt() != null && !articleDTO.getExcerpt().isEmpty()) {
             article.setExcerpt(articleDTO.getExcerpt());
         } else if (articleDTO.getContent() != null) {
@@ -99,17 +110,49 @@ public class ArticleService {
             logger.info("✅ Article created successfully! ID: {}, Tags: {}", 
                        savedArticle.getId(), 
                        savedArticle.getTags() != null ? savedArticle.getTags().size() : 0);
-            return savedArticle;
+                       clearRelatedCaches(savedArticle);
+                       return savedArticle;
+           
         } catch (Exception e) {
             logger.error("❌ Failed to create article: {}", e.getMessage(), e);
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "Failed to create article");
         }
     }
+
+    private void clearRelatedCaches(Article article){
+        //clear all tags cache
+        Cache tagsCache = cacheManager.getCache("tags");
+        if (tagsCache != null) {
+            tagsCache.evict("'allactive'");
+            logger.info("🗑️ Cleared tags cache: 'allactive'");
+        } else {
+            logger.warn("⚠️ Tags cache not found");
+        }    
+        //clear the related category cache
+        if (article.getCategory() != null) {
+            String categoryKey = "category_" + article.getCategory().getId();
+            Cache cache = cacheManager.getCache("articles");
+            if(cache != null){
+                cache.evict(categoryKey);
+            }
+            else{
+                logger.warn("Cache not found for category key: {}", categoryKey);
+            }
+        }
+        
+      
+    }
     
+    // Cache all articles list - highest access frequency
+    @Cacheable(value = "articles", key = "'all'")
     public List<Article> getAllArticles() {
-        logger.debug("📋 Getting all articles list");
-        List<Article> articles = articleRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
-        logger.info("📚 Successfully retrieved {} articles", articles.size());
+       
+        logger.info("❌ Cache MISS - Querying database for getAllArticles");
+        
+        logger.debug("📋 Getting all articles list from database");
+        List<Article> articles = articleRepository.findAllWithCategoryAndTags();
+        logger.info("📚 Retrieved {} articles from database", articles.size());
+        
         return articles;
     }
     
@@ -118,6 +161,7 @@ public class ArticleService {
             .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND, "Article not found"));
     }
 
+    @Cacheable(value="article",key="'shortUrl:' + #shortUrl")
     public Article getRequiredByShortUrl(String shortUrl) {
         try {
             return articleRepository.findByShortUrl(shortUrl)
@@ -127,10 +171,31 @@ public class ArticleService {
         }
     }
 
-    public List<Article> getArticlesByCategory(Category category) {
-        logger.debug("🔍 Getting articles by category: {}", category);
-        List<Article> articles = articleRepository.findByCategory(category);
-        logger.info("📚 Successfully retrieved {} articles", articles.size());
+   
+
+    /**
+     * Get articles that contain any of the provided tag names (OR logic)
+     */
+    // Cache articles by tags
+    @Cacheable(value = "articles", key = "'tags:' + #tagNames.toString()")
+    public List<Article> getArticlesByAnyTagNames(List<String> tagNames) {
+        if (tagNames == null || tagNames.isEmpty()) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "tagNames must not be empty");
+        }
+        logger.debug("🔍 Getting articles by any of tag names: {}", tagNames);
+        List<Article> articles = articleRepository.findByAnyTagNames(tagNames);
+        logger.info("📚 Successfully retrieved {} articles by tags (OR)", articles.size());
+        return articles;
+    }
+
+    // Search by the category ID 
+    @Cacheable(value = "articles", key = "'category_' + #categoryId")
+    public List<Article> getArticlesByCategoryId(Long categoryId) {
+        logger.info(" Cache check for category ID: {}", categoryId);
+        
+        List<Article> articles = articleRepository.findByCategoryIdWithCategoryAndTags(categoryId);
+        
+        logger.info("📚 Retrieved {} articles for category ID: {}", articles.size(), categoryId);
         return articles;
     }
 }

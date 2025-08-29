@@ -183,8 +183,8 @@ export default function Home() {
         {/* Dynamic Overlay */}
         {isDark ? (
           <div
-            className="absolute inset-0 bg-black transition-opacity duration-100 ease-out z-10"
-            style={{ opacity: overlayOpacity }}
+            className="absolute inset-0 bg-black/80 transition-opacity duration-100 ease-out z-10"
+            style={{ opacity: Math.max(overlayOpacity, 0.5) }}
           />
         ) : (
           <div className="absolute inset-0 bg-white/60 z-10" />
