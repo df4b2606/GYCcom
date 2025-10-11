@@ -33,3 +33,17 @@ springdoc:
 # Knife4j Configuration
 knife4j:
   enable: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,threaddump
+  endpoint:
+    prometheus:
+      enabled: true
+    metrics:
+      enabled: true
+  metrics:
+    tags:
+      application: demo-threadpool

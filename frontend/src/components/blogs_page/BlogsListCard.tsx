@@ -137,7 +137,7 @@ const BlogsListCard = ({
                         isDark
                           ? "bg-white/10 border border-white/20 hover:border-white/40"
                           : "bg-white border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md"
-                      } backdrop-blur-sm rounded-2xl p-8 transition-all duration-300 hover:transform hover:scale-[1.02] group`}
+                      } backdrop-blur-sm rounded-2xl p-8 transition-all duration-300 hover:transform hover:scale-[1.02] group h-48 flex items-center`}
                     >
                       <div className="flex items-start gap-8">
                         {/* Thumbnail - Larger rectangle with better proportions */}
@@ -150,7 +150,7 @@ const BlogsListCard = ({
                         </div>
 
                         {/* Content - Wider area for better distribution */}
-                        <div className="flex-1 min-w-0 max-w-2xl">
+                        <div className="flex-1 min-w-0 max-w-2xl flex flex-col justify-between h-full">
                           <h3
                             className={`text-xl font-bold mb-3 transition-colors ${
                               isDark
@@ -172,7 +172,7 @@ const BlogsListCard = ({
                           )}
 
                           {/* Tags */}
-                          <div className="flex flex-wrap gap-3 mb-3">
+                          <div className="flex flex-wrap gap-3 mb-2">
                             {/* Category - Display first with its color */}
                             {(() => {
                               let categoryName: string | undefined;
@@ -262,7 +262,7 @@ const BlogsListCard = ({
 
                           {/* Date */}
                           <div
-                            className={`text-sm ${
+                            className={`text-sm mt-auto ${
                               isDark ? "text-gray-400" : "text-gray-500"
                             }`}
                           >

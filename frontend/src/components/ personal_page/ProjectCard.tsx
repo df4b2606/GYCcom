@@ -48,11 +48,11 @@ export default function ProjectCard({
   const getPositionClasses = () => {
     switch (position) {
       case "left":
-        return "opacity-60 rounded-xl relative"; // Left card - semi-transparent, no transform scaling
+        return "opacity-60 relative"; // Left card - semi-transparent, no transform scaling
       case "right":
-        return "opacity-60 rounded-xl relative"; // Right card - semi-transparent, no transform scaling
+        return "opacity-60 relative"; // Right card - semi-transparent, no transform scaling
       default:
-        return "opacity-100 rounded-xl"; // Center card - no transform scaling
+        return "opacity-100"; // Center card - no transform scaling
     }
   };
 
@@ -65,7 +65,7 @@ export default function ProjectCard({
 
   return (
     <div
-      className={`group relative overflow-hidden bg-white shadow-lg transition-all duration-700 hover:shadow-xl hover:-translate-y-1 ${getCardDimensions()} ${getPositionClasses()} ${activeStateClasses} ${
+      className={`group relative overflow-hidden bg-white/80 backdrop-blur-md shadow-lg transition-all duration-700 hover:shadow-xl hover:-translate-y-1 ${getCardDimensions()} ${getPositionClasses()} ${activeStateClasses} ${
         className || ""
       }`}
       onClick={onClick}
@@ -127,7 +127,7 @@ export default function ProjectCard({
           {technologies.map((tech, index) => (
             <span
               key={index}
-              className={`font-medium bg-blue-100/30 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full ${
+              className={`font-medium bg-blue-100/40 dark:bg-blue-900/40 text-blue-800 dark:text-blue-300 rounded-full backdrop-blur-sm ${
                 isCompactMode ? "px-2 py-1 text-xs" : "px-3 py-2 text-sm"
               }`}
             >

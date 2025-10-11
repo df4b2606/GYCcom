@@ -17,10 +17,8 @@ export default function AppShell({ children }: AppShellProps) {
 
   // Decide which chrome parts to hide per route/state
   const hideAllChrome = useMemo(() => pathname === "/about", [pathname]);
-  const hideNavOnly = useMemo(
-    () => !isDark && pathname === "/",
-    [isDark, pathname]
-  );
+  // NavBar should always be visible, so remove hideNavOnly logic
+  const hideNavOnly = false;
 
   if (hideAllChrome) {
     return <>{children}</>;

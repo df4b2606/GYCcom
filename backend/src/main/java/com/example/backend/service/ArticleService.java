@@ -3,7 +3,6 @@ package com.example.backend.service;
 import com.example.backend.common.ErrorCode;
 import com.example.backend.entity.Article;
 import com.example.backend.entity.Tag;
-import com.example.backend.entity.Category;
 import com.example.backend.exception.BusinessException;
 
 import com.example.backend.repository.ArticleRepository;
@@ -12,20 +11,19 @@ import org.springframework.cache.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.backend.utils.ArticleParser;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 
 import com.example.backend.dto.ArticleDTO;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
+ 
+import com.example.backend.metrics.TaskTimer;
 
 @Service
 public class ArticleService {
@@ -42,6 +40,9 @@ public class ArticleService {
 
     @Autowired
     private CacheManager cacheManager;
+
+    @Autowired
+    private TaskTimer taskTimer;
     
     @Transactional   
     @CacheEvict(value = "articles",key="'all'")
@@ -106,13 +107,13 @@ public class ArticleService {
         // TODO Check for duplicate short URLs
 
         try {
-            Article savedArticle = articleRepository.save(article);
-            logger.info("✅ Article created successfully! ID: {}, Tags: {}", 
-                       savedArticle.getId(), 
-                       savedArticle.getTags() != null ? savedArticle.getTags().size() : 0);
-                       clearRelatedCaches(savedArticle);
-                       return savedArticle;
-           
+            Article savedArticle = taskTimer.time("create_article", () -> articleRepository.save(article));
+            logger.info("✅ Article created successfully! ID: {}, Tags: {}",
+                    savedArticle.getId(),
+                    savedArticle.getTags() != null ? savedArticle.getTags().size() : 0);
+            clearRelatedCaches(savedArticle);
+            return savedArticle;
+
         } catch (Exception e) {
             logger.error("❌ Failed to create article: {}", e.getMessage(), e);
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "Failed to create article");
@@ -150,7 +151,7 @@ public class ArticleService {
         logger.info("❌ Cache MISS - Querying database for getAllArticles");
         
         logger.debug("📋 Getting all articles list from database");
-        List<Article> articles = articleRepository.findAllWithCategoryAndTags();
+        List<Article> articles = taskTimer.time("get_all_articles", () -> articleRepository.findAllWithCategoryAndTags());
         logger.info("📚 Retrieved {} articles from database", articles.size());
         
         return articles;
