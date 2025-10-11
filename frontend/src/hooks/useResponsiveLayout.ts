@@ -15,7 +15,7 @@ interface UseResponsiveLayoutReturn {
   // Whether to use vertical layout (true) or horizontal layout (false)
   isVerticalLayout: boolean;
   // Ref to attach to the container element
-  containerRef: React.RefObject<HTMLDivElement>;
+  containerRef: React.MutableRefObject<HTMLDivElement | null>;
   // Current window width
   windowWidth: number;
   // Whether the layout switch was triggered by reaching right edge
@@ -31,11 +31,11 @@ export const useResponsiveLayout = ({
   const [windowWidth, setWindowWidth] = useState(0);
   const [isEdgeTriggered, setIsEdgeTriggered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const debounceTimeoutRef = useRef<NodeJS.Timeout>();
+  const debounceTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const handleResize = () => {
-      if (debounceTimeoutRef.current) {
+      if (debounceTimeoutRef.current !== null) {
         clearTimeout(debounceTimeoutRef.current);
       }
 
@@ -88,7 +88,7 @@ export const useResponsiveLayout = ({
     // Cleanup
     return () => {
       window.removeEventListener("resize", handleResize);
-      if (debounceTimeoutRef.current) {
+      if (debounceTimeoutRef.current !== null) {
         clearTimeout(debounceTimeoutRef.current);
       }
     };

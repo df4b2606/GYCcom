@@ -50,6 +50,24 @@ export default function Home() {
   const { isDark } = useTheme();
   const router = useRouter();
   const [isExpanding, setIsExpanding] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isWeChatOpen, setIsWeChatOpen] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsWeChatOpen(false);
+      }
+    };
+
+    if (isWeChatOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isWeChatOpen]);
 
   const handleHeroClick = () => {
     setIsExpanding(true);
@@ -76,7 +94,7 @@ export default function Home() {
           <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
               <span className="font-serif italic">
-                Open to Software Engineer Work
+                Open to Software Engineer Roles
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-200 mb-6 drop-shadow-md">
@@ -85,7 +103,7 @@ export default function Home() {
 
             {/* Portfolio CTA */}
             <div className="group flex flex-col items-center text-white hover:text-emerald-400 transition-colors duration-300 cursor-pointer">
-              <span className="text-lg md:text-xl font-semibold mb-2 opacity-90 group-hover:opacity-100 transition-opacity drop-shadow-md">
+              <span className="text-lg md:text-xl font-semibold mb-2 opacity-90 group-hover:opacity-100 transition-opacity drop-shadow-md animate-bounce">
                 Click to view my Portfolio
               </span>
             </div>
@@ -413,6 +431,12 @@ export default function Home() {
                         rel="noreferrer"
                         className="inline-flex items-center justify-center w-8 h-8 bg-gray-100 hover:bg-gray-200 transition-colors shadow-sm"
                         aria-label={icon.alt}
+                        onClick={(e) => {
+                          if (icon.alt === "WeChat") {
+                            e.preventDefault();
+                            setIsWeChatOpen(true);
+                          }
+                        }}
                       >
                         <Image
                           src={icon.src}
@@ -426,8 +450,15 @@ export default function Home() {
                   </div>
 
                   {/* Subscribe Button */}
-                  <button className="w-full bg-blue-600 text-white font-medium py-2 px-4 hover:bg-blue-700 transition-colors shadow-md">
-                    Subscribe Me
+                  <button
+                    className={`w-full ${
+                      isSubscribed
+                        ? "bg-green-600 hover:bg-green-700"
+                        : "bg-blue-600 hover:bg-blue-700"
+                    } text-white font-medium py-2 px-4 transition-colors shadow-md`}
+                    onClick={() => setIsSubscribed(true)}
+                  >
+                    {isSubscribed ? "Thank you!" : "Subscribe Me"}
                   </button>
                 </div>
 
@@ -457,6 +488,41 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* WeChat QR Modal - Light Mode */}
+        {isWeChatOpen && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+            onClick={() => setIsWeChatOpen(false)}
+          >
+            <div
+              className="bg-white rounded-lg shadow-xl p-4 max-w-sm w-[90%]"
+              role="dialog"
+              aria-modal="true"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex justify-between items-center mb-3">
+                <h4 className="text-gray-900 font-semibold">Scan my WeChat</h4>
+                <button
+                  className="text-gray-500 hover:text-gray-700"
+                  onClick={() => setIsWeChatOpen(false)}
+                  aria-label="Close WeChat QR"
+                >
+                  ✕
+                </button>
+              </div>
+              <div className="flex items-center justify-center">
+                <Image
+                  src="/wechatqrcode.jpg"
+                  alt="WeChat QR Code"
+                  width={360}
+                  height={360}
+                  className="rounded"
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -476,16 +542,16 @@ export default function Home() {
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
             <span className="font-serif italic">
-              Open to Software Engineer Work
+              Open to Software Engineer Roles
             </span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-200 mb-6 drop-shadow-md">
-            Graduating June 2026
+            Graduating 2026
           </p>
 
           {/* Portfolio CTA */}
           <div className="group flex flex-col items-center text-white hover:text-emerald-400 transition-colors duration-300 cursor-pointer">
-            <span className="text-lg md:text-xl font-semibold mb-2 opacity-90 group-hover:opacity-100 transition-opacity drop-shadow-md">
+            <span className="text-lg md:text-xl font-semibold mb-2 opacity-90 group-hover:opacity-100 transition-opacity drop-shadow-md animate-bounce">
               Click to view my Portfolio
             </span>
           </div>
@@ -806,6 +872,12 @@ export default function Home() {
                       rel="noreferrer"
                       className="inline-flex items-center justify-center w-8 h-8 bg-gray-700 hover:bg-gray-600 transition-colors shadow-sm"
                       aria-label={icon.alt}
+                      onClick={(e) => {
+                        if (icon.alt === "WeChat") {
+                          e.preventDefault();
+                          setIsWeChatOpen(true);
+                        }
+                      }}
                     >
                       <Image
                         src={icon.src}
@@ -819,8 +891,15 @@ export default function Home() {
                 </div>
 
                 {/* Subscribe Button */}
-                <button className="w-full bg-blue-600 text-white font-medium py-2 px-4 hover:bg-blue-700 transition-colors shadow-md">
-                  Subscribe Me
+                <button
+                  className={`w-full ${
+                    isSubscribed
+                      ? "bg-green-600 hover:bg-green-700"
+                      : "bg-blue-600 hover:bg-blue-700"
+                  } text-white font-medium py-2 px-4 transition-colors shadow-md`}
+                  onClick={() => setIsSubscribed(true)}
+                >
+                  {isSubscribed ? "Thank you!" : "Subscribe Me"}
                 </button>
               </div>
               {/* Most Liked Articles Card - Commented out */}
@@ -849,6 +928,41 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* WeChat QR Modal - Dark Mode */}
+      {isWeChatOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+          onClick={() => setIsWeChatOpen(false)}
+        >
+          <div
+            className="bg-gray-800 rounded-lg shadow-xl p-4 max-w-sm w-[90%]"
+            role="dialog"
+            aria-modal="true"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center mb-3">
+              <h4 className="text-gray-100 font-semibold">Scan my WeChat</h4>
+              <button
+                className="text-gray-300 hover:text-white"
+                onClick={() => setIsWeChatOpen(false)}
+                aria-label="Close WeChat QR"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="flex items-center justify-center">
+              <Image
+                src="/wechatqrcode.jpg"
+                alt="WeChat QR Code"
+                width={360}
+                height={360}
+                className="rounded"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

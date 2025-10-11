@@ -86,13 +86,11 @@ export default function HistoryPage() {
 
             {/* Commits list */}
             <div className="divide-y divide-gray-200">
-              {/* Commit group header */}
+              {/* Single milestone */}
               <div className="px-6 py-3 bg-gray-50/50 text-sm text-gray-600 font-medium">
-                Commits on Dec 2024
+                Commits on Oct 11, 2025
               </div>
-
-              {/* Individual commits */}
-              <div className="px-6 py-4 hover:bg-gray-50/30 transition-colors">
+              <div className="px-6 py-4">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
@@ -100,221 +98,21 @@ export default function HistoryPage() {
                         G
                       </div>
                       <span className="font-medium text-gray-800">
-                        Add About Me page with skills showcase
+                        Successful deployment of MVP prototype
                       </span>
                       <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
-                        Verified
+                        Deployed
                       </span>
                     </div>
                     <div className="text-sm text-gray-600 ml-9">
-                      <span className="font-medium">GYC</span> committed 2 days
-                      ago
+                      <span className="font-medium">GYC</span> committed on Oct
+                      11, 2025
                     </div>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-gray-500">
                     <code className="bg-gray-100 px-2 py-1 rounded text-xs">
-                      a1b2c3d
+                      mvp-20251011
                     </code>
-                    <button className="p-1 hover:bg-gray-100 rounded">
-                      <svg
-                        className="w-4 h-4"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
-                        <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="px-6 py-4 hover:bg-gray-50/30 transition-colors">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                        G
-                      </div>
-                      <span className="font-medium text-gray-800">
-                        Implement project carousel with responsive design
-                      </span>
-                      <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
-                        Verified
-                      </span>
-                    </div>
-                    <div className="text-sm text-gray-600 ml-9">
-                      <span className="font-medium">GYC</span> committed 3 days
-                      ago
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <code className="bg-gray-100 px-2 py-1 rounded text-xs">
-                      b2c3d4e
-                    </code>
-                    <button className="p-1 hover:bg-gray-100 rounded">
-                      <svg
-                        className="w-4 h-4"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
-                        <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="px-6 py-4 hover:bg-gray-50/30 transition-colors">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                        G
-                      </div>
-                      <span className="font-medium text-gray-800">
-                        Add education background section
-                      </span>
-                      <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
-                        Verified
-                      </span>
-                    </div>
-                    <div className="text-sm text-gray-600 ml-9">
-                      <span className="font-medium">GYC</span> committed 4 days
-                      ago
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <code className="bg-gray-100 px-2 py-1 rounded text-xs">
-                      c3d4e5f
-                    </code>
-                    <button className="p-1 hover:bg-gray-100 rounded">
-                      <svg
-                        className="w-4 h-4"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
-                        <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Commit group header */}
-              <div className="px-6 py-3 bg-gray-50/50 text-sm text-gray-600 font-medium">
-                Commits on Nov 2024
-              </div>
-
-              <div className="px-6 py-4 hover:bg-gray-50/30 transition-colors">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                        G
-                      </div>
-                      <span className="font-medium text-gray-800">
-                        Create blog system with category filtering
-                      </span>
-                      <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
-                        Verified
-                      </span>
-                    </div>
-                    <div className="text-sm text-gray-600 ml-9">
-                      <span className="font-medium">GYC</span> committed 2 weeks
-                      ago
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <code className="bg-gray-100 px-2 py-1 rounded text-xs">
-                      d4e5f6g
-                    </code>
-                    <button className="p-1 hover:bg-gray-100 rounded">
-                      <svg
-                        className="w-4 h-4"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
-                        <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="px-6 py-4 hover:bg-gray-50/30 transition-colors">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                        G
-                      </div>
-                      <span className="font-medium text-gray-800">
-                        Setup Spring Boot backend with PostgreSQL
-                      </span>
-                      <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
-                        Verified
-                      </span>
-                    </div>
-                    <div className="text-sm text-gray-600 ml-9">
-                      <span className="font-medium">GYC</span> committed 3 weeks
-                      ago
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <code className="bg-gray-100 px-2 py-1 rounded text-xs">
-                      e5f6g7h
-                    </code>
-                    <button className="p-1 hover:bg-gray-100 rounded">
-                      <svg
-                        className="w-4 h-4"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
-                        <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="px-6 py-4 hover:bg-gray-50/30 transition-colors">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                        G
-                      </div>
-                      <span className="font-medium text-gray-800">
-                        Initial commit - Next.js project setup
-                      </span>
-                      <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
-                        Verified
-                      </span>
-                    </div>
-                    <div className="text-sm text-gray-600 ml-9">
-                      <span className="font-medium">GYC</span> committed 1 month
-                      ago
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <code className="bg-gray-100 px-2 py-1 rounded text-xs">
-                      f6g7h8i
-                    </code>
-                    <button className="p-1 hover:bg-gray-100 rounded">
-                      <svg
-                        className="w-4 h-4"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
-                        <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
-                      </svg>
-                    </button>
                   </div>
                 </div>
               </div>
@@ -323,10 +121,8 @@ export default function HistoryPage() {
             {/* Footer */}
             <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
               <div className="flex items-center justify-between text-sm text-gray-600">
-                <span>Showing recent development history</span>
-                <button className="text-blue-600 hover:text-blue-700 font-medium">
-                  View all commits →
-                </button>
+                <span>Single milestone recorded</span>
+                <span className="text-gray-500">Oct 11, 2025</span>
               </div>
             </div>
           </div>
