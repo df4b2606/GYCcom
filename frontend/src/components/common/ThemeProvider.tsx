@@ -39,7 +39,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     root.classList.add(theme);
     try {
       window.localStorage.setItem(STORAGE_KEY, theme);
-    } catch (_) {
+    } catch {
       // ignore write errors
     }
   }, [theme]);
