@@ -5,6 +5,7 @@ export { default as BlogIndexCard } from "./BlogIndexCard";
 export { default as BlogIndexList } from "./BlogIndexList";
 export { default as ArticleIndexList } from "./ArticleIndexList";
 export { default as CategoryCard } from "./CategoryCard";
+export { default as LikeButton } from "./LikeButton";
 
 export type { BlogsListCardProps } from "./BlogsListCard";
 export type { GuessYouLikeProps } from "./GuessYouLike";
@@ -13,3 +14,4 @@ export type { BlogIndexCardProps } from "./BlogIndexCard";
 export type { BlogIndexListProps } from "./BlogIndexList";
 export type { ArticleIndexListProps } from "./ArticleIndexList";
 export type { CategoryCardProps } from "./CategoryCard";
+export type { LikeButtonProps } from "./LikeButton";
