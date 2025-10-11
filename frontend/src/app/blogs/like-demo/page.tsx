@@ -7,10 +7,11 @@ import {
 } from "@/components/blogs_page";
 import { getAllBlogPosts } from "@/data/blogs";
 import { Article } from "@/api/article";
+type ArticleWithLike = Article & { likeCount: number; isLiked: boolean };
 import { useState } from "react";
 
 // Mock API articles with like data
-const mockArticles: Article[] = [
+const mockArticles: ArticleWithLike[] = [
   {
     id: 1,
     title: "React 使用教程",
@@ -68,7 +69,7 @@ const mockArticles: Article[] = [
 ];
 
 export default function LikeDemoPage() {
-  const [articles, setArticles] = useState<Article[]>(mockArticles);
+  const [articles, setArticles] = useState<ArticleWithLike[]>(mockArticles);
   const blogPosts = getAllBlogPosts();
 
   const handleLikeChange = (
