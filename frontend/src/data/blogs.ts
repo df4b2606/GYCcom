@@ -9,6 +9,8 @@ export interface BlogPost {
   category: string;
   categoryColor?: string; // 分类颜色，从后端获取
   tags: string[];
+  // 新增：支持带颜色的标签
+  tagsWithColor?: Array<{ name: string; color?: string }>;
 }
 
 // 博客文章数据

@@ -47,7 +47,7 @@ const PersonalInfoCard = ({ className = "" }: PersonalInfoCardProps) => {
 
   return (
     <div
-      className={`bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/20 ${className}`}
+      className={`bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-shadow ${className}`}
     >
       <div className="flex items-center space-x-4 mb-4">
         <div className="w-12 h-12 rounded-full overflow-hidden">
@@ -60,7 +60,9 @@ const PersonalInfoCard = ({ className = "" }: PersonalInfoCardProps) => {
           />
         </div>
         <div>
-          <h3 className="text-white font-semibold text-lg">GYC</h3>
+          <h3 className="text-gray-900 dark:text-white font-semibold text-lg">
+            GYC
+          </h3>
           <div className="mt-1 flex items-center gap-2">
             {[
               {
@@ -107,7 +109,7 @@ const PersonalInfoCard = ({ className = "" }: PersonalInfoCardProps) => {
         </div>
       </div>
       <div className="space-y-2 text-sm">
-        <div className="flex items-center text-gray-300">
+        <div className="flex items-center text-gray-700 dark:text-gray-300">
           <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
             <path
               fillRule="evenodd"
@@ -117,7 +119,7 @@ const PersonalInfoCard = ({ className = "" }: PersonalInfoCardProps) => {
           </svg>
           Shanghai, China
         </div>
-        <div className="flex items-center text-gray-300">
+        <div className="flex items-center text-gray-700 dark:text-gray-300">
           <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
             <path
               fillRule="evenodd"
@@ -127,7 +129,7 @@ const PersonalInfoCard = ({ className = "" }: PersonalInfoCardProps) => {
           </svg>
           Available for projects
         </div>
-        <div className="flex items-center text-gray-300">
+        <div className="flex items-center text-gray-700 dark:text-gray-300">
           <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
             <path
               fillRule="evenodd"

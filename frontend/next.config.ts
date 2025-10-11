@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
       "via.placeholder.com",
       "raw.githubusercontent.com",
       "cdn.jsdelivr.net",
+      "picsum.photos",
     ],
   },
 };

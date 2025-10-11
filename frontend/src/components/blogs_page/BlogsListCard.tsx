@@ -2,12 +2,15 @@
 
 import { Article } from "@/api/article";
 import Link from "next/link";
+import { useTheme } from "../common/ThemeProvider";
 
 export interface BlogsListCardProps {
   className?: string;
   articles: Article[];
   loading: boolean;
   error: string | null;
+  onCategorySelect?: (categoryId: number | null) => void;
+  onTagSelect?: (tagName: string) => void;
 }
 
 // 名称到颜色的映射（与CategoryCard保持一致）
@@ -34,7 +37,10 @@ const BlogsListCard = ({
   articles,
   loading,
   error,
+  onCategorySelect,
+  onTagSelect,
 }: BlogsListCardProps) => {
+  const { isDark } = useTheme();
   // Group articles by year
   const groupArticlesByYear = (articles: Article[]) => {
     // Safety check: ensure articles is a valid array
@@ -85,7 +91,11 @@ const BlogsListCard = ({
   if (!articles || !Array.isArray(articles)) {
     return (
       <div className={`text-center py-12 ${className}`}>
-        <div className="text-gray-400 text-lg">Invalid articles data</div>
+        <div
+          className={`${isDark ? "text-gray-400" : "text-gray-600"} text-lg`}
+        >
+          Invalid articles data
+        </div>
       </div>
     );
   }
@@ -94,11 +104,13 @@ const BlogsListCard = ({
     <div className={className}>
       {loading ? (
         <div className="text-center py-12">
-          <div className="text-white text-xl">Loading...</div>
+          <div className={`${isDark ? "text-white" : "text-gray-800"} text-xl`}>
+            Loading...
+          </div>
         </div>
       ) : error ? (
         <div className="text-center py-12">
-          <div className="text-red-400 text-xl">{error}</div>
+          <div className="text-red-500 text-xl">{error}</div>
         </div>
       ) : (
         <div>
@@ -106,9 +118,9 @@ const BlogsListCard = ({
             <div key={year} className="space-y-5">
               {year !== currentYear && (
                 <h2
-                  className={`text-4xl font-bold text-white mb-7 ${
+                  className={`text-4xl font-bold mb-7 ${
                     idx === 0 ? "" : "mt-10"
-                  }`}
+                  } ${isDark ? "text-white" : "text-gray-900"}`}
                 >
                   {year}
                 </h2>
@@ -120,7 +132,13 @@ const BlogsListCard = ({
                     href={`/blogs/${article.shortUrl}`}
                     className="block group"
                   >
-                    <article className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:border-white/40 transition-all duration-300 hover:transform hover:scale-[1.02] group">
+                    <article
+                      className={`${
+                        isDark
+                          ? "bg-white/10 border border-white/20 hover:border-white/40"
+                          : "bg-white border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md"
+                      } backdrop-blur-sm rounded-2xl p-8 transition-all duration-300 hover:transform hover:scale-[1.02] group h-48 flex items-center`}
+                    >
                       <div className="flex items-start gap-8">
                         {/* Thumbnail - Larger rectangle with better proportions */}
                         <div
@@ -132,23 +150,34 @@ const BlogsListCard = ({
                         </div>
 
                         {/* Content - Wider area for better distribution */}
-                        <div className="flex-1 min-w-0 max-w-2xl">
-                          <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors">
+                        <div className="flex-1 min-w-0 max-w-2xl flex flex-col justify-between h-full">
+                          <h3
+                            className={`text-xl font-bold mb-3 transition-colors ${
+                              isDark
+                                ? "text-white group-hover:text-blue-300"
+                                : "text-gray-900 group-hover:text-blue-600"
+                            }`}
+                          >
                             {article.title}
                           </h3>
                           {/* Excerpt - render only when provided */}
                           {article.excerpt && (
-                            <p className="text-gray-300 text-sm mb-3 line-clamp-2">
+                            <p
+                              className={`${
+                                isDark ? "text-gray-300" : "text-gray-600"
+                              } text-sm mb-3 line-clamp-2`}
+                            >
                               {article.excerpt}
                             </p>
                           )}
 
                           {/* Tags */}
-                          <div className="flex flex-wrap gap-3 mb-3">
+                          <div className="flex flex-wrap gap-3 mb-2">
                             {/* Category - Display first with its color */}
                             {(() => {
                               let categoryName: string | undefined;
                               let categoryColor: string | undefined;
+                              let categoryId: number | undefined;
 
                               if (article.category) {
                                 if (typeof article.category === "string") {
@@ -156,6 +185,7 @@ const BlogsListCard = ({
                                 } else if (article.category.name) {
                                   categoryName = article.category.name;
                                   categoryColor = article.category.color;
+                                  categoryId = article.category.id;
                                 }
                               }
 
@@ -166,8 +196,13 @@ const BlogsListCard = ({
                                 );
                                 return (
                                   <span
-                                    className="inline-block px-3 py-1 text-sm rounded-full text-white"
+                                    className="inline-block px-3 py-1 text-sm rounded-full text-white cursor-pointer hover:opacity-80 transition-opacity"
                                     style={{ backgroundColor: resolvedColor }}
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      e.stopPropagation();
+                                      onCategorySelect?.(categoryId || null);
+                                    }}
                                   >
                                     {categoryName}
                                   </span>
@@ -176,27 +211,61 @@ const BlogsListCard = ({
                               return null;
                             })()}
 
-                            {/* Generate tags based on article title or use default */}
-                            {(() => {
-                              const defaultTags = [
-                                "Tech",
-                                "Development",
-                                "Learning",
-                              ];
-                              const randomTags = defaultTags.slice(0, 2);
-                              return randomTags.map((tag, tagIndex) => (
-                                <span
-                                  key={tagIndex}
-                                  className="inline-block px-4 py-1 bg-white/15 text-gray-300 text-sm rounded-full hover:bg-blue-500/30 hover:text-blue-300 transition-colors"
-                                >
-                                  #{tag}
-                                </span>
-                              ));
-                            })()}
+                            {/* Display real tags from backend */}
+                            {article.tags &&
+                            Array.isArray(article.tags) &&
+                            article.tags.length > 0
+                              ? article.tags.map((tag, tagIndex) => (
+                                  <span
+                                    key={tag.id || tagIndex}
+                                    className={`inline-block px-4 py-1 text-sm rounded-full transition-colors cursor-pointer ${
+                                      isDark
+                                        ? "bg-white/15 text-gray-300 hover:bg-blue-500/30 hover:text-blue-300"
+                                        : "bg-black/5 text-gray-600 hover:bg-blue-100 hover:text-blue-700"
+                                    }`}
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      e.stopPropagation();
+                                      onTagSelect?.(tag.name);
+                                    }}
+                                  >
+                                    {tag.name}
+                                  </span>
+                                ))
+                              : // Fallback to default tags if no real tags
+                                (() => {
+                                  const defaultTags = [
+                                    "Tech",
+                                    "Development",
+                                    "Learning",
+                                  ];
+                                  const randomTags = defaultTags.slice(0, 2);
+                                  return randomTags.map((tag, tagIndex) => (
+                                    <span
+                                      key={tagIndex}
+                                      className={`inline-block px-4 py-1 text-sm rounded-full transition-colors cursor-pointer ${
+                                        isDark
+                                          ? "bg-white/15 text-gray-300 hover:bg-blue-500/30 hover:text-blue-300"
+                                          : "bg-black/5 text-gray-600 hover:bg-blue-100 hover:text-blue-700"
+                                      }`}
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        onTagSelect?.(tag);
+                                      }}
+                                    >
+                                      #{tag}
+                                    </span>
+                                  ));
+                                })()}
                           </div>
 
                           {/* Date */}
-                          <div className="text-sm text-gray-400">
+                          <div
+                            className={`text-sm mt-auto ${
+                              isDark ? "text-gray-400" : "text-gray-500"
+                            }`}
+                          >
                             Published:{" "}
                             {new Date(article.createdAt).toLocaleDateString(
                               "en-US",
@@ -218,7 +287,13 @@ const BlogsListCard = ({
 
           {articles.length === 0 && (
             <div className="text-center py-12">
-              <div className="text-gray-400 text-lg">No articles yet</div>
+              <div
+                className={`${
+                  isDark ? "text-gray-400" : "text-gray-600"
+                } text-lg`}
+              >
+                No articles yet
+              </div>
             </div>
           )}
         </div>

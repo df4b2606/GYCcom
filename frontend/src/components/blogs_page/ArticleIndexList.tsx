@@ -55,6 +55,44 @@ function extractTagsFromArticle(article: Article): string[] {
   return tagNames;
 }
 
+// 新增：提取标签的完整信息（包括颜色）
+function extractTagsWithColor(
+  article: Article
+): Array<{ name: string; color?: string }> {
+  const anyArticle = article as unknown as { tags?: unknown };
+  const rawTags = anyArticle?.tags as unknown[] | undefined;
+  if (!Array.isArray(rawTags)) return [];
+
+  const tagsWithColor: Array<{ name: string; color?: string }> = rawTags
+    .map((t) => {
+      if (t && typeof t === "object") {
+        const obj = t as Record<string, unknown>;
+        const nameLike = (obj["name"] || obj["title"] || obj["label"]) as
+          | string
+          | undefined;
+        const color = (obj["color"] ||
+          obj["bgColor"] ||
+          obj["backgroundColor"]) as string | undefined;
+        if (typeof nameLike === "string") {
+          return {
+            name: nameLike,
+            color: typeof color === "string" ? color : undefined,
+          };
+        }
+      }
+      if (typeof t === "string") {
+        return { name: t };
+      }
+      return undefined;
+    })
+    .filter(
+      (v): v is { name: string; color?: string } =>
+        v !== undefined && typeof v.name === "string" && v.name.length > 0
+    );
+
+  return tagsWithColor;
+}
+
 function extractCategoryName(article: Article): string | undefined {
   const c = (article as unknown as { category?: unknown }).category;
   if (!c) return undefined;
@@ -69,6 +107,7 @@ function extractCategoryName(article: Article): string | undefined {
 function mapArticleToBlogPost(article: Article): BlogPost {
   const readMinutes = estimateReadTimeMinutes(article.content);
   const tags = extractTagsFromArticle(article);
+  const tagsWithColor = extractTagsWithColor(article);
   const category = extractCategoryName(article) || tags[0] || "技术";
   return {
     id: article.id,
@@ -83,6 +122,7 @@ function mapArticleToBlogPost(article: Article): BlogPost {
     readTime: `${readMinutes} min read`,
     category,
     tags,
+    tagsWithColor,
   };
 }
 

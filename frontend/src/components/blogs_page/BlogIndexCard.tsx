@@ -105,14 +105,24 @@ const BlogIndexCard = ({ blog, className = "" }: BlogIndexCardProps) => {
                     {blog.category}
                   </span>
                 )}
-                {blog.tags.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="inline-block px-3 py-1 bg-white/10 text-gray-300 text-sm rounded-full hover:bg-blue-500/20 hover:text-blue-300 transition-colors border border-white/5"
-                  >
-                    #{tag}
-                  </span>
-                ))}
+                {/* 显示标签，统一使用简洁样式 */}
+                {blog.tagsWithColor && blog.tagsWithColor.length > 0
+                  ? blog.tagsWithColor.map((tag, index) => (
+                      <span
+                        key={index}
+                        className="inline-block px-3 py-1 bg-white/10 text-gray-300 text-sm rounded-full hover:bg-blue-500/20 hover:text-blue-300 transition-colors border border-white/5 hover:scale-105"
+                      >
+                        {tag.name}
+                      </span>
+                    ))
+                  : blog.tags.map((tag, index) => (
+                      <span
+                        key={index}
+                        className="inline-block px-3 py-1 bg-white/10 text-gray-300 text-sm rounded-full hover:bg-blue-500/20 hover:text-blue-300 transition-colors border border-white/5"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
               </div>
 
               {/* 底部信息：仅显示阅读时长与日期，分类已在标签前展示 */}
